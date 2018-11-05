@@ -7,6 +7,7 @@ import POI from './models/poi.model'
 import VersionLocationData from './models/version-location-data'
 
 import {mapListOfPOIsToDict} from './mapper/poi.mapper'
+import {mapVersionLocationData} from './mapper/version-location-data.mapper'
 
 import {increaseVersion} from './helper/helper-functions'
 
@@ -31,23 +32,26 @@ app.post('/', (req, res) => {
     if (err) {
       return next(err)
     }
-    VersionLocationData.findOneAndUpdate({type: poi.type}, (err, versionLocationData) => {
-      if (err) {
-        return next(err)
-      }
-      let updatedVersionLocationData
-      if (versionLocationData) {
-        updatedVersionLocationData = new VersionLocationData({
-          type: versionLocationData.type,
-          version: increaseVersion(versionLocationData.version)
-        })
-      } else {
-        updatedVersionLocationData = new VersionLocationData({
+    VersionLocationData.count({type: poi.type}, (err, count) => {
+      if (count === 0) {
+        const versionLocationData = new VersionLocationData({
           type: poi.type,
           version: `v${poi.type.substr(0, 1)}.1.1`
         })
+        versionLocationData.save(err => err && next(err))
+      } else {
+        // TODO: proper implementation
+        // VersionLocationData.findOneAndUpdate({type: poi.type}, (err, versionLocationData) => {
+        //   if (err) {
+        //     return next(err)
+        //   }
+        //   const updatedVersionLocationData = new VersionLocationData({
+        //     type: versionLocationData.type,
+        //     version: increaseVersion(versionLocationData.version)
+        //   })
+        //   updatedVersionLocationData.save(err => err && next(err))
+        // })
       }
-      updatedVersionLocationData.save(err => err && next(err))
     })
     res.send('POI created successfully')
   })
@@ -71,11 +75,11 @@ app.get('/:key', (req, res) => {
   })
 })
 
-app.get('/versions', (req, res) => {
-  POI.findOne({}, (err, versionLocationData) => {
+app.get('/versions/', (req, res) => {
+  VersionLocationData.find({}, (err, versions) => {
     if (err) {
       return next(err)
     }
-    res.send(versionLocationData)
+    res.send(mapVersionLocationData(versions))
   })
 })

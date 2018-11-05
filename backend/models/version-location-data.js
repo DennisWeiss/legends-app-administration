@@ -9,4 +9,4 @@ const VersionLocationData = new mongoose.Schema({
 })
 
 
-export default mongoose.model('POI', VersionLocationData)
+export default mongoose.model('VersionLocationData', VersionLocationData)
