@@ -49,4 +49,4 @@ const POISchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('POI', POISchema)
+export default mongoose.model('POI', POISchema)
