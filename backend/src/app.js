@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
-import appConf from './app-conf'
+import appConf from '../app-conf'
 
 import POI from './models/poi.model'
 import VersionLocationData from './models/version-location-data'

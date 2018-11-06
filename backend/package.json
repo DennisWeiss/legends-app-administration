@@ -2,7 +2,7 @@
   "name": "legends-administration",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/src/app.js"
   },
   "author": "",
   "license": "ISC"
