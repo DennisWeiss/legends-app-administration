@@ -28,6 +28,11 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 router.use('/api-docs', swaggerUi.serve)
 router.get('/api-docs', swaggerUi.setup(swaggerDocument))
@@ -58,7 +63,7 @@ const updateVersions = (poi, res) =>
   })
 
 
-app.post('/', (req, res) => {
+app.post('/poi/', (req, res) => {
   const poi = new POI(req.body)
   poi.save(err => {
     if (err) {
@@ -69,7 +74,7 @@ app.post('/', (req, res) => {
   })
 })
 
-app.put('/', (req, res) => {
+app.put('/poi/', (req, res) => {
   POI.findOneAndUpdate({key: req.body.key}, req.body, (err, poi) => {
     if (err) {
       res.send(500, {error: err})
@@ -79,7 +84,7 @@ app.put('/', (req, res) => {
   })
 })
 
-app.get('/', (req, res) => {
+app.get('/poi/', (req, res) => {
   POI.find({}, (err, poi) => {
     if (err) {
       res.send(500, {error: err})
@@ -90,7 +95,18 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/:key', (req, res) => {
+app.get('/poi/:type', (req, res) => {
+    POI.find({type: req.params.type}, (err, poi) => {
+        if (err) {
+            res.send(500, {error: err})
+        }
+        VersionLocationData.find({}, (err, versions) => {
+            res.send(mapListOfPOIsToDict(poi, versions))
+        })
+    })
+})
+
+app.get('/poi/key/:key', (req, res) => {
   POI.findOne({key: req.params.key}, (err, poi) => {
     if (err) {
       return next(err)
