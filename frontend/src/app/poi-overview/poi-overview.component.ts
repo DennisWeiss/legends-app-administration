@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {PoiService} from '../poi.service'
 import {MatPaginator, MatTableDataSource} from '@angular/material'
-import {faPen} from '@fortawesome/free-solid-svg-icons'
+import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 
 const mapPOIs = pois => {
   const poiLst = []
@@ -26,6 +26,7 @@ export class PoiOverviewComponent implements OnInit {
   displayedColumns: string[] = ['name', 'beaconId', 'edit']
   pois
   faPen = faPen
+  faPlusCircle = faPlusCircle
   typeToColor = {
     legends: 'blue',
     sights: 'orange',

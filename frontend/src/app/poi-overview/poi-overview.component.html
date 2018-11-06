@@ -34,7 +34,10 @@
   </table>
 
   <div class="below-table">
-    <button mat-raised-button color="primary">New POI</button>
+    <button mat-raised-button color="primary">
+      <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+      <span style="padding: 5px">New POI</span>
+    </button>
     <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
   </div>
 
