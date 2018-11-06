@@ -30,26 +30,29 @@ app.post('/', (req, res) => {
   const poi = new POI(req.body)
   poi.save(err => {
     if (err) {
-      return null
+      return next(err)
     }
-    // VersionLocationData.find({type: poi.type}, (err, result) => {
-    //   console.log('result', result)
-    //   if (err) {
-    //     return next(err)
-    //   }
-    //   if (result.length === 0) {
-    //     const versionLocationData = new VersionLocationData({
-    //       type: poi.type,
-    //       version: `v${poi.type.substr(0, 1)}.1.1`
-    //     })
-    //     versionLocationData.save(err => err && next(err))
-    //   } else {
-    //     VersionLocationData.update({type: poi.type}, {
-    //       type: poi.type,
-    //       version: increaseVersion(result[0].version)
-    //     })
-    //   }
-    // })
+    VersionLocationData.find({type: poi.type}, (err, result) => {
+      if (err) {
+        return next(err)
+      }
+      if (result.length === 0) {
+        const versionLocationData = new VersionLocationData({
+          type: poi.type,
+          version: `v${poi.type.substr(0, 1)}.1.1`
+        })
+        versionLocationData.save(err => err && next(err))
+      } else {
+        VersionLocationData.findOneAndUpdate({type: poi.type}, {
+          type: poi.type,
+          version: increaseVersion(result[0].version)
+        }, (err, versionLocationData) => {
+          if (err) {
+            return next(err)
+          }
+        })
+      }
+    })
     res.send('POI created successfully')
   })
 })

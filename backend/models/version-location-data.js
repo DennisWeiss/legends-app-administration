@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 
 const VersionLocationData = new mongoose.Schema({
-  type: {type: mongoose.Schema.Types.ObjectId, required: true},
+  type: {type: String, required: true},
   version: {type: String, required: true}
 }, {
   strict: true
