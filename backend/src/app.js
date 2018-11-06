@@ -11,8 +11,12 @@ import {mapVersionLocationData} from './mapper/version-location-data.mapper'
 
 import {increaseVersion} from './helper/helper-functions'
 
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger'
+
 
 const app = express()
+const router = express.Router()
 
 app.listen(appConf.serverPort)
 
@@ -24,6 +28,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+
+router.use('/api-docs', swaggerUi.serve)
+router.get('/api-docs', swaggerUi.setup(swaggerDocument))
 
 
 const updateVersions = (poi, res) =>
@@ -49,8 +56,6 @@ const updateVersions = (poi, res) =>
       })
     }
   })
-
-
 
 
 app.post('/', (req, res) => {
