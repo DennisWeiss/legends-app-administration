@@ -34,6 +34,7 @@ export class PoiOverviewComponent implements OnInit {
   ngOnInit() {
     this.poiService.retrievePOIs()
       .subscribe(pois => {
+        console.log(pois);
         this.pois = new MatTableDataSource(mapPOIs(pois))
         this.pois.paginator = this.paginator
       })

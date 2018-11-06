@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" fxLayout fxLayoutAlign="space-between center">
+  <span><a mat-button routerLink="./list" routerLinkActive="mat-accent">HOME</a></span>
+
+  <ul>
+    <li fxHide.xs *ngIf="!isAuthenticated"><a mat-button routerLink="./auth/login" routerLinkActive="mat-accent">Login</a></li>
+    <li fxHide.xs *ngIf="isAuthenticated"><a (click)="logout()" mat-button>Logout</a></li>
+  </ul>
+
+  <button fxHide.gt-xs mat-icon-button (click)="toggleSidenav()"><mat-icon>menu</mat-icon></button>
+
+</mat-toolbar>
