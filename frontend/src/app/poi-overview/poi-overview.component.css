@@ -1,7 +1,7 @@
 #overview-table {
   max-width: 1000px;
-  width: 100%;
   margin: 100px auto 20px auto;
+  padding: 30px;
 }
 
 table {
@@ -37,4 +37,9 @@ mat-paginator {
 
 .mat-cell-name-content > * {
   margin-right: 10px;
+}
+
+.below-table {
+  display: flex;
+  justify-content: space-between;
 }

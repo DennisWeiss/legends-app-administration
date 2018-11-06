@@ -3,7 +3,8 @@ import {
   MatCheckboxModule,
   MatTableModule,
   MatPaginatorModule,
-  MatChipsModule
+  MatChipsModule,
+  MatButtonModule
 } from "@angular/material";
 
 
@@ -12,7 +13,8 @@ import {
     MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule {}
