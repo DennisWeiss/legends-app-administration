@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component';
 import { PoiOverviewComponent } from './poi-overview/poi-overview.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import {MatTableModule} from '@angular/material'
+import {MatTableModule, MatPaginatorModule} from '@angular/material'
 import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
@@ -18,10 +18,12 @@ import {HttpClientModule} from '@angular/common/http'
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   exports: [
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

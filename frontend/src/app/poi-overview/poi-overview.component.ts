@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core'
 import {PoiService} from '../poi.service'
+import {MatPaginator, MatTableDataSource} from '@angular/material'
 
 const mapPOIs = pois => {
   const poiLst = []
@@ -23,13 +24,19 @@ export class PoiOverviewComponent implements OnInit {
   displayedColumns: string[] = ['key', 'icon', 'name', 'beaconId']
   pois
 
+  @ViewChild(MatPaginator) paginator: MatPaginator
+
   constructor(poiService: PoiService) {
     this.poiService = poiService
+
   }
 
   ngOnInit() {
     this.poiService.retrievePOIs()
-      .subscribe(pois => this.pois = mapPOIs(pois))
+      .subscribe(pois => {
+        this.pois = new MatTableDataSource(mapPOIs(pois))
+        this.pois.paginator = this.paginator
+      })
   }
 
 }
