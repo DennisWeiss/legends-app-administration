@@ -4,7 +4,11 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let poi">
-        <img src={{poi.icons.default}} height="30" width="30"/>  {{poi.name.en}}
+        <div class="mat-cell-name-content">
+          <img src={{poi.icons.default}} height="30" width="30"/>
+          <span>{{poi.name.en}}</span>
+          <app-tag [text]="poi.type"></app-tag>
+        </div>
       </td>
     </ng-container>
 

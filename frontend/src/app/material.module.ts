@@ -1,12 +1,18 @@
 import { NgModule } from "@angular/core";
-import { MatCheckboxModule, MatTableModule, MatPaginatorModule } from "@angular/material";
+import {
+  MatCheckboxModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatChipsModule
+} from "@angular/material";
 
 
 @NgModule({
   exports: [
     MatCheckboxModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule
   ]
 })
 export class MaterialModule {}

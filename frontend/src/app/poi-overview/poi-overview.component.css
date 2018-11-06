@@ -29,3 +29,12 @@ mat-paginator {
   text-align: right;
   margin-right: 10px;
 }
+
+.mat-cell-name-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-cell-name-content > * {
+  margin-right: 10px;
+}
