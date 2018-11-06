@@ -3,7 +3,12 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body { height: 95%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f7f7f7;
+}
 
 * {
   box-sizing: border-box;

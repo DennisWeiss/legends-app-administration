@@ -11,6 +11,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { HeaderComponent } from './header/header.component'
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { TagComponent } from './tag/tag.component';
+
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+
 
 
 @NgModule({
@@ -20,7 +24,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     SignupComponent,
     LoginComponent,
     SidenavComponent,
-    HeaderComponent
+    HeaderComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FontAwesomeModule
   ],
   exports: [
 

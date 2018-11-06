@@ -1,0 +1,40 @@
+#overview-table {
+  max-width: 1000px;
+  width: 100%;
+  margin: 100px auto 20px auto;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-paginator {
+  background: #f7f7f7;
+}
+
+.mat-row {
+  cursor: pointer;
+}
+
+.mat-row:hover {
+  background: #f2f2f2;
+}
+
+.mat-row:hover > td > .edit-btn {
+  color: dodgerblue;
+}
+
+.edit-btn {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.mat-cell-name-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-cell-name-content > * {
+  margin-right: 10px;
+}
