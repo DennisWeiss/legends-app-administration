@@ -26,8 +26,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 
-const updateVersions = (poi, res) => {
-  console.log(poi)
+const updateVersions = (poi, res) =>
+  poi.type &&
   VersionLocationData.find({type: poi.type}, (err, result) => {
     if (err) {
       return next(err)
@@ -49,7 +49,7 @@ const updateVersions = (poi, res) => {
       })
     }
   })
-}
+
 
 
 
@@ -79,7 +79,9 @@ app.get('/', (req, res) => {
     if (err) {
       res.send(500, {error: err})
     }
-    res.send(mapListOfPOIsToDict(poi))
+    VersionLocationData.find({}, (err, versions) => {
+      res.send(mapListOfPOIsToDict(poi, versions))
+    })
   })
 })
 
