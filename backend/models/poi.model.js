@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 
 const POISchema = new mongoose.Schema({
-  key: {type: String, required: true},
+  key: {type: mongoose.Schema.Types.ObjectId, required: true},
   beaconId: {type: Number, required: true},
   coordinates: {
     lat: {type: Number, required: true},
