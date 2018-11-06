@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core'
 
+
 @Component({
   selector: 'app-tag',
   templateUrl: './tag.component.html',
@@ -8,10 +9,12 @@ import {Component, Input, OnInit} from '@angular/core'
 export class TagComponent implements OnInit {
 
   @Input() text: string;
+  @Input() color: string;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.color)
   }
 
 }
