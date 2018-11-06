@@ -1,3 +1,20 @@
-<div class="tag" style="color: red; background: rgba(255, 0, 0, 0.1); border: 1px solid red;">
-  {{text}}
+
+<!--TODO: proper implementation-->
+<div *ngIf="color === 'orange'">
+  <div class="tag tag-orange">
+    {{text}}
+  </div>
 </div>
+
+<div *ngIf="color === 'green'">
+  <div class="tag tag-green">
+    {{text}}
+  </div>
+</div>
+
+<div *ngIf="color === 'blue'">
+  <div class="tag tag-blue">
+    {{text}}
+  </div>
+</div>
+

@@ -13,6 +13,8 @@ const mapPOIs = pois => {
   return poiLst
 }
 
+
+
 @Component({
   selector: 'app-poi-overview',
   templateUrl: './poi-overview.component.html',
@@ -21,11 +23,14 @@ const mapPOIs = pois => {
 export class PoiOverviewComponent implements OnInit {
 
   poiService: PoiService
-
   displayedColumns: string[] = ['name', 'beaconId', 'edit']
   pois
-
   faPen = faPen
+  typeToColor = {
+    legends: 'blue',
+    sights: 'orange',
+    restaurants: 'green'
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator
 

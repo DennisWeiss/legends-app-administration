@@ -7,7 +7,7 @@
         <div class="mat-cell-name-content">
           <img src={{poi.icons.default}} height="30" width="30"/>
           <span>{{poi.name.en}}</span>
-          <app-tag [text]="poi.type"></app-tag>
+          <app-tag [text]="poi.type" [color]="typeToColor[poi.type]"></app-tag>
         </div>
       </td>
     </ng-container>
