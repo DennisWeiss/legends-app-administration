@@ -7,9 +7,9 @@ import {Component, Input, OnInit} from '@angular/core'
 })
 export class PoiTypeSelectionComponent implements OnInit {
 
-  @Input() legends
-  @Input() sights
-  @Input() restaurants
+  @Input() types
+
+  objectKeys = Object.keys
 
   constructor() { }
 

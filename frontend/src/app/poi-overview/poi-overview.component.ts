@@ -37,9 +37,20 @@ export class PoiOverviewComponent implements OnInit {
   }
   formatcoords = formatcoords
 
-  legends = true
-  sights = true
-  restaurants = true
+  types = {
+    legends: {
+      color: 'blue',
+      checked: true
+    },
+    sights: {
+      color: 'orange',
+      checked: true
+    },
+    restaurants: {
+      color: 'green',
+      checked: true
+    }
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort

@@ -1,5 +1,5 @@
 <div class="poi-type-selection">
-  <mat-checkbox class="poi-type-selection-item" [checked]="legends">Legends</mat-checkbox>
-  <mat-checkbox class="poi-type-selection-item" [checked]="sights">Sights</mat-checkbox>
-  <mat-checkbox class="poi-type-selection-item" [checked]="restaurants">Restaurants</mat-checkbox>
+  <mat-checkbox class="poi-type-selection-item" *ngFor="let type of objectKeys(types)" [checked]="types[type].checked">
+    {{type}}
+  </mat-checkbox>
 </div>
