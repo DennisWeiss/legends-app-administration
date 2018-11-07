@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core'
 import {PoiService} from '../poi.service'
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
+import translate from '../translations/translate'
+import {LocaleService} from '../locale.service'
 
 const formatcoords = require('formatcoords');
 
@@ -53,12 +55,16 @@ export class PoiOverviewComponent implements OnInit {
       checked: true
     }
   }
+  locale
+  t
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(poiService: PoiService) {
+  constructor(poiService: PoiService, localeService: LocaleService) {
     this.poiService = poiService
+    this.locale = localeService.getLocale()
+    this.t = translate('poi-overview', localeService.getLocale())
   }
 
   initializeTableDataSource = () => {

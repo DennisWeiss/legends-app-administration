@@ -4,6 +4,6 @@
     *ngFor="let type of objectKeys(types)"
     [checked]="types[type].checked"
     (change)="onChange(type)">
-    {{type}}
+    {{t(type)}}
   </mat-checkbox>
 </div>

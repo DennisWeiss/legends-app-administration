@@ -14,5 +14,4 @@ export class PoiService {
 
   retrievePOIs = (type?: String) => this.http.get(`${backendUrl}poi/${type ? `${type}/` : ''}`)
 
-
 }

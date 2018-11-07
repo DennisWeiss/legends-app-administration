@@ -1,4 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core'
+import translate from '../translations/translate'
+import {LocaleService} from '../locale.service'
 
 
 @Component({
@@ -11,8 +13,10 @@ export class HeaderComponent implements OnInit {
   @Input() title: string
   @Output() sidenavToggled: EventEmitter<any> = new EventEmitter()
 
+  t
 
-  constructor() {
+  constructor(localeService: LocaleService) {
+    this.t = translate('header', localeService.getLocale())
   }
 
   ngOnInit() {
