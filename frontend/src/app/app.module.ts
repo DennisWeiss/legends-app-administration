@@ -14,6 +14,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { TagComponent } from './tag/tag.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { PoiFilterComponent } from './poi-filter/poi-filter.component';
 
 
 
@@ -25,7 +26,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     LoginComponent,
     SidenavComponent,
     HeaderComponent,
-    TagComponent
+    TagComponent,
+    PoiFilterComponent
   ],
   imports: [
     BrowserModule,

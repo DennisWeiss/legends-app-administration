@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {PoiService} from '../poi.service'
-import {MatPaginator, MatTableDataSource} from '@angular/material'
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 
 const formatcoords = require('formatcoords');
@@ -38,10 +38,10 @@ export class PoiOverviewComponent implements OnInit {
   formatcoords = formatcoords
 
   @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatSort) sort: MatSort
 
   constructor(poiService: PoiService) {
     this.poiService = poiService
-
   }
 
   ngOnInit() {
@@ -50,7 +50,20 @@ export class PoiOverviewComponent implements OnInit {
         console.log(pois);
         this.pois = new MatTableDataSource(mapPOIs(pois))
         this.pois.paginator = this.paginator
+        this.pois.sort = this.sort
+        this.pois.sortingDataAccessor = (poi, property) => {
+          switch (property) {
+            case 'name': return poi.name.en
+            default: return poi[property]
+          }
+        }
+        this.pois.filterPredicate = (poi, filter: string) => {
+          console.log(poi)
+          return poi.name && poi.name.en && poi.name.en.toLowerCase().includes(filter.toLowerCase())
+        }
       })
   }
+
+
 
 }
