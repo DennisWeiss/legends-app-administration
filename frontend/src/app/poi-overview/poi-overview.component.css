@@ -39,7 +39,7 @@ mat-paginator {
   margin-right: 10px;
 }
 
-.below-table {
+.above-table {
   display: flex;
   justify-content: space-between;
 }
@@ -47,4 +47,8 @@ mat-paginator {
 .poi-filter {
   display: flex;
   align-items: center;
+}
+
+.new-poi-btn {
+  height: 45px;
 }

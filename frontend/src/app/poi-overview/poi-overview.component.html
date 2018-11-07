@@ -1,7 +1,14 @@
 <div id="overview-table">
-  <div class="poi-filter">
-    <app-poi-filter [pois]="filteredPois"></app-poi-filter>
-    <app-poi-type-selection [types]="types" [onChange]="onChangeTypeFilter"></app-poi-type-selection>
+  <div class="above-table">
+    <div class="poi-filter">
+      <app-poi-filter [pois]="filteredPois"></app-poi-filter>
+      <app-poi-type-selection [types]="types" [onChange]="onChangeTypeFilter"></app-poi-type-selection>
+    </div>
+
+    <button mat-raised-button class="new-poi-btn" color="primary">
+      <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+      <span style="padding: 5px">New POI</span>
+    </button>
   </div>
 
   <table mat-table [dataSource]="filteredPois" class="mat-elevation-z4" matSort>
@@ -45,12 +52,6 @@
 
   </table>
 
-  <div class="below-table">
-    <button mat-raised-button color="primary">
-      <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
-      <span style="padding: 5px">New POI</span>
-    </button>
-    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-  </div>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
 </div>
