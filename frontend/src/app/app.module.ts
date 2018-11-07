@@ -15,6 +15,7 @@ import { TagComponent } from './tag/tag.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { PoiFilterComponent } from './poi-filter/poi-filter.component';
+import { PoiTypeSelectionComponent } from './poi-type-selection/poi-type-selection.component';
 
 
 
@@ -27,7 +28,8 @@ import { PoiFilterComponent } from './poi-filter/poi-filter.component';
     SidenavComponent,
     HeaderComponent,
     TagComponent,
-    PoiFilterComponent
+    PoiFilterComponent,
+    PoiTypeSelectionComponent
   ],
   imports: [
     BrowserModule,

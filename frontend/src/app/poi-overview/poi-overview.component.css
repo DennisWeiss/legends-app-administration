@@ -43,3 +43,8 @@ mat-paginator {
   display: flex;
   justify-content: space-between;
 }
+
+.poi-filter {
+  display: flex;
+  align-items: center;
+}

@@ -37,6 +37,10 @@ export class PoiOverviewComponent implements OnInit {
   }
   formatcoords = formatcoords
 
+  legends = true
+  sights = true
+  restaurants = true
+
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
