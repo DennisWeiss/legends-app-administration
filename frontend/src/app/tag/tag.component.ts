@@ -14,7 +14,6 @@ export class TagComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.color)
   }
 
 }

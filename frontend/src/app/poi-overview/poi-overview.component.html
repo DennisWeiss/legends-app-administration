@@ -1,10 +1,10 @@
 <div id="overview-table">
   <div class="poi-filter">
-    <app-poi-filter [pois]="pois"></app-poi-filter>
-    <app-poi-type-selection [types]="types"></app-poi-type-selection>
+    <app-poi-filter [pois]="filteredPois"></app-poi-filter>
+    <app-poi-type-selection [types]="types" [onChange]="onChangeTypeFilter"></app-poi-type-selection>
   </div>
 
-  <table mat-table [dataSource]="pois" class="mat-elevation-z4" matSort>
+  <table mat-table [dataSource]="filteredPois" class="mat-elevation-z4" matSort>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>POI</th>

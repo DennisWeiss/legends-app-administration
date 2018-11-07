@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core'
 export class PoiTypeSelectionComponent implements OnInit {
 
   @Input() types
+  @Input() onChange: (type: string) => void
 
   objectKeys = Object.keys
 

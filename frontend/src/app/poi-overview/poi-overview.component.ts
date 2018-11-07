@@ -16,6 +16,7 @@ const mapPOIs = pois => {
   return poiLst
 }
 
+const typesListOf = types => Object.keys(types).filter(type => types[type].checked)
 
 
 @Component({
@@ -28,6 +29,7 @@ export class PoiOverviewComponent implements OnInit {
   poiService: PoiService
   displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit']
   pois
+  filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
   typeToColor = {
@@ -59,26 +61,36 @@ export class PoiOverviewComponent implements OnInit {
     this.poiService = poiService
   }
 
+  initializeTableDataSource = () => {
+    this.filteredPois = new MatTableDataSource(this.pois.filter(poi => typesListOf(this.types).includes(poi.type)))
+    this.filteredPois.paginator = this.paginator
+    this.filteredPois.sort = this.sort
+    this.filteredPois.sortingDataAccessor = (poi, property) => {
+      switch (property) {
+        case 'name': return poi.name.en
+        default: return poi[property]
+      }
+    }
+    this.setFilterPredicate()
+  }
+
   ngOnInit() {
     this.poiService.retrievePOIs()
       .subscribe(pois => {
-        console.log(pois);
-        this.pois = new MatTableDataSource(mapPOIs(pois))
-        this.pois.paginator = this.paginator
-        this.pois.sort = this.sort
-        this.pois.sortingDataAccessor = (poi, property) => {
-          switch (property) {
-            case 'name': return poi.name.en
-            default: return poi[property]
-          }
-        }
-        this.pois.filterPredicate = (poi, filter: string) => {
-          console.log(poi)
-          return poi.name && poi.name.en && poi.name.en.toLowerCase().includes(filter.toLowerCase())
-        }
+        this.pois = mapPOIs(pois)
+        this.initializeTableDataSource()
       })
   }
 
+  setFilterPredicate = () => {
+    this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
+      poi.name.en.toLowerCase().includes(filter.toLowerCase())
+  }
+
+  onChangeTypeFilter = (type: string) => {
+    this.types[type].checked = !this.types[type].checked
+    this.initializeTableDataSource()
+  }
 
 
 }
