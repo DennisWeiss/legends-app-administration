@@ -1,15 +1,10 @@
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.title {
+  margin: 0 14px;
 }
 
-ul > li {
-  margin-right: 20px;
-}
-
-a {
-  text-decoration: none;
-  color: white;
+mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  /*top: 0; */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core'
 
 
 @Component({
@@ -8,22 +8,18 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() sidenavToggled: EventEmitter<any> = new EventEmitter();
+  @Input() title: string
+  @Output() sidenavToggled: EventEmitter<any> = new EventEmitter()
 
-  isAuthenticated = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  logout() {
-    
-  }
-
-
   toggleSidenav() {
-    this.sidenavToggled.emit();
+    this.sidenavToggled.emit()
   }
 
 }
