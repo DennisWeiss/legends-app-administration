@@ -12,6 +12,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="coords">
+      <th mat-header-cell *matHeaderCellDef>Location</th>
+      <td mat-cell *matCellDef="let poi">
+        {{formatcoords(poi.coordinates).format('FFf', {decimalPlaces: 2})}}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="beaconId">
       <th mat-header-cell *matHeaderCellDef>Beacon ID</th>
       <td mat-cell *matCellDef="let poi">

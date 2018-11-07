@@ -1,6 +1,7 @@
 .tag {
   padding: 3px 6px;
   border-radius: 4px;
+  font-size: 12px;
 }
 
 .tag-orange {
@@ -15,8 +16,8 @@
   background: rgba(0, 0, 255, 0.1);
 }
 
-.ta-green {
-  color: rgb(0, 255, 0);
-  border: 1px solid rgb(0, 255, 0);
-  background: rgba(0, 255, 0, 0.1);
+.tag-green {
+  color: rgb(0, 128, 0);
+  border: 1px solid rgb(0, 128, 0);
+  background: rgba(0, 128, 0, 0.1);
 }

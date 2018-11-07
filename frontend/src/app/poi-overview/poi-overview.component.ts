@@ -3,6 +3,9 @@ import {PoiService} from '../poi.service'
 import {MatPaginator, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 
+const formatcoords = require('formatcoords');
+
+
 const mapPOIs = pois => {
   const poiLst = []
   Object.keys(pois).forEach(type => {
@@ -23,7 +26,7 @@ const mapPOIs = pois => {
 export class PoiOverviewComponent implements OnInit {
 
   poiService: PoiService
-  displayedColumns: string[] = ['name', 'beaconId', 'edit']
+  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit']
   pois
   faPen = faPen
   faPlusCircle = faPlusCircle
@@ -32,6 +35,7 @@ export class PoiOverviewComponent implements OnInit {
     sights: 'orange',
     restaurants: 'green'
   }
+  formatcoords = formatcoords
 
   @ViewChild(MatPaginator) paginator: MatPaginator
 
