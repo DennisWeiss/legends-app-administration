@@ -4,8 +4,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
 import {LocaleService} from '../locale.service'
-
-const formatcoords = require('formatcoords');
+import formatcoords from 'formatcoords'
 
 
 const mapPOIs = pois => {
