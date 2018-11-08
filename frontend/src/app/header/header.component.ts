@@ -13,9 +13,12 @@ export class HeaderComponent implements OnInit {
   @Input() title: string
   @Output() sidenavToggled: EventEmitter<any> = new EventEmitter()
 
+  localeService: LocaleService
   t
+  langs = ['en', 'de']
 
   constructor(localeService: LocaleService) {
+    this.localeService = localeService
     this.t = translate('header', localeService.getLocale())
   }
 

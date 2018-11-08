@@ -8,3 +8,22 @@ mat-toolbar {
   /*top: 0; */
   z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }
+
+.header-toolbar {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.lang-select {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.lang-display {
+  font-size: 18px;
+  font-weight: normal;
+}
+

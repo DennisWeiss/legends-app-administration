@@ -1,7 +1,9 @@
-{
+export default {
   "en": {
     "header": {
-      "TITLE": "Legends App Administration"
+      "TITLE": "Legends App Administration",
+      "en": "English",
+      "de": "German"
     },
     "poi-overview": {
       "NEW_POI": "New POI",
@@ -20,7 +22,9 @@
   },
   "de": {
     "header": {
-      "TITLE": "Sagenhaftes Görlitz Stammdatenpflege"
+      "TITLE": "Sagenhaftes Görlitz POI Verwaltung",
+      "en": "Englisch",
+      "de": "Deutsch"
     },
     "poi-overview": {
       "NEW_POI": "Neuer POI",
