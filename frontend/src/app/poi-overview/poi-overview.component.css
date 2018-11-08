@@ -50,5 +50,10 @@ mat-paginator {
 }
 
 .new-poi-btn {
-  height: 45px;
+  height: 40px;
+  /*margin: 10px 0;*/
+}
+
+.new-poi-btn-container {
+  margin: auto 0;
 }

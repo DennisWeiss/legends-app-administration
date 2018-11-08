@@ -5,10 +5,12 @@
       <app-poi-type-selection [types]="types" [onChange]="onChangeTypeFilter"></app-poi-type-selection>
     </div>
 
-    <button mat-raised-button class="new-poi-btn" color="primary">
-      <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
-      <span style="padding: 5px">{{t('NEW_POI')}}</span>
-    </button>
+    <div class="new-poi-btn-container">
+      <button mat-raised-button class="new-poi-btn" color="primary">
+        <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+        <span style="padding: 5px">{{t('NEW_POI')}}</span>
+      </button>
+    </div>
   </div>
 
   <table mat-table [dataSource]="filteredPois" class="mat-elevation-z4" matSort>

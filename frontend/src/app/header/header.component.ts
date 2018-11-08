@@ -19,10 +19,15 @@ export class HeaderComponent implements OnInit {
 
   constructor(localeService: LocaleService) {
     this.localeService = localeService
-    this.t = translate('header', localeService.getLocale())
+    this.setT(localeService.getLocale())
+  }
+
+  setT(locale: string) {
+    this.t = translate('header', locale)
   }
 
   ngOnInit() {
+    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
   }
 
   toggleSidenav() {

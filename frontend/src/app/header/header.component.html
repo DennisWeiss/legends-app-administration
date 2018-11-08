@@ -14,7 +14,7 @@
     </div>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let lang of langs">{{lang.toUpperCase()}} - {{t(lang)}}</button>
+      <button mat-menu-item *ngFor="let lang of langs" (click)="localeService.setLocale(lang)">{{lang.toUpperCase()}} - {{t(lang)}}</button>
     </mat-menu>
   </div>
 

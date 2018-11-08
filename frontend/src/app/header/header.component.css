@@ -23,6 +23,7 @@ mat-toolbar {
 }
 
 .lang-display {
+  margin: 0 6px;
   font-size: 18px;
   font-weight: normal;
 }
