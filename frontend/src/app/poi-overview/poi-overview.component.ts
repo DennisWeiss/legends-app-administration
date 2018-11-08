@@ -104,4 +104,6 @@ export class PoiOverviewComponent implements OnInit {
 
   newPOI = () => window.location.href = '/new/'
 
+  editPOI = (poiKey: string) => window.location.href = `/edit/${poiKey}/`
+
 }
