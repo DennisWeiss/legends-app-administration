@@ -9,10 +9,16 @@ export class LocaleService {
 
   localeUpdated = new EventEmitter()
 
-  constructor() { }
+  constructor() {
+    const localeFromLocalStorage = localStorage.getItem('locale')
+    if (localeFromLocalStorage) {
+      this.locale = localeFromLocalStorage
+    }
+  }
 
   setLocale = (locale: string) => {
     this.locale = locale
+    localStorage.setItem('locale', this.locale)
     this.localeUpdated.emit(this.locale)
   }
 
