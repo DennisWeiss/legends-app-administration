@@ -6,7 +6,7 @@
     </div>
 
     <div class="new-poi-btn-container">
-      <button mat-raised-button class="new-poi-btn" color="primary">
+      <button mat-raised-button class="new-poi-btn" color="primary" (click)="newPOI()">
         <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
         <span style="padding: 5px">{{t('NEW_POI')}}</span>
       </button>

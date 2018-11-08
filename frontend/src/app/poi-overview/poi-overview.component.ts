@@ -102,5 +102,6 @@ export class PoiOverviewComponent implements OnInit {
     this.initializeTableDataSource()
   }
 
+  newPOI = () => window.location.href = '/new/'
 
 }
