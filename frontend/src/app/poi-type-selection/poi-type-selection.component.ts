@@ -12,14 +12,21 @@ export class PoiTypeSelectionComponent implements OnInit {
 
   @Input() types
   @Input() onChange: (type: string) => void
+  localeService: LocaleService
   t
   objectKeys = Object.keys
 
   constructor(localeService: LocaleService) {
-    this.t = translate('poi-type-selection', localeService.getLocale())
+    this.localeService = localeService
+    this.setT(localeService.getLocale())
+  }
+
+  setT(locale: string) {
+    this.t = translate('poi-type-selection', locale)
   }
 
   ngOnInit() {
+    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
   }
 
 }

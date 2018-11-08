@@ -20,7 +20,7 @@
       <td mat-cell *matCellDef="let poi">
         <div class="mat-cell-name-content">
           <img src={{poi.icons.default}} height="30" width="30"/>
-          <span>{{poi.name[locale]}}</span>
+          <span>{{poi.name[localeService.getLocale()]}}</span>
           <app-tag [text]="t(poi.type)" [color]="typeToColor[poi.type]"></app-tag>
         </div>
       </td>

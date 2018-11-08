@@ -54,7 +54,7 @@ export class PoiOverviewComponent implements OnInit {
       checked: true
     }
   }
-  locale
+  localeService: LocaleService
   t
 
   @ViewChild(MatPaginator) paginator: MatPaginator
@@ -62,8 +62,8 @@ export class PoiOverviewComponent implements OnInit {
 
   constructor(poiService: PoiService, localeService: LocaleService) {
     this.poiService = poiService
-    this.locale = localeService.getLocale()
-    this.t = translate('poi-overview', localeService.getLocale())
+    this.localeService = localeService
+    this.setT(localeService.getLocale())
   }
 
   initializeTableDataSource = () => {
@@ -79,7 +79,12 @@ export class PoiOverviewComponent implements OnInit {
     this.setFilterPredicate()
   }
 
+  setT(locale: string) {
+    this.t = translate('poi-overview', locale)
+  }
+
   ngOnInit() {
+    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
     this.poiService.retrievePOIs()
       .subscribe(pois => {
         this.pois = mapPOIs(pois)
