@@ -16,6 +16,7 @@ import { TagComponent } from './tag/tag.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { PoiFilterComponent } from './poi-filter/poi-filter.component';
 import { PoiTypeSelectionComponent } from './poi-type-selection/poi-type-selection.component';
+import { PoiEditComponent } from './poi-edit/poi-edit.component';
 
 
 
@@ -29,7 +30,8 @@ import { PoiTypeSelectionComponent } from './poi-type-selection/poi-type-selecti
     HeaderComponent,
     TagComponent,
     PoiFilterComponent,
-    PoiTypeSelectionComponent
+    PoiTypeSelectionComponent,
+    PoiEditComponent
   ],
   imports: [
     BrowserModule,
