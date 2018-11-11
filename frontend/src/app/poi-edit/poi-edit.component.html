@@ -1,3 +1,47 @@
-<p>
-  poi-edit works!
-</p>
+<mat-card>
+  <form>
+    <h4>Choose type:</h4>
+    <mat-card>
+      <mat-form-field>
+        <mat-select placeholder="type">
+          <mat-option *ngFor="let type of poiTypes" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
+
+    <mat-card>
+      <h4>Coordinates</h4>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Latitude" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Longitude" />
+      </mat-form-field>
+    </mat-card>
+
+    <mat-form-field fxLayout>
+      <input matInput type="number" placeholder="BeaconID" />
+    </mat-form-field>
+
+    <h4>Name</h4>
+    <mat-form-field fxLayout>
+      <input matInput type="text" placeholder="Key" />
+    </mat-form-field>
+
+    <h4>Icons</h4>
+
+    <div fxLayout="row">
+      <app-img-preview name="Default" class="img-preview"></app-img-preview>
+      <app-img-preview name="Explored" class="img-preview"></app-img-preview>
+    </div>
+
+    <app-img-preview name="Audio" class="img-preview"></app-img-preview>
+
+    <app-img-preview name="Video" class="img-preview"></app-img-preview>
+  </form>
+
+  <app-poi-map></app-poi-map>
+</mat-card>

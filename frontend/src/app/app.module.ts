@@ -17,8 +17,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { PoiFilterComponent } from './poi-filter/poi-filter.component';
 import { PoiTypeSelectionComponent } from './poi-type-selection/poi-type-selection.component';
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
-
-
+import { PoiMapComponent } from './poi-edit/poi-map/poi-map.component';
+import { ImgPreviewComponent } from './poi-edit/img-preview/img-preview.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,9 @@ import { PoiEditComponent } from './poi-edit/poi-edit.component';
     TagComponent,
     PoiFilterComponent,
     PoiTypeSelectionComponent,
-    PoiEditComponent
+    PoiEditComponent,
+    PoiMapComponent,
+    ImgPreviewComponent
   ],
   imports: [
     BrowserModule,

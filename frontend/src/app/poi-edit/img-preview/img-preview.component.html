@@ -1,0 +1,11 @@
+<mat-card fxLayout="column" fxLayoutAlign ="center">
+    <mat-card-title fxLayoutAlign="center">{{name}}</mat-card-title>
+    <button type="button" mat-flat-button color="primary" (click)="imgFileInput.click()">
+        <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+        Add
+    </button>
+    <input hidden type="file" #imgFileInput/>
+
+  <img *ngIf="imgLoaded" src="C:\Users\Basti\Pictures\middle.jpg"/>
+
+</mat-card>
