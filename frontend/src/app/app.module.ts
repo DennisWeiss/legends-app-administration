@@ -19,6 +19,9 @@ import { PoiTypeSelectionComponent } from './poi-type-selection/poi-type-selecti
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
 import { PoiMapComponent } from './poi-edit/poi-map/poi-map.component';
 import { ImgPreviewComponent } from './poi-edit/img-preview/img-preview.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ImgPreviewMultipleComponent } from './poi-edit/img-preview-multiple/img-preview-multiple.component';
+import { VideoPreviewComponent } from './poi-edit/video-preview/video-preview.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { ImgPreviewComponent } from './poi-edit/img-preview/img-preview.componen
     PoiTypeSelectionComponent,
     PoiEditComponent,
     PoiMapComponent,
-    ImgPreviewComponent
+    ImgPreviewComponent,
+    ImgPreviewMultipleComponent,
+    VideoPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { ImgPreviewComponent } from './poi-edit/img-preview/img-preview.componen
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LeafletModule.forRoot()
   ],
   exports: [
 

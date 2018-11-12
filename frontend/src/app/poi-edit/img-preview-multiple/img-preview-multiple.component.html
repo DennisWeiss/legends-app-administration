@@ -1,0 +1,12 @@
+<mat-card fxLayout="column" fxLayoutAlign ="center center">
+    <button type="button" mat-flat-button color="primary" (click)="imgFileInput.click()">
+        <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+        Add
+    </button>
+    <input hidden type="file" #imgFileInput/>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <img *ngFor="let image of images" src="https://www.lieco.at/wp-content/uploads/2015/11/placeholder-300x225.png"/>
+    </div>
+
+</mat-card>

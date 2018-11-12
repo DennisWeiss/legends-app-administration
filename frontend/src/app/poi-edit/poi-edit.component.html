@@ -1,47 +1,82 @@
-<mat-card>
-  <form>
-    <h4>Choose type:</h4>
-    <mat-card>
-      <mat-form-field>
-        <mat-select placeholder="type">
-          <mat-option *ngFor="let type of poiTypes" [value]="type">
-            {{ type }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card>
 
-    <mat-card>
-      <h4>Coordinates</h4>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Latitude" />
-      </mat-form-field>
+  <form class="container">
+    <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-around" class="general-info-container">
+      <div fxLayout="column" fxFlex="1 1" fxLayoutAlign = "center stretch" class="general-data">
 
-      <mat-form-field>
-        <input matInput type="number" placeholder="Longitude" />
-      </mat-form-field>
-    </mat-card>
+        <mat-card>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Name" />
+          </mat-form-field>
+        </mat-card>
 
-    <mat-form-field fxLayout>
-      <input matInput type="number" placeholder="BeaconID" />
-    </mat-form-field>
+        <mat-card>
+            <mat-form-field >
+              <input matInput type="number" placeholder="Beacon-ID" />
+            </mat-form-field>
+          </mat-card>
 
-    <h4>Name</h4>
-    <mat-form-field fxLayout>
-      <input matInput type="text" placeholder="Key" />
-    </mat-form-field>
+        <mat-card>
+          <mat-form-field>
+            <mat-select placeholder="type">
+              <mat-option *ngFor="let type of poiTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card>
 
-    <h4>Icons</h4>
+      </div>
 
-    <div fxLayout="row">
-      <app-img-preview name="Default" class="img-preview"></app-img-preview>
-      <app-img-preview name="Explored" class="img-preview"></app-img-preview>
+      <div fxFlex="1 1" class="map-container">
+       <app-poi-map></app-poi-map>
+
+        <mat-card fxLayout>
+
+            <mat-form-field>
+              <input matInput type="number" placeholder="Lattitude" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="number" placeholder="Longitude" />
+            </mat-form-field>
+          </mat-card>
+      </div>
     </div>
 
-    <app-img-preview name="Audio" class="img-preview"></app-img-preview>
 
-    <app-img-preview name="Video" class="img-preview"></app-img-preview>
+    <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <h2>Icons</h2>
+      <app-img-preview name="Default" class="img-preview"></app-img-preview>
+      <app-img-preview name="Explored" class="img-preview"></app-img-preview>
+    </mat-card>
+
+    <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <h2>Image</h2>
+        <app-img-preview name="Audio" class="img-preview"></app-img-preview>
+        <app-img-preview name="Video" class="img-preview"></app-img-preview>
+    </mat-card>
+
+    <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <h2>Video</h2>
+        <app-video-preview name="AR-Szene" class="img-preview"></app-video-preview>
+        <app-video-preview name="Icon-Szene" class="img-preview"></app-video-preview>
+    </mat-card>
+
+    <mat-card fxLayoutGap="30px" fxLayout="row" fxLayoutAlign="space-around center">
+        <h2>Vuforia</h2>
+        <app-img-preview-multiple ></app-img-preview-multiple>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <h2>Content</h2>
+    <mat-tab-group>
+        <mat-tab label="DE"> test </mat-tab>
+        <mat-tab label="EN"> test </mat-tab>
+        <mat-tab label="PL"> test </mat-tab>
+      </mat-tab-group>
+
+    <button type="submit" mat-flat-button color="primary">Submit</button>
+    <button type="button" mat-flat-button color="accent">Clear</button>
   </form>
 
-  <app-poi-map></app-poi-map>
-</mat-card>
