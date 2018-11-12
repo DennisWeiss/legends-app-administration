@@ -49,35 +49,23 @@
     </div>
   </div>
 
-  <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <h2>Icons</h2>
+  <app-media-section title="Icon">
     <app-img-preview name="Default" class="img-preview"></app-img-preview>
     <app-img-preview name="Explored" class="img-preview"></app-img-preview>
-  </mat-card>
+  </app-media-section>
 
-  <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <h2>Image</h2>
-    <app-img-preview name="Audio" class="img-preview"></app-img-preview>
-    <app-img-preview name="Video" class="img-preview"></app-img-preview>
-  </mat-card>
+  <app-media-section title="Image">
+    <app-img-preview name="Preview" class="img-preview"></app-img-preview>
+  </app-media-section>
 
-  <mat-card fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <h2>Video</h2>
-    <app-video-preview name="AR-Szene" class="img-preview"></app-video-preview>
-    <app-video-preview
-      name="Icon-Szene"
-      class="img-preview"
-    ></app-video-preview>
-  </mat-card>
+  <app-media-section title="Video">
+    <app-img-preview name="AR-Szene" class="img-preview"></app-img-preview>
+    <app-img-preview name="Icon-Szene" class="img-preview"></app-img-preview>
+  </app-media-section>
 
-  <mat-card
-    fxLayoutGap="30px"
-    fxLayout="row"
-    fxLayoutAlign="space-around center"
-  >
-    <h2>Vuforia</h2>
+  <app-media-section title="Vuforia">
     <app-img-preview-multiple></app-img-preview-multiple>
-  </mat-card>
+  </app-media-section>
 
   <mat-divider></mat-divider>
 

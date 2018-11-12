@@ -26,6 +26,7 @@ import { HtmlEditorComponent } from './poi-edit/html-editor/html-editor.componen
 import { QuillModule } from 'ngx-quill';
 import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component'
 import { ReactiveFormsModule } from '@angular/forms';
+import { MediaSectionComponent } from './poi-edit/media-section/media-section.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ImgPreviewMultipleComponent,
     VideoPreviewComponent,
     HtmlEditorComponent,
-    PoiContentComponent
+    PoiContentComponent,
+    MediaSectionComponent
   ],
   imports: [
     BrowserModule,
