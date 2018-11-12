@@ -5,6 +5,7 @@ import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
 import {LocaleService} from '../locale.service'
 import formatcoords from 'formatcoords'
+import { Router } from '@angular/router';
 
 
 const mapPOIs = pois => {
@@ -60,7 +61,7 @@ export class PoiOverviewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(poiService: PoiService, localeService: LocaleService) {
+  constructor(poiService: PoiService, localeService: LocaleService, private router: Router) {
     this.poiService = poiService
     this.localeService = localeService
     this.setT(localeService.getLocale())
@@ -102,8 +103,14 @@ export class PoiOverviewComponent implements OnInit {
     this.initializeTableDataSource()
   }
 
-  newPOI = () => window.location.href = '/new/'
+  newPOI = () => {
+    // window.location.href = '/new/';
+    this.router.navigate(['new']);
+  }
 
-  editPOI = (poiKey: string) => window.location.href = `/edit?key=${poiKey}`
+  editPOI = (poiKey: string) => {
+    //window.location.href = `/edit?key=${poiKey}`
+    this.router.navigate(['edit', poiKey]);
+  }
 
 }
