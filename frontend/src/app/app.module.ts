@@ -22,6 +22,10 @@ import { ImgPreviewComponent } from './poi-edit/img-preview/img-preview.componen
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ImgPreviewMultipleComponent } from './poi-edit/img-preview-multiple/img-preview-multiple.component';
 import { VideoPreviewComponent } from './poi-edit/video-preview/video-preview.component';
+import { HtmlEditorComponent } from './poi-edit/html-editor/html-editor.component';
+import { QuillModule } from 'ngx-quill';
+import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { VideoPreviewComponent } from './poi-edit/video-preview/video-preview.co
     PoiMapComponent,
     ImgPreviewComponent,
     ImgPreviewMultipleComponent,
-    VideoPreviewComponent
+    VideoPreviewComponent,
+    HtmlEditorComponent,
+    PoiContentComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,9 @@ import { VideoPreviewComponent } from './poi-edit/video-preview/video-preview.co
     HttpClientModule,
     FlexLayoutModule,
     FontAwesomeModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    QuillModule,
+    ReactiveFormsModule
   ],
   exports: [
 

@@ -1,3 +1,21 @@
 img {
   border: solid black 0.5px;
 }
+
+img, button {
+  width: 150px;
+  height: 100px;
+}
+
+
+.add-button {
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.lieco.at/wp-content/uploads/2015/11/placeholder-300x225.png');
+  background-size: cover;
+  background-position: center;
+}
+
+button{
+  padding: 0;
+}

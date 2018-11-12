@@ -1,0 +1,41 @@
+<h2>Content</h2>
+<mat-tab-group>
+  <mat-tab *ngFor="let lang of langs" [label]="lang">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Explored </mat-panel-title>
+          <mat-panel-description>
+            Add information that is shown when point of interest was explored.
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <quill-editor></quill-editor>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Preview </mat-panel-title>
+          <mat-panel-description>
+            Create preview-text for point of view
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <quill-editor></quill-editor>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Puzzles </mat-panel-title>
+          <mat-panel-description>
+            Create puzzles for point of view
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <quill-editor></quill-editor>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+</mat-tab-group>

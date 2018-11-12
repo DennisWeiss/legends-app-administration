@@ -27,7 +27,9 @@
               "src/styles.css",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/quill/dist/quill.js"
+            ]
           },
           "configurations": {
             "production": {

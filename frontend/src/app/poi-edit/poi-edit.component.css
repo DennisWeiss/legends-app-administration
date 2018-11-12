@@ -11,7 +11,11 @@ mat-form-field * {
   width: 100%;
 }
 
-
 .container {
   margin: 20px;
 }
+
+quill-editor {
+  height: 300px;
+}
+
