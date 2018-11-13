@@ -14,9 +14,10 @@ import translate from '../translations/translate';
   styleUrls: ['./poi-edit.component.css']
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
+  t
   poiTypes = ['RESTAURANT', 'LEGEND', 'SIGHT'];
   langs = ['DE', 'EN', 'PL'];
-  t
+
 
   videoForm = this.fb.group({
     arScene: [''],

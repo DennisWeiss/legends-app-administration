@@ -29,7 +29,7 @@
           <mat-form-field *ngIf="!editMode">
             <mat-select formControlName="type" [placeholder]="t('TYPE')">
               <mat-option *ngFor="let type of poiTypes" [value]="type">
-                {{ type }}
+                {{ t(type) }}
               </mat-option>
             </mat-select>
           </mat-form-field>
