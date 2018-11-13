@@ -14,7 +14,7 @@ import translate from '../translations/translate';
   styleUrls: ['./poi-edit.component.css']
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
-  t
+  t;
   poiTypes = ['RESTAURANT', 'LEGEND', 'SIGHT'];
   langs = ['DE', 'EN', 'PL'];
 
@@ -77,8 +77,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.setT(this.localeService.getLocale())
     this.localeService.localeUpdated.subscribe(this.setT.bind(this))
 
-    this.id = this.route.snapshot.paramMap.get('type');
-    this.type = this.route.snapshot.paramMap.get('type');
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.type = this.route.snapshot.queryParamMap.get('type');
 
     if (this.id && this.type) {
       this.editMode = true;

@@ -26,8 +26,8 @@
       class="general-data"
       >
 
-          <mat-form-field *ngIf="!editMode">
-            <mat-select formControlName="type" [placeholder]="t('TYPE')">
+          <mat-form-field>
+            <mat-select [disabled]="editMode" formControlName="type" [placeholder]="t('TYPE')">
               <mat-option *ngFor="let type of poiTypes" [value]="type">
                 {{ t(type) }}
               </mat-option>
