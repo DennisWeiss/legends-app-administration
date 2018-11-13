@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { icon, latLng, Map, marker, point, polyline, tileLayer } from 'leaflet';
 
 @Component({

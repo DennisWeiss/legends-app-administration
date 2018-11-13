@@ -15,6 +15,14 @@
         class="general-data"
       >
         <mat-form-field>
+          <mat-select placeholder="Type">
+            <mat-option *ngFor="let type of poiTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
           <input matInput type="text" placeholder="Name"/>
         </mat-form-field>
 
@@ -22,25 +30,22 @@
           <input matInput type="number" placeholder="Beacon-ID"/>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-select placeholder="type">
-            <mat-option *ngFor="let type of poiTypes" [value]="type">
-              {{ type }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div fxLayout
+             fxLayoutGap="10px"
+             fxLayoutAlign="space-around" >
+          <mat-form-field>
+            <input matInput type="number" placeholder="Latitude"/>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="number" placeholder="Longitude"/>
+          </mat-form-field>
+        </div>
+
       </div>
 
       <div fxFlex="1 1" class="map-container">
         <app-poi-map></app-poi-map>
-
-        <mat-form-field>
-          <input matInput type="number" placeholder="Lattitude"/>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput type="number" placeholder="Longitude"/>
-        </mat-form-field>
       </div>
     </div>
 
@@ -61,8 +66,6 @@
     <app-media-section title="Vuforia">
       <app-img-preview-multiple></app-img-preview-multiple>
     </app-media-section>
-
-    <mat-divider></mat-divider>
 
     <app-poi-content></app-poi-content>
 
