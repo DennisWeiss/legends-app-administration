@@ -9,9 +9,15 @@ export class PoiContentComponent implements OnInit {
 
   langs = ['DE', 'EN', 'PL'];
 
+  hints = [1];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  createHint() {
+    this.hints.push(this.hints.length + 1);
   }
 
 }

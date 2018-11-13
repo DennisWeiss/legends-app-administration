@@ -34,7 +34,11 @@
             Create puzzles for point of view
           </mat-panel-description>
         </mat-expansion-panel-header>
+      <div *ngFor="let hint of hints" class="hint">
+        <h3>Hint {{hint}}</h3>
         <quill-editor></quill-editor>
+      </div>
+      <button mat-button color='primary' (click)='createHint()'>Add new hint</button>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>

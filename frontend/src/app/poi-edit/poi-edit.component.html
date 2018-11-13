@@ -10,28 +10,29 @@
       fxFlex="1 1"
       fxLayoutAlign="center stretch"
       class="general-data"
-    >
+      >
+        <mat-card *ngIf="!editMode">
+          <mat-form-field>
+            <mat-select formControlName="type" placeholder="Type">
+              <mat-option *ngFor="let type of poiTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card>
+
       <mat-card>
         <mat-form-field>
           <input matInput type="text" formControlName="name" placeholder="Name" />
         </mat-form-field>
       </mat-card>
 
-      <mat-card>
+      <mat-card *ngIf="isLegend()">
         <mat-form-field>
           <input matInput type="number" formControlName="beaconId" placeholder="Beacon-ID" />
         </mat-form-field>
       </mat-card>
 
-      <mat-card>
-        <mat-form-field>
-          <mat-select formControlName="type" placeholder="type">
-            <mat-option *ngFor="let type of poiTypes" [value]="type">
-              {{ type }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card>
     </div>
 
     <div fxFlex="1 1" class="map-container">
@@ -49,6 +50,8 @@
     </div>
   </div>
 
+  <mat-divider></mat-divider>
+
   <div formGroupName="media">
   <app-media-section title="Icon">
     <app-img-preview [fileControl]="iconForm.controls.default" name="Default"></app-img-preview>
@@ -59,12 +62,12 @@
     <app-img-preview [fileControl]="imgForm.controls.preview" name="Preview"></app-img-preview>
   </app-media-section>
 
-  <app-media-section title="Video" formGroupName="video">
-    <app-video-preview [fileControl]="videoForm.controls.arScene" name="AR-Szene"></app-video-preview>
-    <app-video-preview [fileControl]="videoForm.controls.iconScene" name="Icon-Szene"></app-video-preview>
+  <app-media-section *ngIf="isLegend()" title="Video" formGroupName="video">
+    <app-video-preview [fileControl]="videoForm.controls.arScene" name="AR-Scene"></app-video-preview>
+    <app-video-preview [fileControl]="videoForm.controls.iconScene" name="Icon-Scene"></app-video-preview>
   </app-media-section>
 
-  <app-media-section title="Vuforia">
+  <app-media-section *ngIf="isLegend()" title="Vuforia">
     <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
   </app-media-section>
 </div>

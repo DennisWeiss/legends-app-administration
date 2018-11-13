@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./poi-edit.component.css']
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
-  poiTypes = ['restaurant', 'legend', 'sights'];
+  poiTypes = ['RESTAURANT', 'LEGEND', 'SIGHT'];
   langs = ['DE', 'EN', 'PL'];
 
   videoForm = this.fb.group({
@@ -33,7 +33,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   poiForm = this.fb.group({
     name: ['', Validators.required],
     beaconId: ['', Validators.required],
-    type: ['', Validators.required],
+    type: ['LEGEND', Validators.required],
     coordinates: this.fb.group({
       lat: ['', Validators.required],
       long: ['', Validators.required]
@@ -79,6 +79,10 @@ export class PoiEditComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  isLegend() {
+    return this.poiForm.controls.type.value === "LEGEND";
   }
 
   onSubmit() {
