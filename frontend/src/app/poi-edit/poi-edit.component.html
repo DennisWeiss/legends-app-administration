@@ -1,81 +1,109 @@
+
 <form [formGroup]="poiForm" (ngSubmit)="onSubmit()" class="container">
   <div
     fxLayout
     fxLayoutGap="20px"
     fxLayoutAlign="space-around"
-    class="general-info-container"
-  >
+    fxFlex.xl="80%"
+    fxFlex.lg="80%"
+    fxFlex.md="90%"
+    fxFlex.sm="100%"
+    fxFlex.xs="100%"
+    class="poi-edit-page">
+
+  <mat-card>
+    <div
+      fxLayout
+      fxLayoutGap="20px"
+      fxLayoutAlign="space-around"
+      class="general-info-container"
+    >
+
     <div
       fxLayout="column"
       fxFlex="1 1"
       fxLayoutAlign="center stretch"
       class="general-data"
       >
-        <mat-card *ngIf="!editMode">
-          <mat-form-field>
-            <mat-select formControlName="type" placeholder="Type">
+
+          <mat-form-field *ngIf="!editMode">
+            <mat-select formControlName="type" [placeholder]="t('TYPE')">
               <mat-option *ngFor="let type of poiTypes" [value]="type">
                 {{ type }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </mat-card>
 
-      <mat-card>
-        <mat-form-field>
-          <input matInput type="text" formControlName="name" placeholder="Name" />
-        </mat-form-field>
-      </mat-card>
 
-      <mat-card *ngIf="isLegend()">
+
         <mat-form-field>
-          <input matInput type="number" formControlName="beaconId" placeholder="Beacon-ID" />
+          <input matInput type="text" formControlName="name" [placeholder]="t('NAME')" />
         </mat-form-field>
-      </mat-card>
+
+
+
+        <mat-form-field *ngIf="isLegend()">
+          <input matInput type="number" formControlName="beaconId" [placeholder]="t('BEACON_ID')" />
+        </mat-form-field>
+
+
+      <div fxLayout  fxLayoutGap="10px"
+      fxLayoutAlign="space-around" formGroupName="coordinates">
+        <mat-form-field>
+          <input matInput type="number" formControlName="lat" [placeholder]="t('LATITUDE')" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" formControlName="long" [placeholder]="t('LONGITUDE')" />
+        </mat-form-field>
+    </div>
 
     </div>
 
     <div fxFlex="1 1" class="map-container">
       <app-poi-map></app-poi-map>
-
-      <mat-card fxLayout formGroupName="coordinates">
-        <mat-form-field>
-          <input matInput type="number" formControlName="lat" placeholder="Lattitude" />
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput type="number" formControlName="long" placeholder="Longitude" />
-        </mat-form-field>
-      </mat-card>
     </div>
   </div>
 
-  <mat-divider></mat-divider>
 
-  <div formGroupName="media">
-  <app-media-section title="Icon">
-    <app-img-preview [fileControl]="iconForm.controls.default" name="Default"></app-img-preview>
-    <app-img-preview [fileControl]="iconForm.controls.explored" name="Explored"></app-img-preview>
+  <div fxLayout="row wrap"
+  fxLayoutGap="10px"
+  fxLayoutAlign="space-around"
+  class="media-section"
+  formGroupName="media">
+
+
+  <app-media-section [title]="t('ICON')">
+    <app-img-preview [fileControl]="iconForm.controls.default" [name]="t('DEFAULT')"></app-img-preview>
+    <app-img-preview [fileControl]="iconForm.controls.explored" [name]="t('EXPLORED')"></app-img-preview>
   </app-media-section>
 
-  <app-media-section title="Image">
-    <app-img-preview [fileControl]="imgForm.controls.preview" name="Preview"></app-img-preview>
+  <app-media-section [title]="t('IMAGE')">
+    <app-img-preview [fileControl]="imgForm.controls.preview" [name]="t('PREVIEW')"></app-img-preview>
   </app-media-section>
 
-  <app-media-section *ngIf="isLegend()" title="Video" formGroupName="video">
-    <app-video-preview [fileControl]="videoForm.controls.arScene" name="AR-Scene"></app-video-preview>
-    <app-video-preview [fileControl]="videoForm.controls.iconScene" name="Icon-Scene"></app-video-preview>
-  </app-media-section>
-
-  <app-media-section *ngIf="isLegend()" title="Vuforia">
-    <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
+  <app-media-section *ngIf="isLegend()" [title]="t('VIDEO')" formGroupName="video">
+    <app-video-preview [fileControl]="videoForm.controls.arScene" [name]="t('AR_SCENE')"></app-video-preview>
+    <app-video-preview [fileControl]="videoForm.controls.iconScene" [name]="t('ICON_SCENE')"></app-video-preview>
   </app-media-section>
 </div>
 
-  <mat-divider></mat-divider>
+  <app-media-section *ngIf="isLegend()" [title]="t('VUFORIA_TARGETS')">
+    <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
+  </app-media-section>
 
-  <app-poi-content></app-poi-content>
 
-  <button type="submit" mat-flat-button color="primary" [disabled]="poiForm.invalid">Submit</button>
-  <button type="button" mat-flat-button color="accent">Clear</button>
+
+      <div class="poi-content">
+        <app-poi-content></app-poi-content>
+      </div>
+
+
+      <div class="poi-edit-buttons-bottom">
+        <button class="clear-btn" type="button" mat-button color="accent">{{t('CLEAR')}}</button>
+        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
+      </div>
+
+    </mat-card>
+  </div>
 </form>

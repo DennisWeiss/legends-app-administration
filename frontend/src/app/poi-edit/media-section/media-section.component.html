@@ -1,8 +1,9 @@
-<mat-card fxLayoutGap="30px" fxLayout="row" fxLayoutAlign="start center">
-    <div>
-      <h2 >{{title}}</h2>
-    </div>
-    <div style="width: 100%" fxLayoutGap="30px" fxLayout  fxLayoutAlign="center">
-    <ng-content></ng-content>
-    </div>
-  </mat-card>
+<div fxLayoutGap="30px"
+     fxLayout="row"
+     fxLayoutAlign="start center"
+      class="media-section-title">
+  <h3>{{title}}</h3>
+</div>
+<div style="width: 100%" fxLayoutGap="10px" fxLayout fxLayoutAlign="center">
+  <ng-content></ng-content>
+</div>

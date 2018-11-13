@@ -1,9 +1,12 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../poi.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { LocaleService } from '../locale.service';
+import translate from '../translations/translate';
 
 @Component({
   selector: 'app-poi-edit',
@@ -13,6 +16,7 @@ import { take } from 'rxjs/operators';
 export class PoiEditComponent implements OnInit, OnDestroy {
   poiTypes = ['RESTAURANT', 'LEGEND', 'SIGHT'];
   langs = ['DE', 'EN', 'PL'];
+  t
 
   videoForm = this.fb.group({
     arScene: [''],
@@ -46,6 +50,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     })
   });
 
+
   editMode = false;
   poi = null;
   type = null;
@@ -56,10 +61,20 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private poiService: PoiService
+    private poiService: PoiService,
+    public localeService: LocaleService
   ) {}
 
+
+  setT(locale: string) {
+    this.t = translate('poi-edit', locale)
+  }
+
+
   ngOnInit() {
+
+    this.setT(this.localeService.getLocale())
+    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
 
     this.id = this.route.snapshot.paramMap.get('type');
     this.type = this.route.snapshot.paramMap.get('type');
@@ -82,7 +97,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   }
 
   isLegend() {
-    return this.poiForm.controls.type.value === "LEGEND";
+    return this.poiForm.controls.type.value === 'LEGEND';
   }
 
   onSubmit() {
@@ -91,5 +106,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.paramSub.unsubscribe();
+
   }
 }

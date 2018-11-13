@@ -18,6 +18,24 @@ export default {
       "legends": "Legends",
       "sights": "Sights",
       "restaurants": "Restaurants"
+    },
+    "poi-edit": {
+      "TYPE": "Type",
+      "NAME": "Name",
+      "BEACON_ID": "Beacon ID",
+      "LATITUDE": "Latitude",
+      "LONGITUDE": "Longitude",
+      "ICON": "Icon",
+      "DEFAULT": "Default",
+      "EXPLORED": "Explored",
+      "IMAGE": "Image",
+      "PREVIEW": "Preview",
+      "VIDEO": "Video",
+      "AR_SCENE": "AR Scene",
+      "ICON_SCENE": "Icon Scene",
+      "VUFORIA_TARGETS": "Vuforia Targets",
+      "CLEAR": "Clear",
+      "SUBMIT": "Submit"
     }
   },
   "de": {
@@ -39,6 +57,24 @@ export default {
       "legends": "Sagen",
       "sights": "Sehenswürdigkeiten",
       "restaurants": "Restaurants"
+    },
+    "poi-edit": {
+      "TYPE": "Art",
+      "NAME": "Name",
+      "BEACON_ID": "Beacon ID",
+      "LATITUDE": "Geogr. Breite",
+      "LONGITUDE": "Geogr. Länge",
+      "ICON": "Icon",
+      "DEFAULT": "Default",
+      "EXPLORED": "Erkundet",
+      "IMAGE": "Bild",
+      "PREVIEW": "Vorschau",
+      "VIDEO": "Video",
+      "AR_SCENE": "AR-Szene",
+      "ICON_SCENE": "Icon-Szene",
+      "VUFORIA_TARGETS": "Vuforia Targets",
+      "CLEAR": "Zurücksetzen",
+      "SUBMIT": "Abschließen"
     }
   }
 }
