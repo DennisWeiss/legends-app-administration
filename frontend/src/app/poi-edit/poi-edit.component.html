@@ -1,29 +1,27 @@
 <form [formGroup]="poiForm" class="container">
-  <div
-    fxLayout
-    fxLayoutGap="20px"
-    fxLayoutAlign="space-around"
-    class="general-info-container"
-  >
+
+  <mat-card>
+
     <div
-      fxLayout="column"
-      fxFlex="1 1"
-      fxLayoutAlign="center stretch"
-      class="general-data"
+      fxLayout
+      fxLayoutGap="20px"
+      fxLayoutAlign="space-around"
+      class="general-info-container"
     >
-      <mat-card>
+      <div
+        fxLayout="column"
+        fxFlex="1 1"
+        fxLayoutAlign="center stretch"
+        class="general-data"
+      >
         <mat-form-field>
-          <input matInput type="text" placeholder="Name" />
+          <input matInput type="text" placeholder="Name"/>
         </mat-form-field>
-      </mat-card>
 
-      <mat-card>
         <mat-form-field>
-          <input matInput type="number" placeholder="Beacon-ID" />
+          <input matInput type="number" placeholder="Beacon-ID"/>
         </mat-form-field>
-      </mat-card>
 
-      <mat-card>
         <mat-form-field>
           <mat-select placeholder="type">
             <mat-option *ngFor="let type of poiTypes" [value]="type">
@@ -31,46 +29,45 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-card>
-    </div>
+      </div>
 
-    <div fxFlex="1 1" class="map-container">
-      <app-poi-map></app-poi-map>
+      <div fxFlex="1 1" class="map-container">
+        <app-poi-map></app-poi-map>
 
-      <mat-card fxLayout>
         <mat-form-field>
-          <input matInput type="number" placeholder="Lattitude" />
+          <input matInput type="number" placeholder="Lattitude"/>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="Longitude" />
+          <input matInput type="number" placeholder="Longitude"/>
         </mat-form-field>
-      </mat-card>
+      </div>
     </div>
-  </div>
 
-  <app-media-section title="Icon">
-    <app-img-preview name="Default" class="img-preview"></app-img-preview>
-    <app-img-preview name="Explored" class="img-preview"></app-img-preview>
-  </app-media-section>
+    <app-media-section title="Icon">
+      <app-img-preview name="Default" class="img-preview"></app-img-preview>
+      <app-img-preview name="Explored" class="img-preview"></app-img-preview>
+    </app-media-section>
 
-  <app-media-section title="Image">
-    <app-img-preview name="Preview" class="img-preview"></app-img-preview>
-  </app-media-section>
+    <app-media-section title="Image">
+      <app-img-preview name="Preview" class="img-preview"></app-img-preview>
+    </app-media-section>
 
-  <app-media-section title="Video">
-    <app-img-preview name="AR-Szene" class="img-preview"></app-img-preview>
-    <app-img-preview name="Icon-Szene" class="img-preview"></app-img-preview>
-  </app-media-section>
+    <app-media-section title="Video">
+      <app-img-preview name="AR-Szene" class="img-preview"></app-img-preview>
+      <app-img-preview name="Icon-Szene" class="img-preview"></app-img-preview>
+    </app-media-section>
 
-  <app-media-section title="Vuforia">
-    <app-img-preview-multiple></app-img-preview-multiple>
-  </app-media-section>
+    <app-media-section title="Vuforia">
+      <app-img-preview-multiple></app-img-preview-multiple>
+    </app-media-section>
 
-  <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
 
-  <app-poi-content></app-poi-content>
+    <app-poi-content></app-poi-content>
 
-  <button type="submit" mat-flat-button color="primary">Submit</button>
-  <button type="button" mat-flat-button color="accent">Clear</button>
+    <button type="submit" mat-flat-button color="primary">Submit</button>
+    <button type="button" mat-flat-button color="accent">Clear</button>
+
+  </mat-card>
 </form>
