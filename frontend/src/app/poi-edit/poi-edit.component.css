@@ -26,3 +26,14 @@ quill-editor {
 .poi-edit-page {
   margin: auto;
 }
+
+.poi-content {
+  margin: 30px 0;
+}
+
+.poi-edit-buttons-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+

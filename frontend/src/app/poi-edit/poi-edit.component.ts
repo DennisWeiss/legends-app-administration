@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
+import {LocaleService} from "../locale.service";
+import translate from "../translations/translate";
+
 @Component({
   selector: 'app-poi-edit',
   templateUrl: './poi-edit.component.html',
@@ -9,6 +12,8 @@ export class PoiEditComponent implements OnInit {
 
   poiTypes = ['restaurant', 'legend', 'sights'];
   langs = ['DE', 'EN', 'PL'];
+  localeService: LocaleService
+  t
 
   poiForm = new FormGroup({
     name: new FormControl(''),
@@ -19,9 +24,16 @@ export class PoiEditComponent implements OnInit {
     })
   });
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(localeService: LocaleService) {
+    this.localeService = localeService
+    this.setT(this.localeService.getLocale())
   }
 
+  setT(locale: string) {
+    this.t = translate('poi-edit', locale)
+  }
+
+  ngOnInit() {
+    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
+  }
 }

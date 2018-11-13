@@ -21,7 +21,7 @@
           class="general-data"
         >
           <mat-form-field>
-            <mat-select placeholder="Type">
+            <mat-select [placeholder]="t('TYPE')">
               <mat-option *ngFor="let type of poiTypes" [value]="type">
                 {{ type }}
               </mat-option>
@@ -29,22 +29,22 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput type="text" placeholder="Name"/>
+            <input matInput type="text" [placeholder]="t('NAME')"/>
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput type="number" placeholder="Beacon-ID"/>
+            <input matInput type="number" [placeholder]="t('BEACON_ID')"/>
           </mat-form-field>
 
           <div fxLayout
                fxLayoutGap="10px"
                fxLayoutAlign="space-around">
             <mat-form-field>
-              <input matInput type="number" placeholder="Latitude"/>
+              <input matInput type="number" [placeholder]="t('LATITUDE')"/>
             </mat-form-field>
 
             <mat-form-field>
-              <input matInput type="number" placeholder="Longitude"/>
+              <input matInput type="number" [placeholder]="t('LONGITUDE')"/>
             </mat-form-field>
           </div>
 
@@ -59,29 +59,33 @@
            fxLayoutGap="10px"
            fxLayoutAlign="space-around"
            class="media-section">
-        <app-media-section title="Icon">
-          <app-img-preview name="Default" class="img-preview"></app-img-preview>
-          <app-img-preview name="Explored" class="img-preview"></app-img-preview>
+        <app-media-section [title]="t('ICON')">
+          <app-img-preview [name]="t('DEFAULT')" class="img-preview"></app-img-preview>
+          <app-img-preview [name]="t('EXPLORED')" class="img-preview"></app-img-preview>
         </app-media-section>
 
-        <app-media-section title="Image">
-          <app-img-preview name="Preview" class="img-preview"></app-img-preview>
+        <app-media-section [title]="t('IMAGE')">
+          <app-img-preview [name]="t('PREVIEW')" class="img-preview"></app-img-preview>
         </app-media-section>
 
-        <app-media-section title="Video">
-          <app-img-preview name="AR-Szene" class="img-preview"></app-img-preview>
-          <app-img-preview name="Icon-Szene" class="img-preview"></app-img-preview>
+        <app-media-section [title]="t('VIDEO')">
+          <app-img-preview [name]="t('AR_SCENE')" class="img-preview"></app-img-preview>
+          <app-img-preview [name]="t('ICON_SCENE')" class="img-preview"></app-img-preview>
         </app-media-section>
       </div>
 
-      <app-media-section title="Vuforia">
+      <app-media-section [title]="t('VUFORIA_TARGETS')">
         <app-img-preview-multiple></app-img-preview-multiple>
       </app-media-section>
 
-      <app-poi-content></app-poi-content>
+      <div class="poi-content">
+        <app-poi-content></app-poi-content>
+      </div>
 
-      <button type="submit" mat-flat-button color="primary">Submit</button>
-      <button type="button" mat-flat-button color="accent">Clear</button>
+      <div class="poi-edit-buttons-bottom">
+        <button class="clear-btn" type="button" mat-button color="accent">{{t('CLEAR')}}</button>
+        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
+      </div>
 
     </mat-card>
   </div>

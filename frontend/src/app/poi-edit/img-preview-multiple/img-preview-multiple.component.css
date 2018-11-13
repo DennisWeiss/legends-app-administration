@@ -19,3 +19,21 @@ img, button {
 button{
   padding: 0;
 }
+
+.image-preview {
+  margin: 4px;
+}
+
+.drag-and-drop-field {
+  margin: 20px 10px;
+  height: 80px;
+  width: 100%;
+  background: #e4e4e4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #555555;
+  border-radius: 2px;
+  cursor: pointer;
+}
