@@ -28,11 +28,7 @@ router.get('/api-docs', swaggerUi.setup(swaggerDocument))
 require('./startup/routes')(app); // initalize all routes
 
 
-app.get('/versions/', (req, res) => {
-  VersionLocationData.find({}, (err, versions) => {
-    if (err) {
-      return next(err)
-    }
-    res.send(mapVersionLocationData(versions))
-  })
+app.get('/versions/', async (req, res) => {
+  const versions = await VersionLocationData.find({});
+  res.send(mapVersionLocationData(versions));
 })
