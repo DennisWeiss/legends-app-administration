@@ -1,7 +1,7 @@
 <mat-card fxLayout="column" fxLayoutAlign ="center center">
 
     <div fxLayout="row wrap" fxLayoutAlign="center center">
-        <img *ngFor="let image of images" src="https://www.lieco.at/wp-content/uploads/2015/11/placeholder-300x225.png"/>
+        <img *ngFor="let image of images" [src]="image"/>
 
 
         <button type="button" mat-button (click)="imgFileInput.click()">
@@ -9,7 +9,7 @@
           <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
           </div>
       </button>
-      <input hidden type="file" #imgFileInput/>
+      <input hidden type="file" (change)="handleFileInput($event.target.files)" #imgFileInput multiple />
       </div>
 
 </mat-card>
