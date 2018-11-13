@@ -1,16 +1,24 @@
-<mat-card fxLayout="column" fxLayoutAlign ="center">
-    <mat-card-title fxLayoutAlign="center">{{name}}</mat-card-title>
-    <button type="button" mat-flat-button color="primary" (click)="imgFileInput.click()">
-        <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
-    </button>
-    <input hidden type="file" [formControl]="fileControl" #imgFileInput/>
+<div fxLayout="column" fxLayoutAlign="center">
+  <div fxLayoutAlign="center"><h4>{{name}}</h4></div>
+  <div *ngIf="!videoUrl">
+    <div class="drag-and-drop-field"
+         ngFileDrop
+         [options]="options"
+         (uploadOutput)="onUploadOutput($event)"
+         (click)="imgFileInput.click()"
+         [uploadInput]="uploadInput"
+         [ngClass]="{ 'is-drop-over': dragOver }">
+      Drag &amp; Drop into here
+    </div>
+    <input hidden type="file" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
+  </div>
 
-  <img src="https://academyofphysicalmedicine.co.uk/wp-content/uploads/2014/05/video-placeholder.gif"/>
+  <img *ngIf="videoUrl" src="https://academyofphysicalmedicine.co.uk/wp-content/uploads/2014/05/video-placeholder.gif"/>
 
-<video fxHide *ngIf="videoUrl" width="320" height="240" autoplay>
-  <source src="videoUrl" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+  <video fxHide *ngIf="videoUrl" width="320" height="240" autoplay>
+    <source src="videoUrl" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-</mat-card>
+</div>
 

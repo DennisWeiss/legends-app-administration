@@ -14,7 +14,6 @@ export class VideoPreviewComponent implements OnInit {
   @Input() fileControl: FormControl;
 
   faPlusCircle = faPlusCircle;
-
   videoUrl = null;
 
   constructor() { }

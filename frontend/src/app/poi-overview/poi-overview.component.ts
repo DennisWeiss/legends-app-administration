@@ -104,12 +104,10 @@ export class PoiOverviewComponent implements OnInit {
   }
 
   newPOI = () => {
-    // window.location.href = '/new/';
     this.router.navigate(['new']);
   }
 
   editPOI = (poiKey: string) => {
-    //window.location.href = `/edit?key=${poiKey}`
     this.router.navigate(['edit', poiKey]);
   }
 
