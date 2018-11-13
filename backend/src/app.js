@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 require('./startup/db')(); // connect to db
 require('./startup/reqHeader')(app); // set inital headers (e.g. CORS)
-
+require('./startup/logging')(); //initialize logging
 
 router.use('/api-docs', swaggerUi.serve)
 router.get('/api-docs', swaggerUi.setup(swaggerDocument))
