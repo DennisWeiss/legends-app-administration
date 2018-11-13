@@ -1,14 +1,15 @@
 <mat-card fxLayout="column" fxLayoutAlign="center">
-  <mat-card-title fxLayoutAlign="center">{{name}}</mat-card-title>
+  <div fxLayoutAlign="center"><h4>{{name}}</h4></div>
 
   <div *ngIf="!imgLoaded">
-    <div class="drop-container"
+    <div class="drag-and-drop-field"
          ngFileDrop
          [options]="options"
          (uploadOutput)="onUploadOutput($event)"
+         (click)="manualUpload()"
          [uploadInput]="uploadInput"
          [ngClass]="{ 'is-drop-over': dragOver }">
-      <h1>Drag &amp; Drop</h1>
+      Drag &amp; Drop into here
     </div>
   </div>
 

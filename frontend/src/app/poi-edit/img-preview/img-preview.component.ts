@@ -52,6 +52,11 @@ export class ImgPreviewComponent implements OnInit {
     }
   }
 
+  // TODO: Implement manual upload with file explorer
+  manualUpload() {
+
+  }
+
   ngOnInit() {
   }
 
