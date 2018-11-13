@@ -15,5 +15,10 @@ img {
   border: 1px solid #555555;
   border-radius: 2px;
   cursor: pointer;
+  background-image: url("https://academyofphysicalmedicine.co.uk/wp-content/uploads/2014/05/video-placeholder.gif");
+  background-size: cover;
+  background-position: center;
+
+
 }
 

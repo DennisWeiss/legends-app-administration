@@ -1,30 +1,29 @@
-;
-import { FormControl } from '@angular/forms';
+import { FormControl } from "@angular/forms";
 
-import {Component, OnInit, Input, EventEmitter} from '@angular/core';
-import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
-import {UploaderOptions, UploadFile, UploadInput, UploadOutput} from "ngx-uploader";
-
+import { Component, OnInit, Input, EventEmitter } from "@angular/core";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  UploaderOptions,
+  UploadFile,
+  UploadInput,
+  UploadOutput
+} from "ngx-uploader";
 
 @Component({
-  selector: 'app-img-preview',
-  templateUrl: './img-preview.component.html',
-  styleUrls: ['./img-preview.component.css']
+  selector: "app-img-preview",
+  templateUrl: "./img-preview.component.html",
+  styleUrls: ["./img-preview.component.css"]
 })
 export class ImgPreviewComponent implements OnInit {
-
   @Input() name: string;
   fileToUpload: File = null;
   @Input() fileControl: FormControl;
-
 
   imgPreviewUrl = null;
   imgUploaded = false;
   imgLoaded = false;
 
   faPlusCircle = faPlusCircle;
-
-
 
   options: UploaderOptions;
   files: UploadFile[];
@@ -38,44 +37,56 @@ export class ImgPreviewComponent implements OnInit {
   }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === 'allAddedToQueue') { // when all files added in queue
+    if (output.type === "allAddedToQueue") {
+      // when all files added in queue
       const event: UploadInput = {
-        type: 'uploadAll',
-        url: '/upload',
-        method: 'POST',
-        data: { foo: 'bar' }
+        type: "uploadAll",
+        url: "/upload",
+        method: "POST",
+        data: { foo: "bar" }
       };
       this.uploadInput.emit(event);
-      this.imgLoaded = true
-    } else if (output.type === 'addedToQueue'  && typeof output.file !== 'undefined') { // add file to array when added
+      this.imgLoaded = true;
+    } else if (
+      output.type === "addedToQueue" &&
+      typeof output.file !== "undefined"
+    ) {
+      // add file to array when added
       this.files.push(output.file);
-    } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
+      this.handleFileInput([output.file.nativeFile]);
+    } else if (
+      output.type === "uploading" &&
+      typeof output.file !== "undefined"
+    ) {
       // update current data in files array for uploading file
-      const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
+      const index = this.files.findIndex(
+        file => typeof output.file !== "undefined" && file.id === output.file.id
+      );
       this.files[index] = output.file;
-    } else if (output.type === 'removed') {
+    } else if (output.type === "removed") {
       // remove file from array when removed
-      this.files = this.files.filter((file: UploadFile) => file !== output.file);
-    } else if (output.type === 'dragOver') {
+      this.files = this.files.filter(
+        (file: UploadFile) => file !== output.file
+      );
+    } else if (output.type === "dragOver") {
       this.dragOver = true;
-    } else if (output.type === 'dragOut') {
+    } else if (output.type === "dragOut") {
       this.dragOver = false;
-    } else if (output.type === 'drop') {
+    } else if (output.type === "drop") {
       this.dragOver = false;
     }
   }
 
   // TODO: Implement manual upload with file explorer
-  manualUpload() {
+  manualUpload() {}
 
-  }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  handleFileInput(files) {
-      this.fileControl.setValue(files.item(0));
+  handleFileInput(files: FileList | File[]) {
+    if (files[0]) {
+      this.fileControl.setValue(files[0]);
       this.loadFile(files[0]);
+    }
   }
 
   loadFile(file) {
@@ -87,8 +98,7 @@ export class ImgPreviewComponent implements OnInit {
   }
 
   resetFile() {
-    this.fileControl.setValue('');
+    this.fileControl.setValue("");
     this.imgPreviewUrl = null;
   }
-
 }

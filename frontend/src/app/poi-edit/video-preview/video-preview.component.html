@@ -1,5 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="center">
-  <div fxLayoutAlign="center"><h4>{{name}}</h4></div>
+  <div fxLayout fxLayoutAlign="center center">
+    <h4>{{name}}</h4>
+    <button *ngIf="videoUrl" (click)="resetFile()" mat-icon-button color="accent"><mat-icon>cancel</mat-icon></button>
+  </div>
   <div *ngIf="!videoUrl">
     <div class="drag-and-drop-field"
          ngFileDrop
@@ -13,10 +16,9 @@
     <input hidden type="file" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
   </div>
 
-  <img *ngIf="videoUrl" src="https://academyofphysicalmedicine.co.uk/wp-content/uploads/2014/05/video-placeholder.gif"/>
 
-  <video fxHide *ngIf="videoUrl" width="320" height="240" autoplay>
-    <source src="videoUrl" type="video/mp4">
+  <video *ngIf="videoUrl" width="320" height="240" controls preload="none">
+    <source [src]="videoUrl" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 

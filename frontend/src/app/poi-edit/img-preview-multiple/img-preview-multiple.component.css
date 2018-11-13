@@ -36,4 +36,7 @@ button{
   border: 1px solid #555555;
   border-radius: 2px;
   cursor: pointer;
+  background-image: url("https://studentcard.ae/wp-content/plugins/orchitech-dm/resources/alive-dm/img/empty-image.png");
+  background-size: cover;
+  background-position: center;
 }

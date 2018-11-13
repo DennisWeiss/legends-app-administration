@@ -84,6 +84,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
       this.editMode = true;
       this.poiService.getPOI(this.id, this.type).pipe(take(1)).subscribe((poi) => {
         this.poi = poi;
+        console.log('poi', this.poi);
       });
     }
 
