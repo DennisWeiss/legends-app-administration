@@ -73,25 +73,25 @@
   >
 
 
-  <app-media-section [title]="t('ICON')">
+  <app-media-section [title]="t('ICON')" [formGroup]="iconForm">
     <app-img-preview [fileControl]="iconForm.controls.default" [name]="t('DEFAULT')"></app-img-preview>
     <app-img-preview [fileControl]="iconForm.controls.explored" [name]="t('EXPLORED')"></app-img-preview>
   </app-media-section>
 
-  <app-media-section [title]="t('IMAGE')">
+
+  <app-media-section [title]="t('IMAGE')" [formGroup]="imgForm">
     <app-img-preview [fileControl]="imgForm.controls.preview" [name]="t('PREVIEW')"></app-img-preview>
   </app-media-section>
 
-  <app-media-section *ngIf="isLegend()" [title]="t('VIDEO')" formGroupName="video">
+  <app-media-section *ngIf="isLegend()" [title]="t('VIDEO')" [formGroup]="videoForm">
     <app-video-preview [fileControl]="videoForm.controls.arScene" [name]="t('AR_SCENE')"></app-video-preview>
     <app-video-preview [fileControl]="videoForm.controls.iconScene" [name]="t('ICON_SCENE')"></app-video-preview>
   </app-media-section>
 </div>
 
   <app-media-section *ngIf="isLegend()" [title]="t('VUFORIA_TARGETS')">
-    <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
+    <app-img-preview-multiple [fileControl]="vuforiaArray"></app-img-preview-multiple>
   </app-media-section>
-
 
 
       <div class="poi-content">

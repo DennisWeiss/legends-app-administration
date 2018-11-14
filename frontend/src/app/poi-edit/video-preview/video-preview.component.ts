@@ -17,7 +17,6 @@ export class VideoPreviewComponent implements OnInit {
   videoUrl = null;
 
   fileToUpload: File = null;
-  imgPreviewUrl = null;
   imgUploaded = false;
   imgLoaded = false;
 
@@ -34,7 +33,12 @@ export class VideoPreviewComponent implements OnInit {
 
 
   ngOnInit() {
-
+    // set initial url
+    this.videoUrl = this.fileControl.value;
+    // check for changes
+    this.fileControl.valueChanges.subscribe(() => {
+      this.videoUrl = this.fileControl.value;
+    })
   }
 
   onUploadOutput(output: UploadOutput): void {

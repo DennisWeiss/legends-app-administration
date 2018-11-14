@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./img-preview-multiple.component.css']
 })
 export class ImgPreviewMultipleComponent implements OnInit {
-  @Input() fileArray: FormArray;
+  @Input() fileControl: FormControl;
 
   imgLoaded = true;
   faPlusCircle = faPlusCircle;
@@ -16,11 +16,19 @@ export class ImgPreviewMultipleComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    // set initial url
+    this.images = this.fileControl.value;
+    // listen to changes
+    this.fileControl.valueChanges.subscribe(() => {
+      this.images = this.fileControl.value;
+    })
+  }
 
   handleFileInput(files) {
     for (let i = 0; i < files.length; i++) {
-      this.fileArray.push(new FormControl(files.item(i)));
+      this.fileControl.value.push(files.item(i));
       this.loadFile(files[i]);
     }
   }

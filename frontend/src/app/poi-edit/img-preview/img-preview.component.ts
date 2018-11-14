@@ -80,7 +80,16 @@ export class ImgPreviewComponent implements OnInit {
   // TODO: Implement manual upload with file explorer
   manualUpload() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    // check for initial url
+    this.imgPreviewUrl = this.fileControl.value;
+
+    // listen to changes
+    this.fileControl.valueChanges.subscribe(() => {
+      this.imgPreviewUrl = this.fileControl.value;
+    })
+  }
 
   handleFileInput(files: FileList | File[]) {
     if (files[0]) {

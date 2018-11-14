@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LocaleService } from '../locale.service';
 import translate from '../translations/translate';
+import { PoiEditFormsService } from './poi-edit-forms.service';
 
 @Component({
   selector: 'app-poi-edit',
@@ -18,50 +19,25 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   poiTypes = ['restaurants', 'legends', 'sights'];
   langs = ['DE', 'EN', 'PL'];
 
-
-  videoForm = this.fb.group({
-    arScene: [''],
-    iconScene: ['']
-  });
-
-  iconForm = this.fb.group({
-    default: null,
-    explored: null
-  });
-
-  imgForm = this.fb.group({
-    preview: null
-  });
-
-  vuforiaArray = this.fb.array([]);
-
-  poiForm = this.fb.group({
-    name: ['', Validators.required],
-    beaconId: ['', Validators.required],
-    type: ['LEGEND', Validators.required],
-    coordinates: this.fb.group({
-      lat: ['', Validators.required],
-      lng: ['', Validators.required]
-    }),
-    icons: this.iconForm,
-    image: this.imgForm,
-    video: this.videoForm,
-    vuforiaTargets: this.vuforiaArray
-  });
-
-
   editMode = false;
   poi = null;
   type = null;
   id = null;
 
+  poiForm;
+  contentForm;
+  videoForm;
+  imgForm;
+  vuforiaArray;
+  iconForm;
+
   paramSub: Subscription;
 
   constructor(
-    private fb: FormBuilder,
     private route: ActivatedRoute,
     private poiService: PoiService,
-    public localeService: LocaleService
+    public localeService: LocaleService,
+    private poiEditFormsService: PoiEditFormsService
   ) {}
 
 
@@ -69,8 +45,19 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.t = translate('poi-edit', locale)
   }
 
+  setupForms() {
+    this.poiForm = this.poiEditFormsService.poiForm;
+    this.contentForm = this.poiEditFormsService.contentForm;
+    this.videoForm = this.poiEditFormsService.videoForm;
+    this.iconForm = this.poiEditFormsService.iconForm;
+    this.vuforiaArray = this.poiEditFormsService.vuforiaArray;
+    this.imgForm = this.poiEditFormsService.imgForm;
+  }
+
 
   ngOnInit() {
+
+    this.setupForms();
 
     this.setT(this.localeService.getLocale())
     this.localeService.localeUpdated.subscribe(this.setT.bind(this))
@@ -82,8 +69,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
       this.editMode = true;
       this.poiService.getPOI(this.id).pipe(take(1)).subscribe((poi) => {
         this.poi = poi;
-       // this.poiForm.setValue(poi);
-        console.log('poi', this.poi);
+        this.poiEditFormsService.update(poi);
       });
     }
 
@@ -98,7 +84,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   }
 
   isLegend() {
-    return this.poiForm.controls.type.value === 'LEGEND';
+    return this.poiForm.controls.type.value === 'legends';
   }
 
   onSubmit() {
