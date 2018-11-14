@@ -9,6 +9,8 @@ import {mapVersionLocationData} from './mapper/version-location-data.mapper'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger'
 
+import winston from 'winston';
+
 
 const app = express()
 const router = express.Router()
@@ -30,8 +32,9 @@ app.get('/versions/', async (req, res) => {
   res.send(mapVersionLocationData(versions));
 })
 
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-app.listen(appConf.serverPort);
+app.listen(appConf.serverPort, function() {
+  winston.log('info', `Server running on ${appConf.serverPort}`);
+});

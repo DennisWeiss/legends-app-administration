@@ -8,14 +8,16 @@ import VersionLocationData from "../models/version-location-data";
 
 const updateVersions = require("../utils/updateVersions");
 
-router.post("/", async (req, res) => {
+const auth = require('../middlewares/authentication');
+
+router.post("/", auth, async (req, res) => {
   const poi = new POI(req.body);
   await poi.save();
   updateVersions(req.body, res);
   res.send("POI created successfully");
 });
 
-router.put("/", async (req, res) => {
+router.put("/", auth, async (req, res) => {
   const result = await POI.findOneAndUpdate({ key: req.body.key }, req.body);
   console.log(result);
   if (!result) {
