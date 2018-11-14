@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { PoiEditComponent } from './poi-edit.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PoiEditFormsService {
 
   contentForm = this.fb.group({

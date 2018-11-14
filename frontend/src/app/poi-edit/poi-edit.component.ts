@@ -12,7 +12,8 @@ import { PoiEditFormsService } from './poi-edit-forms.service';
 @Component({
   selector: 'app-poi-edit',
   templateUrl: './poi-edit.component.html',
-  styleUrls: ['./poi-edit.component.css']
+  styleUrls: ['./poi-edit.component.css'],
+  providers: [PoiEditFormsService]
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
   t;
