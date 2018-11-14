@@ -1,6 +1,3 @@
-require('express-async-errors'); //error-handling after all routes
-
-
 const winston = require('winston');
 require('winston-mongodb');
 
