@@ -39,6 +39,10 @@ export default {
       "VUFORIA_TARGETS": "Vuforia Targets",
       "CLEAR": "Clear",
       "SUBMIT": "Submit"
+    },
+    "poi-content": {
+      "EXPLORED": "Explored",
+      "PUZZLES": "Puzzles"
     }
   },
   "de": {
@@ -81,6 +85,10 @@ export default {
       "VUFORIA_TARGETS": "Vuforia Targets",
       "CLEAR": "Zurücksetzen",
       "SUBMIT": "Abschließen"
+    },
+    "poi-content": {
+      "EXPLORED": "Erkundet",
+      "PUZZLES": "Rätsel"
     }
   }
 }
