@@ -24,8 +24,8 @@ export class PoiService {
    * TODO: Create model for POI
    */
 
-  getPOI (id, type): Observable<any> {
-    return this.http.get<any>(`${backendUrl}poi/${type}/${id}`);
+  getPOI (key): Observable<any> {
+    return this.http.get<any>(`${backendUrl}poi/key/${key}`);
   }
 
   postFile(fileToUpload: File): Observable<boolean> {

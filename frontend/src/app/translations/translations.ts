@@ -20,9 +20,9 @@ export default {
       "restaurants": "Restaurants"
     },
     "poi-edit": {
-      "LEGEND": "legend",
-      "SIGHT": "sight",
-      "RESTAURANT": "restaurant",
+      "legends": "legend",
+      "sights": "sight",
+      "restaurants": "restaurant",
       "TYPE": "Type",
       "NAME": "Name",
       "BEACON_ID": "Beacon ID",
@@ -66,9 +66,9 @@ export default {
       "restaurants": "Restaurants"
     },
     "poi-edit": {
-      "LEGEND": "Sage",
-      "SIGHT": "Sehenswürdigkeit",
-      "RESTAURANT": "Restaurant",
+      "legends": "Sage",
+      "sights": "Sehenswürdigkeit",
+      "restaurants": "Restaurant",
       "TYPE": "Art",
       "NAME": "Name",
       "BEACON_ID": "Beacon ID",

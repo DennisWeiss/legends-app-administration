@@ -15,7 +15,7 @@ import translate from '../translations/translate';
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
   t;
-  poiTypes = ['RESTAURANT', 'LEGEND', 'SIGHT'];
+  poiTypes = ['restaurants', 'legends', 'sights'];
   langs = ['DE', 'EN', 'PL'];
 
 
@@ -41,14 +41,12 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     type: ['LEGEND', Validators.required],
     coordinates: this.fb.group({
       lat: ['', Validators.required],
-      long: ['', Validators.required]
+      lng: ['', Validators.required]
     }),
-    media: this.fb.group({
-      icons: this.iconForm,
-      image: this.imgForm,
-      video: this.videoForm,
-      vuforiaTargets: this.vuforiaArray
-    })
+    icons: this.iconForm,
+    image: this.imgForm,
+    video: this.videoForm,
+    vuforiaTargets: this.vuforiaArray
   });
 
 
@@ -82,8 +80,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
     if (this.id && this.type) {
       this.editMode = true;
-      this.poiService.getPOI(this.id, this.type).pipe(take(1)).subscribe((poi) => {
+      this.poiService.getPOI(this.id).pipe(take(1)).subscribe((poi) => {
         this.poi = poi;
+       // this.poiForm.setValue(poi);
         console.log('poi', this.poi);
       });
     }
