@@ -35,7 +35,7 @@ testem.log
 typings
 e2e/
 *.log
-
+.eslintrc.*
 
 # System Files
 .DS_Store
