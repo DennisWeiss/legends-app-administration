@@ -27,10 +27,11 @@ const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function(expStr) {
     return 'Bearer ' + jwt.sign(
         {_id: this._id, username: this.username},
-        appConf.jwtPrivateKey);
+        appConf.jwtPrivateKey,
+        {expiresIn: expStr});
 }
 
 

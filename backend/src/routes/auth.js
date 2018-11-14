@@ -52,11 +52,7 @@ router.post("/login", async (req, res, next) => {
   const key = appConf.jwtPrivateKey;
 
   //generate a token
-  const token = jwt.sign(
-    { username: user.username, _id: user._id },
-    key,
-    { expiresIn: "1h" }
-  );
+  const token = user.generateAuthToken('1h');
 
   res.status(200).send({
     message: "Login successful",
