@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { icon, latLng, Map, marker, point, polyline, tileLayer } from 'leaflet';
+import appConf from '../../../../app-conf'
 
 @Component({
   selector: 'app-poi-map',

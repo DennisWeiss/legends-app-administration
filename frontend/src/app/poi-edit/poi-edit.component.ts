@@ -1,13 +1,12 @@
-
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { PoiService } from '../poi.service';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { LocaleService } from '../locale.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {PoiService} from '../poi.service';
+import {Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {LocaleService} from '../locale.service';
 import translate from '../translations/translate';
-import { PoiEditFormsService } from './poi-edit-forms.service';
+import {PoiEditFormsService} from './poi-edit-forms.service';
 
 @Component({
   selector: 'app-poi-edit',
@@ -39,7 +38,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     private poiService: PoiService,
     public localeService: LocaleService,
     private poiEditFormsService: PoiEditFormsService
-  ) {}
+  ) {
+  }
 
 
   setT(locale: string) {
@@ -68,10 +68,13 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
     if (this.id && this.type) {
       this.editMode = true;
-      this.poiService.getPOI(this.id).pipe(take(1)).subscribe((poi) => {
-        this.poi = poi;
-        this.poiEditFormsService.update(poi);
-      });
+      this.poiService
+        .getPOI(this.id)
+        .pipe(take(1))
+        .subscribe((poi) => {
+          this.poi = poi;
+          this.poiEditFormsService.update(poi);
+        });
     }
 
     this.paramSub = this.route.paramMap.subscribe(params => {
