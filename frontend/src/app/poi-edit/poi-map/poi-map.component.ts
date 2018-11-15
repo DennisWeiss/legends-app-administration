@@ -13,8 +13,8 @@ export class PoiMapComponent implements OnInit {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
-    zoom: 5,
-    center: latLng(46.879966, -121.726909)
+    zoom: appConf.map.defaultZoom,
+    center: latLng(appConf.map.defaultCenter)
   };
 
 
