@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { icon, latLng, Map, marker, point, polyline, tileLayer } from 'leaflet';
-import appConf from '../../../../app-conf'
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-poi-map',
@@ -13,8 +13,8 @@ export class PoiMapComponent implements OnInit {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
-    zoom: appConf.map.defaultZoom,
-    center: latLng(appConf.map.defaultCenter)
+    zoom: environment.map.defaultZoom,
+    center: latLng(environment.map.defaultCenter)
   };
 
 
