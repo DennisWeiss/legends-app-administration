@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PoiEditComponent } from './poi-edit.component';
+import {PoiService} from "../poi.service";
 
 @Injectable()
 export class PoiEditFormsService {
+
+  poiService: PoiService
 
   contentForm = this.fb.group({
   })
@@ -42,7 +45,8 @@ export class PoiEditFormsService {
   });
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
 
   update(poi) {
