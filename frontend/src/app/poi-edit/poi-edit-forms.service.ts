@@ -49,9 +49,15 @@ export class PoiEditFormsService {
     this.poiForm.patchValue(poi);
   }
 
+  reset() {
+    const type = this.poiForm.controls.type.value;
+    this.poiForm.reset();
+    this.poiForm.controls.type.setValue(type);
+  }
+
 
   /**
-   * dynamically create content-form based on the available langauges
+   * dynamically create content-form based on the available languages
    */
   private createContentForm() {
 

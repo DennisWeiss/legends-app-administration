@@ -1,6 +1,5 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../poi.service';
 import { Subscription } from 'rxjs';
@@ -90,6 +89,10 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.poiForm);
+  }
+
+  resetForms() {
+    this.poiEditFormsService.reset();
   }
 
   ngOnDestroy() {
