@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import { environment } from '../environments/environment';
+import { Sight, Legend, Restaurant } from './poi-edit/poi.model';
 
 
 
@@ -19,7 +20,7 @@ export class PoiService {
    * TODO: Create model for POI
    */
 
-  getPOI = (key: string) => this.http.get<any>(`${environment.backendUrl}poi/key/${key}`)
+  getPOI = (key: string) => this.http.get<Sight | Legend | Restaurant>(`${environment.backendUrl}poi/key/${key}`)
 
 
   postFile = (fileToUpload: File) => {

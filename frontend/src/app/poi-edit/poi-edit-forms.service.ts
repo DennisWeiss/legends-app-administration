@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { PoiEditComponent } from './poi-edit.component';
-import {PoiService} from "../poi.service";
+import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import {PoiService} from '../poi.service';
 
 @Injectable()
 export class PoiEditFormsService {
 
-  poiService: PoiService
+  poiService: PoiService;
 
-  contentForm = this.fb.group({
-  })
+  contentForm: FormGroup;
 
   videoForm = this.fb.group({
-    arScene: [''],
-    iconScene: ['']
+    arScene: ['', Validators.required],
+    iconScene: ['', Validators.required]
   });
 
   iconForm = this.fb.group({
-    default: null,
-    explored: null
+    default: ['', Validators.required],
+    explored: ['', Validators.required]
   });
 
   imgForm = this.fb.group({
-    preview: null
+    preview: ['', Validators.required]
   });
 
   vuforiaArray = new FormControl([]);
@@ -30,7 +28,7 @@ export class PoiEditFormsService {
   poiForm = this.fb.group({
     name: ['', Validators.required],
     beaconId: ['', Validators.required],
-    type: ['LEGEND', Validators.required],
+    type: ['', Validators.required],
     coordinates: this.fb.group({
       lat: ['', Validators.required],
       lng: ['', Validators.required]
@@ -50,6 +48,8 @@ export class PoiEditFormsService {
 
 
   update(poi) {
+    this.contentForm = this.createContentForm(poi);
+    (this.poiForm.get('media') as FormGroup).controls.content = this.contentForm;
     this.poiForm.patchValue(poi);
   }
 
@@ -59,12 +59,68 @@ export class PoiEditFormsService {
     this.poiForm.controls.type.setValue(type);
   }
 
-
   /**
    * dynamically create content-form based on the available languages
    */
-  private createContentForm() {
+  private createContentForm(poi): FormGroup {
 
+    let formFactory = null;
+    switch (poi.type) {
+      case 'restaurants': formFactory = this.createRestaurantForm.bind(this); break;
+      case 'sights': formFactory = this.createSightForm.bind(this); break;
+      case 'legends': formFactory = this.createLegendForm.bind(this); break;
+    }
+
+    const langForm = this.fb.group({});
+    Object.entries(poi.media.content).forEach(([lang, content]) => {
+      langForm.addControl(lang, formFactory(content));
+    });
+    return langForm;
   }
 
+  createRestaurantForm(content): FormGroup {
+    return this.fb.group({
+      info: this.fb.group({
+        heading: [''],
+        index: [''],
+        type: [''],
+        url: ['']
+      })
+    });
+  }
+
+  createSightForm(content): FormGroup {
+    return this.createRestaurantForm(content);
+  }
+
+  createLegendForm(content): FormGroup {
+
+    const hintsForm = this.fb.array([]);
+
+    content.puzzle.hints.forEach((hint) => {
+      hintsForm.push(this.fb.group({
+        index: [''],
+        url: ['']
+      }));
+    })
+
+    return this.fb.group({
+      explored: this.fb.group({
+        heading: [''],
+        index: [''],
+        type: [''],
+        url: ['']
+      }),
+      preview: this.fb.group({
+        heading: [''],
+        index: [''],
+        type: [''],
+        url: ['']
+      }),
+      puzzle: this.fb.group({
+        heading: [''],
+        hints: hintsForm
+      })
+    })
+  }
 }

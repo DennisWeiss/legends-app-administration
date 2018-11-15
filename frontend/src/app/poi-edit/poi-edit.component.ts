@@ -6,6 +6,8 @@ import { take } from 'rxjs/operators';
 import { LocaleService } from '../locale.service';
 import translate from '../translations/translate';
 import {PoiEditFormsService} from './poi-edit-forms.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Sight, Legend, Restaurant } from './poi.model';
 
 @Component({
   selector: 'app-poi-edit',
@@ -20,15 +22,15 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   editMode = false;
   poi = null;
-  type = null;
+  type: string  = null;
   id = null;
 
-  poiForm;
-  contentForm;
-  videoForm;
-  imgForm;
-  vuforiaArray;
-  iconForm;
+  poiForm: FormGroup;
+  contentForm: FormGroup;
+  videoForm: FormGroup;
+  imgForm: FormGroup;
+  vuforiaArray: FormControl;
+  iconForm: FormGroup;
 
   paramSub: Subscription;
 
@@ -45,7 +47,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.t = translate('poi-edit', locale)
   }
 
-  setupForms() {
+  setupForms(): void {
     this.poiForm = this.poiEditFormsService.poiForm;
     this.contentForm = this.poiEditFormsService.contentForm;
     this.videoForm = this.poiEditFormsService.videoForm;
@@ -70,8 +72,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
       this.poiService
         .getPOI(this.id)
         .pipe(take(1))
-        .subscribe((poi) => {
+        .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
+          console.log(this.poi.kind);
           this.poiEditFormsService.update(poi);
         });
     }
@@ -86,7 +89,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   }
 
-  isLegend() {
+  isLegend(): boolean {
     return this.poiForm.controls.type.value === 'legends';
   }
 
@@ -94,8 +97,15 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     console.log(this.poiForm);
   }
 
+  /**
+   * revert to initial poi
+   */
   resetForms() {
-    this.poiEditFormsService.reset();
+    if (this.poi) {
+      this.poiEditFormsService.update(this.poi);
+    } else {
+      this.poiEditFormsService.reset();
+    }
   }
 
   ngOnDestroy() {
