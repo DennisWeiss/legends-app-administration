@@ -5,7 +5,6 @@ import {PoiService} from '../poi.service';
 @Injectable()
 export class PoiEditFormsService {
 
-
   constructor(private fb: FormBuilder) {}
 
   poiService: PoiService;
@@ -79,6 +78,7 @@ export class PoiEditFormsService {
     if (!type) { return; }
 
     const formFactory = this.poiCallbacks[type];
+
     this.langs.forEach((lang) => {
       this.contentForm.removeControl(lang);
       this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1]}}));
@@ -127,7 +127,6 @@ export class PoiEditFormsService {
 
     const hintsForm = this.fb.array([]);
 
-
     content.puzzle.hints.forEach(() => {
       hintsForm.push(this.fb.group({
         index: [''],
@@ -150,6 +149,11 @@ export class PoiEditFormsService {
   }
 
   addLang(lang) {
+    const currType = this.poiForm.controls.type.value;
+    this.contentForm.addControl(lang, this.poiCallbacks[currType]);
+  }
 
+  removeLang(lang) {
+    this.contentForm.removeControl(lang);
   }
 }
