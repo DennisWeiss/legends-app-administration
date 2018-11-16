@@ -5,11 +5,11 @@ import POI from "../models/poi.model";
 import { mapListOfPOIsToDict } from "../mapper/poi.mapper";
 
 import VersionLocationData from "../models/version-location-data";
-import { resolveSoa } from "dns";
 
 const updateVersions = require("../utils/updateVersions");
 
 const auth = require('../middlewares/authentication');
+const admin = require('../middlewares/admin');
 
 router.post("/", auth, async (req, res) => {
   const poi = new POI(req.body);
@@ -28,7 +28,7 @@ router.put("/", auth, async (req, res) => {
   res.send("POI updated successfully");
 });
 
-router.delete('/:key', auth, async (req, res, next) => {
+router.delete('/:key', auth, admin, async (req, res, next) => {
 
   const poi = await POI.findOneAndDelete({key: req.params.key});
   if(!poi) {
