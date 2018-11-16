@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocaleService } from '../../locale.service';
 import translate from 'src/app/translations/translate';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-poi-content',
   templateUrl: './poi-content.component.html',
@@ -10,6 +11,8 @@ export class PoiContentComponent implements OnInit {
 
   t;
   langs = ['DE', 'EN', 'PL'];
+  @Input() type: string;
+  @Input() contentForm: FormGroup;
 
   hints = [1];
 
@@ -22,6 +25,8 @@ export class PoiContentComponent implements OnInit {
   ngOnInit() {
     this.setT(this.localeService.getLocale())
     this.localeService.localeUpdated.subscribe(this.setT.bind(this))
+
+    console.log('content', this.contentForm);
   }
 
   createHint() {

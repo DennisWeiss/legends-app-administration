@@ -7,7 +7,10 @@ export class PoiEditFormsService {
 
   poiService: PoiService;
 
-  contentForm: FormGroup;
+  langs = ['de', 'en', 'pl'];
+
+  contentForm = this.fb.group({
+  });
 
   videoForm = this.fb.group({
     arScene: ['', Validators.required],
@@ -28,7 +31,7 @@ export class PoiEditFormsService {
   poiForm = this.fb.group({
     name: ['', Validators.required],
     beaconId: ['', Validators.required],
-    type: ['', Validators.required],
+    type: ['legends', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
       lat: ['', Validators.required],
       lng: ['', Validators.required]
@@ -59,6 +62,28 @@ export class PoiEditFormsService {
     this.poiForm.controls.type.setValue(type);
   }
 
+/**
+ * Is called by PoiEditComponent at the start so that contentForm is initialized
+ *
+ */
+
+  initContentForm(type) {
+
+    // set inital type-value
+    this.poiForm.controls.type.setValue(type);
+
+    let formFactory = null;
+    switch (type) {
+      case 'restaurants': formFactory = this.createRestaurantForm.bind(this); break;
+      case 'sights': formFactory = this.createSightForm.bind(this); break;
+      case 'legends': formFactory = () => this.createLegendForm({puzzle: {hints: [1]}}); break;
+    }
+
+    this.langs.forEach((lang) => {
+      this.contentForm.addControl(lang, formFactory());
+    })
+  }
+
   /**
    * dynamically create content-form based on the available languages
    */
@@ -78,7 +103,7 @@ export class PoiEditFormsService {
     return langForm;
   }
 
-  createRestaurantForm(content): FormGroup {
+  createRestaurantForm(): FormGroup {
     return this.fb.group({
       info: this.fb.group({
         heading: [''],
@@ -89,15 +114,15 @@ export class PoiEditFormsService {
     });
   }
 
-  createSightForm(content): FormGroup {
-    return this.createRestaurantForm(content);
+  createSightForm(): FormGroup {
+    return this.createRestaurantForm();
   }
 
   createLegendForm(content): FormGroup {
 
     const hintsForm = this.fb.array([]);
 
-    content.puzzle.hints.forEach((hint) => {
+    content.puzzle.hints.forEach(() => {
       hintsForm.push(this.fb.group({
         index: [''],
         url: ['']

@@ -18,12 +18,12 @@ import { Sight, Legend, Restaurant } from './poi.model';
 export class PoiEditComponent implements OnInit, OnDestroy {
   t;
   poiTypes = ['restaurants', 'legends', 'sights'];
-  langs = ['DE', 'EN', 'PL'];
 
   editMode = false;
   poi = null;
   type: string  = null;
   id = null;
+  defaultType = 'legends';
 
   poiForm: FormGroup;
   contentForm: FormGroup;
@@ -48,6 +48,10 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   }
 
   setupForms(): void {
+
+    const initialType = this.editMode ? this.type : this.defaultType;
+    this.poiEditFormsService.initContentForm(initialType);
+
     this.poiForm = this.poiEditFormsService.poiForm;
     this.contentForm = this.poiEditFormsService.contentForm;
     this.videoForm = this.poiEditFormsService.videoForm;
@@ -59,7 +63,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.setupForms();
 
     this.setT(this.localeService.getLocale())
     this.localeService.localeUpdated.subscribe(this.setT.bind(this))
@@ -86,6 +89,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         this.type = params.get('type');
       }
     });
+
+    this.setupForms();
+    console.log('in edit', this.contentForm);
 
   }
 
