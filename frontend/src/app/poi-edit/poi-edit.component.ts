@@ -49,15 +49,21 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   setupForms(): void {
 
+    this.poiForm = this.poiEditFormsService.poiForm;
+
     const initialType = this.editMode ? this.type : this.defaultType;
+    this.poiForm.controls.type.setValue(initialType);
     this.poiEditFormsService.initContentForm(initialType);
 
-    this.poiForm = this.poiEditFormsService.poiForm;
     this.contentForm = this.poiEditFormsService.contentForm;
     this.videoForm = this.poiEditFormsService.videoForm;
     this.iconForm = this.poiEditFormsService.iconForm;
     this.vuforiaArray = this.poiEditFormsService.vuforiaArray;
     this.imgForm = this.poiEditFormsService.imgForm;
+
+     // subscribe to future changes of type
+     this.poiForm.controls.type.valueChanges
+     .subscribe((val) => this.poiEditFormsService.initContentForm(val));
   }
 
 

@@ -7,6 +7,8 @@ TODO:
 - file-upload
 - adjusting quill-editor
 - adjusting map
+- completing drag and drop feature
 - validators for reactive-forms
 - extensive use of TypeScript
 - proper documentation 
+- error-handling (via interceptor?)

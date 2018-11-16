@@ -31,7 +31,7 @@ export class PoiEditFormsService {
   poiForm = this.fb.group({
     name: ['', Validators.required],
     beaconId: ['', Validators.required],
-    type: ['legends', Validators.required], // select deactivated when editing
+    type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
       lat: ['', Validators.required],
       lng: ['', Validators.required]
@@ -53,6 +53,7 @@ export class PoiEditFormsService {
   update(poi) {
     this.contentForm = this.createContentForm(poi);
     (this.poiForm.get('media') as FormGroup).controls.content = this.contentForm;
+    // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
     this.poiForm.patchValue(poi);
   }
 
@@ -69,8 +70,9 @@ export class PoiEditFormsService {
 
   initContentForm(type) {
 
-    // set inital type-value
-    this.poiForm.controls.type.setValue(type);
+    if (!type) {
+      return;
+    }
 
     let formFactory = null;
     switch (type) {
@@ -80,8 +82,10 @@ export class PoiEditFormsService {
     }
 
     this.langs.forEach((lang) => {
+      this.contentForm.removeControl(lang);
       this.contentForm.addControl(lang, formFactory());
     })
+    console.log(this.poiForm);
   }
 
   /**
