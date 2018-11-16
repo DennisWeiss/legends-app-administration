@@ -5,6 +5,7 @@ import POI from "../models/poi.model";
 import { mapListOfPOIsToDict } from "../mapper/poi.mapper";
 
 import VersionLocationData from "../models/version-location-data";
+import { resolveSoa } from "dns";
 
 const updateVersions = require("../utils/updateVersions");
 
@@ -25,6 +26,20 @@ router.put("/", auth, async (req, res) => {
   }
   await updateVersions(req.body, res);
   res.send("POI updated successfully");
+});
+
+router.delete('/:key', auth, async (req, res, next) => {
+
+  const poi = await POI.findOneAndDelete({key: req.params.key});
+  if(!poi) {
+    return res.status(404).send({message: 'Deletion failed. POI not found!'});
+  }
+
+  return res.status(200).send({
+    message: `POI of type ${poi.type} successful deleted!`, 
+    oldPoi: poi
+  });
+
 });
 
 router.get("/", async (req, res) => {
