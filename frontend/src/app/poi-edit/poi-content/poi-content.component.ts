@@ -33,4 +33,8 @@ export class PoiContentComponent implements OnInit {
     this.hints.push(this.hints.length + 1);
   }
 
+  addLang() {
+    
+  }
+
 }

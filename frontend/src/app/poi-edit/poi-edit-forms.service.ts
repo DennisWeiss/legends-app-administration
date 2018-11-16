@@ -5,9 +5,18 @@ import {PoiService} from '../poi.service';
 @Injectable()
 export class PoiEditFormsService {
 
+
+  constructor(private fb: FormBuilder) {}
+
   poiService: PoiService;
 
   langs = ['de', 'en', 'pl'];
+
+  poiCallbacks = {
+    'restaurants': this.createRestaurantForm.bind(this),
+    'sights':  this.createSightForm.bind(this),
+    'legends': this.createLegendForm.bind(this)
+  };
 
   contentForm = this.fb.group({
   });
@@ -46,9 +55,6 @@ export class PoiEditFormsService {
   });
 
 
-  constructor(private fb: FormBuilder) {
-  }
-
 
   update(poi) {
     this.contentForm = this.createContentForm(poi);
@@ -70,22 +76,14 @@ export class PoiEditFormsService {
 
   initContentForm(type) {
 
-    if (!type) {
-      return;
-    }
+    if (!type) { return; }
 
-    let formFactory = null;
-    switch (type) {
-      case 'restaurants': formFactory = this.createRestaurantForm.bind(this); break;
-      case 'sights': formFactory = this.createSightForm.bind(this); break;
-      case 'legends': formFactory = () => this.createLegendForm({puzzle: {hints: [1]}}); break;
-    }
-
+    const formFactory = this.poiCallbacks[type];
     this.langs.forEach((lang) => {
       this.contentForm.removeControl(lang);
-      this.contentForm.addControl(lang, formFactory());
+      this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1]}}));
     })
-    console.log(this.poiForm);
+    console.log('poi', this.poiForm);
   }
 
   /**
@@ -93,12 +91,8 @@ export class PoiEditFormsService {
    */
   private createContentForm(poi): FormGroup {
 
-    let formFactory = null;
-    switch (poi.type) {
-      case 'restaurants': formFactory = this.createRestaurantForm.bind(this); break;
-      case 'sights': formFactory = this.createSightForm.bind(this); break;
-      case 'legends': formFactory = this.createLegendForm.bind(this); break;
-    }
+    // get right factory
+    const formFactory = this.poiCallbacks[poi.type];
 
     const langForm = this.fb.group({});
     Object.entries(poi.media.content).forEach(([lang, content]) => {
@@ -124,7 +118,15 @@ export class PoiEditFormsService {
 
   createLegendForm(content): FormGroup {
 
+    const props = {
+      heading: [''],
+      index: [''],
+      type: [''],
+      url: ['']
+    }
+
     const hintsForm = this.fb.array([]);
+
 
     content.puzzle.hints.forEach(() => {
       hintsForm.push(this.fb.group({
@@ -135,21 +137,19 @@ export class PoiEditFormsService {
 
     return this.fb.group({
       explored: this.fb.group({
-        heading: [''],
-        index: [''],
-        type: [''],
-        url: ['']
+        ...props
       }),
       preview: this.fb.group({
-        heading: [''],
-        index: [''],
-        type: [''],
-        url: ['']
+        ...props
       }),
       puzzle: this.fb.group({
         heading: [''],
         hints: hintsForm
       })
     })
+  }
+
+  addLang(lang) {
+
   }
 }
