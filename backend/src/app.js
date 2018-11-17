@@ -11,17 +11,20 @@ import swaggerDocument from './swagger'
 
 import winston from 'winston';
 
+import cors from 'cors';
+
 
 const app = express()
 const router = express.Router()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({limit: '100mb'}))
+app.use(bodyParser.urlencoded({extended: true, limit: '100mb'}))
+app.use(cors())
 
 require('express-async-errors'); //error-handling after all routes (only for async/await)
 
 require('./startup/db')(); // connect to db
-require('./startup/reqHeader')(app); // set inital headers (e.g. CORS)
+//require('./startup/reqHeader')(app); // set inital headers (e.g. CORS)
 require('./startup/logging')(); //initialize logging
 
 
