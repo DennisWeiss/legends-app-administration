@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import {PoiService} from '../poi.service';
 
 @Injectable()
 export class PoiEditFormsService {
 
   constructor(private fb: FormBuilder) {}
-
-  poiService: PoiService;
 
   langs = ['de', 'en', 'pl'];
 
@@ -55,8 +52,8 @@ export class PoiEditFormsService {
 
 
   update(poi) {
+    this.clearFormGroup(this.contentForm);
     this.createContentForm(poi);
-    (this.poiForm.get('media') as FormGroup).controls.content = this.contentForm;
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
     this.poiForm.patchValue(poi);
   }
@@ -72,7 +69,7 @@ export class PoiEditFormsService {
  *
  */
 
-  initContentForm(type) {
+  initContentForm(type): void {
 
     if (!type) { return; }
 
@@ -98,7 +95,11 @@ export class PoiEditFormsService {
     });
   }
 
-  createRestaurantForm(): FormGroup {
+  private clearFormGroup(fg) {
+    Object.keys(fg.controls).forEach((name) => fg.removeControl(name));
+  }
+
+private createRestaurantForm(): FormGroup {
     return this.fb.group({
       info: this.fb.group({
         heading: [''],
@@ -109,11 +110,11 @@ export class PoiEditFormsService {
     });
   }
 
-  createSightForm(): FormGroup {
+  private createSightForm(): FormGroup {
     return this.createRestaurantForm();
   }
 
-  createLegendForm(content): FormGroup {
+  private createLegendForm(content): FormGroup {
 
     const hintsForm = this.fb.array([]);
 

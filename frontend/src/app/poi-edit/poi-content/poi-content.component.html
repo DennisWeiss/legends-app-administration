@@ -10,7 +10,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
-            <input matInput type="text" formControlName="heading" placeholder="heading">
+            <input matInput type="text" formControlName="heading" placeholder="Heading">
           </mat-form-field>
         <quill-editor [formControl] ="content(lang).explored.controls.url"></quill-editor>
       </mat-expansion-panel>
@@ -27,7 +27,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
-            <input matInput type="text" formControlName="heading" placeholder="heading">
+            <input matInput type="text" formControlName="heading" placeholder="Heading">
           </mat-form-field>
         <quill-editor [formControl] ="content(lang).preview.controls.url" ></quill-editor>
       </mat-expansion-panel>
@@ -40,11 +40,11 @@
         <mat-expansion-panel-header>
           <mat-panel-title> {{t('PUZZLES')}}  </mat-panel-title>
           <mat-panel-description>
-            Create puzzles for point of view
+            Create puzzle for point of view
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <input matInput type="text" formControlName="heading" placeholder="heading">
+        <input matInput type="text" formControlName="heading" placeholder="Heading">
         <div formArrayName="hints">
          <div *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
           <quill-editor [formControl]="hint.controls.url" ></quill-editor>
@@ -66,7 +66,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
-          <input matInput type="text" formControlName="heading" placeholder="heading">
+          <input matInput type="text" formControlName="heading" placeholder="Heading">
         </mat-form-field>
         <quill-editor [formControl] ="content(lang).info.controls.url"></quill-editor>
       </mat-expansion-panel>
