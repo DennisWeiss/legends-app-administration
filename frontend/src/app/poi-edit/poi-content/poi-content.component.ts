@@ -11,7 +11,6 @@ import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 export class PoiContentComponent implements OnInit {
 
   t;
-  langs = ['de', 'en', 'pl'];
   @Input() type: string;
   @Input() contentForm: FormGroup;
 
@@ -49,6 +48,10 @@ export class PoiContentComponent implements OnInit {
 
   hints(lang) {
     return (this.contentForm.get(lang).get('puzzle') as FormGroup).controls.hints as FormArray;
+  }
+
+  get langs() {
+    return Object.keys((this.contentForm.controls)) as Array<string>;
   }
 
 }
