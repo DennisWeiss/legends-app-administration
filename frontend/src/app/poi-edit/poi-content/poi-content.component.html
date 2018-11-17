@@ -9,20 +9,27 @@
             Add information that is shown when point of interest was explored.
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <quill-editor></quill-editor>
+        <mat-form-field>
+            <input matInput type="text" formControlName="heading" placeholder="heading">
+          </mat-form-field>
+        <quill-editor [formControl] ="content(lang).explored.controls.url"></quill-editor>
       </mat-expansion-panel>
+
       <mat-expansion-panel
         formGroupName="preview"
         (opened)="panelOpenState = true"
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title> Preview </mat-panel-title>
+          <mat-panel-title> Preview</mat-panel-title>
           <mat-panel-description>
             Create preview-text for point of view
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <quill-editor></quill-editor>
+        <mat-form-field>
+            <input matInput type="text" formControlName="heading" placeholder="heading">
+          </mat-form-field>
+        <quill-editor [formControl] ="content(lang).preview.controls.url" ></quill-editor>
       </mat-expansion-panel>
 
       <mat-expansion-panel
@@ -31,29 +38,37 @@
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title> {{t('PUZZLES')}} </mat-panel-title>
+          <mat-panel-title> {{t('PUZZLES')}}  </mat-panel-title>
           <mat-panel-description>
             Create puzzles for point of view
           </mat-panel-description>
         </mat-expansion-panel-header>
-      <div *ngFor="let hint of hints" class="hint">
-        <h3>Hint {{hint}}</h3>
-        <quill-editor></quill-editor>
+
+        <input matInput type="text" formControlName="heading" placeholder="heading">
+        <div formArrayName="hints">
+         <div *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
+          <quill-editor [formControl]="hint.controls.url" ></quill-editor>
+          <mat-divider></mat-divider>
+        </div>
       </div>
-      <button mat-button color='primary' (click)='createHint()'>Add new hint</button>
+        <button mat-button color='primary' type="button" (click)='createHint(lang)'>Add new hint</button>
+
       </mat-expansion-panel>
     </mat-accordion>
 
 
     <mat-accordion *ngIf="type !== 'legends'">
-      <mat-expansion-panel>
+      <mat-expansion-panel formGroupName="info">
         <mat-expansion-panel-header>
           <mat-panel-title> Information </mat-panel-title>
           <mat-panel-description>
             Add some general information.
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <quill-editor></quill-editor>
+        <mat-form-field>
+          <input matInput type="text" formControlName="heading" placeholder="heading">
+        </mat-form-field>
+        <quill-editor [formControl] ="content(lang).info.controls.url"></quill-editor>
       </mat-expansion-panel>
 
     </mat-accordion>

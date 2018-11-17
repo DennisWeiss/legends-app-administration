@@ -38,7 +38,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private poiService: PoiService,
     public localeService: LocaleService,
-    private poiEditFormsService: PoiEditFormsService
+    public formsService: PoiEditFormsService
   ) {
   }
 
@@ -49,21 +49,30 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   setupForms(): void {
 
-    this.poiForm = this.poiEditFormsService.poiForm;
+    this.poiForm = this.formsService.poiForm;
 
     const initialType = this.editMode ? this.type : this.defaultType;
     this.poiForm.controls.type.setValue(initialType);
-    this.poiEditFormsService.initContentForm(initialType);
+    this.formsService.initContentForm(initialType);
 
-    this.contentForm = this.poiEditFormsService.contentForm;
-    this.videoForm = this.poiEditFormsService.videoForm;
-    this.iconForm = this.poiEditFormsService.iconForm;
-    this.vuforiaArray = this.poiEditFormsService.vuforiaArray;
-    this.imgForm = this.poiEditFormsService.imgForm;
+    this.contentForm = this.formsService.contentForm;
+    this.videoForm = this.formsService.videoForm;
+    this.iconForm = this.formsService.iconForm;
+    this.vuforiaArray = this.formsService.vuforiaArray;
+    this.imgForm = this.formsService.imgForm;
 
      // subscribe to future changes of type
      this.poiForm.controls.type.valueChanges
-     .subscribe((val) => this.poiEditFormsService.initContentForm(val));
+     .subscribe((val) => {
+       if (!this.editMode) {
+         this.formsService.initContentForm(val)
+       }
+    });
+
+    this.poiForm.valueChanges.subscribe((val) => {
+      console.log('poi sub', this.poiForm);
+    })
+
   }
 
 
@@ -84,7 +93,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
           console.log(this.poi.kind);
-          this.poiEditFormsService.update(poi);
+          this.formsService.update(poi);
         });
     }
 
@@ -114,9 +123,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
    */
   resetForms() {
     if (this.poi) {
-      this.poiEditFormsService.update(this.poi);
+      this.formsService.update(this.poi);
     } else {
-      this.poiEditFormsService.reset();
+      this.formsService.reset();
     }
   }
 

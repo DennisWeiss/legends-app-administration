@@ -54,9 +54,8 @@ export class PoiEditFormsService {
   });
 
 
-
   update(poi) {
-    this.contentForm = this.createContentForm(poi);
+    this.createContentForm(poi);
     (this.poiForm.get('media') as FormGroup).controls.content = this.contentForm;
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
     this.poiForm.patchValue(poi);
@@ -81,31 +80,29 @@ export class PoiEditFormsService {
 
     this.langs.forEach((lang) => {
       this.contentForm.removeControl(lang);
-      this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1]}}));
+      this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
     })
-    console.log('poi', this.poiForm);
   }
 
   /**
    * dynamically create content-form based on the available languages
    */
-  private createContentForm(poi): FormGroup {
+  private createContentForm(poi): void {
 
     // get right factory
     const formFactory = this.poiCallbacks[poi.type];
 
-    const langForm = this.fb.group({});
     Object.entries(poi.media.content).forEach(([lang, content]) => {
-      langForm.addControl(lang, formFactory(content));
+      this.contentForm.removeControl(lang);
+      this.contentForm.addControl(lang, formFactory(content));
     });
-    return langForm;
   }
 
   createRestaurantForm(): FormGroup {
     return this.fb.group({
       info: this.fb.group({
         heading: [''],
-        index: [''],
+        index: [0],
         type: [''],
         url: ['']
       })
@@ -118,32 +115,34 @@ export class PoiEditFormsService {
 
   createLegendForm(content): FormGroup {
 
-    const props = {
-      heading: [''],
-      index: [''],
-      type: [''],
-      url: ['']
-    }
-
     const hintsForm = this.fb.array([]);
 
-    content.puzzle.hints.forEach(() => {
+    content.puzzle.hints.forEach((hint, index) => {
       hintsForm.push(this.fb.group({
-        index: [''],
+        index: [index],
         url: ['']
       }));
     })
 
     return this.fb.group({
       explored: this.fb.group({
-        ...props
+        heading: [''],
+        index: [1],
+        type: ['info_explored'],
+        url: ['']
       }),
       preview: this.fb.group({
-        ...props
+        heading: [''],
+        index: [0],
+        type: ['info'],
+        url: ['']
       }),
       puzzle: this.fb.group({
         heading: [''],
-        hints: hintsForm
+        hints: hintsForm,
+        index: [2],
+        type: ['puzzle'],
+        url: ['']
       })
     })
   }
