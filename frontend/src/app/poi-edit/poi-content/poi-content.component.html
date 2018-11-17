@@ -43,8 +43,9 @@
             Create puzzle for point of view
           </mat-panel-description>
         </mat-expansion-panel-header>
-
-        <input matInput type="text" formControlName="heading" placeholder="Heading">
+        <mat-form-field>
+            <input matInput type="text" formControlName="heading" placeholder="Heading">
+          </mat-form-field>
         <div formArrayName="hints">
          <div *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
           <quill-editor [formControl]="hint.controls.url" ></quill-editor>

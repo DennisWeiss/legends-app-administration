@@ -34,8 +34,13 @@ export class PoiEditFormsService {
   vuforiaArray = new FormControl([]);
 
   poiForm = this.fb.group({
-    name: ['', Validators.required],
-    beaconId: ['', Validators.required],
+    key: [''],
+    name: this.fb.group({
+      en: [''],
+      de: [''],
+      pl: ['']
+    }),
+    beaconId: [-1, Validators.required],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
       lat: ['', Validators.required],

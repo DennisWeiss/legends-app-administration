@@ -116,6 +116,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.poiForm);
+    this.poiService.postPOI(this.poiForm.value).pipe(take(1)).subscribe((res) => {
+
+    });
   }
 
   /**
@@ -127,6 +130,10 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     } else {
       this.formsService.reset();
     }
+  }
+
+  get langs() {
+    return Object.keys((this.poiForm.get('name') as FormGroup).controls) as Array<string>;
   }
 
   ngOnDestroy() {

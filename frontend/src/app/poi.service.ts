@@ -22,6 +22,8 @@ export class PoiService {
 
   getPOI = (key: string) => this.http.get<Sight | Legend | Restaurant>(`${environment.backendUrl}poi/key/${key}`)
 
+  postPOI = (poi: Restaurant | Legend | Sight) => this.http.post(`${environment.backendUrl}poi`, poi);
+
 
   postFile = (fileToUpload: File) => {
     const formData: FormData = new FormData();
