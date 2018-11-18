@@ -27,13 +27,12 @@ export class ContentFormService {
     this.clearFormGroup(this.contentForm);
     this.createContentForm(contents, type);
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
-    //this.contentForm.patchValue(contents);
+    this.contentForm.patchValue(contents);
 
   }
 
   reset(content, type) {
     this.contentForm.reset();
-    // this.poiForm.controls.type.setValue(type);
   }
 
 
