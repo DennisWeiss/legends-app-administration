@@ -10,6 +10,7 @@ const updateVersions = require('../utils/updateVersions')
 
 const auth = require('../middlewares/authentication')
 const admin = require('../middlewares/admin')
+const filePaths = require('../middlewares/filepaths');
 
 const multer = require('multer');
 
@@ -49,21 +50,9 @@ const formData = [
   {name: 'vuforia_targets', maxCount: 30}
 ];
 
-router.post('/', upload.fields(formData), async (req, res, next) => {
+router.post('/', upload.fields(formData), filePaths, async (req, res, next) => {
 
-  // since mime-type is multipart/formData, poi-object was stringified and needs to be parsed
-  const body = JSON.parse(req.body.poi);
-
-  const url = req.protocol + "://" + req.get("host") + '/';
-
-  console.log('files', req.files);
-
-  body.icons.default = url + req.files['icon_default'][0].filename;
-  body.icons.explored = url + req.files['icon_explored'][0].filename;
-  body.media.image.preview = url + req.files['image_preview'][0].filename;
-  body.media.video.arScene = url + req.files['video_ar_scene'][0].filename,
-  body.media.video.iconScene = url + req.files['video_icon_scene'][0].filename,
-  body.media.vuforiaTargets = req.files['vuforia_targets'].map(file=> url + file.filename);
+  const body = req.body;
 
   const poi = new POI(body);
 
@@ -78,7 +67,8 @@ router.post('/', upload.fields(formData), async (req, res, next) => {
   return res.send(`POI of type ${poi.type} created successfully`);
 })
 
-router.put('/', async (req, res) => {
+router.put('/', upload.fields(formData), filePaths, async (req, res) => {
+
   const poi = await POI.findOne({ key: req.body.key });
 
   if (!poi) {
