@@ -113,7 +113,7 @@ private createRestaurantForm(): FormGroup {
       info: this.fb.group({
         heading: [''],
         index: [0],
-        type: [''],
+        type: ['info'],
         url: ['']
       })
     });
