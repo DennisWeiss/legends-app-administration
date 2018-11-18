@@ -8,12 +8,12 @@ import translate from '../translations/translate';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Sight, Legend, Restaurant } from './poi.model';
+import { ContentFormService } from './poi-content/content-form.service';
 
 @Component({
   selector: 'app-poi-edit',
   templateUrl: './poi-edit.component.html',
-  styleUrls: ['./poi-edit.component.css'],
-  providers: [PoiEditFormsService]
+  styleUrls: ['./poi-edit.component.css']
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
   t;
@@ -38,7 +38,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private poiService: PoiService,
     public localeService: LocaleService,
-    public formsService: PoiEditFormsService
+    public formsService: PoiEditFormsService,
+    private contentFormService: ContentFormService
   ) {
   }
 
@@ -53,7 +54,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
     const initialType = this.editMode ? this.type : this.defaultType;
     this.poiForm.controls.type.setValue(initialType);
-    this.formsService.initContentForm(initialType);
 
     this.contentForm = this.formsService.contentForm;
     this.videoForm = this.formsService.videoForm;
@@ -65,7 +65,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
      this.poiForm.controls.type.valueChanges
      .subscribe((val) => {
        if (!this.editMode) {
-         this.formsService.initContentForm(val)
+         this.contentFormService.initContentForm(val);
        }
     });
 
@@ -136,6 +136,11 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   get langs() {
     return Object.keys((this.poiForm.get('name') as FormGroup).controls) as Array<string>;
+  }
+
+  initContentForm(contentForm: FormGroup) {
+    (this.formsService.poiForm.get('media') as FormGroup).removeControl('content');
+    (this.formsService.poiForm.get('media')as FormGroup).addControl('content', contentForm);
   }
 
   ngOnDestroy() {
