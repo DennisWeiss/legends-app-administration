@@ -26,6 +26,10 @@ export class PoiService {
     return this.http.post(`${environment.backendUrl}poi`, this.createFormData(poi));
   };
 
+  putPOI = (poi: Restaurant | Legend | Sight) => {
+    return this.http.put(`${environment.backendUrl}poi`, this.createFormData(poi));
+  }
+
   private createFormData = (poi) => {
     const postData = new FormData();
     postData.append('poi', JSON.stringify(poi));

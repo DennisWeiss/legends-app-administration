@@ -115,9 +115,11 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.poiForm);
-    const value = this.poiForm.value;
-    this.poiService.postPOI(value).pipe(take(1)).subscribe((res) => {
 
+    const poi = this.poiForm.value;
+    const request =  this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
+    request.pipe(take(1)).subscribe((res) => {
+      console.log('res', res);
     });
   }
 
