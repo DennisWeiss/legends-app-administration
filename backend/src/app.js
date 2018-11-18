@@ -21,6 +21,8 @@ app.use(bodyParser.json({limit: '100mb'}))
 app.use(bodyParser.urlencoded({extended: true, limit: '100mb'}))
 app.use(cors())
 
+app.use(express.static('files'));
+
 require('express-async-errors'); //error-handling after all routes (only for async/await)
 
 require('./startup/db')(); // connect to db

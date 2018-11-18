@@ -11,18 +11,70 @@ const updateVersions = require('../utils/updateVersions')
 const auth = require('../middlewares/authentication')
 const admin = require('../middlewares/admin')
 
+const multer = require('multer');
 
-router.post('/', async (req, res, next) => {
-  const poi = new POI(req.body)
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //const isValid = MIME_TYPE_MAP[file.mimetype];
+   // let error = new Error("Invalid MIME type");
+    //if (isValid) {
+      //error = null;
+    //}
+    cb(null, "files");
+  },
+  filename: (req, file, cb) => {
+
+    //remove spaces and replace them with '-'
+    const name = file.originalname
+      .toLowerCase()
+      .split(" ")
+      .join("-");
+    //const ext = MIME_TYPE_MAP[file.mimetype];
+
+    const ext = name.split('.')[1];
+
+    //example: test-1.1.2001.jpg
+    cb(null, name + "-" + Date.now() + "." + ext);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+const formData = [
+  {name: 'icon_default'},
+  {name: 'icon_explored'},
+  {name: 'image_preview'},
+  {name: 'video_ar_scene'},
+  {name: 'video_icon_scene'},
+  {name: 'vuforia_targets', maxCount: 30}
+];
+
+router.post('/', upload.fields(formData), async (req, res, next) => {
+
+  // since mime-type is multipart/formData, poi-object was stringified and needs to be parsed
+  const body = JSON.parse(req.body.poi);
+
+  const url = req.protocol + "://" + req.get("host") + '/';
+
+  console.log('files', req.files);
+
+  body.icons.default = url + req.files['icon_default'][0].filename;
+  body.icons.explored = url + req.files['icon_explored'][0].filename;
+  body.media.image.preview = url + req.files['image_preview'][0].filename;
+  body.media.video.arScene = url + req.files['video_ar_scene'][0].filename,
+  body.media.video.iconScene = url + req.files['video_icon_scene'][0].filename,
+  body.media.vuforiaTargets = req.files['vuforia_targets'].map(file=> url + file.filename);
+
+  const poi = new POI(body);
 
   try {
-    await poi.addContent(req.body.media.content);
+    await poi.addContent(body.media.content);
   } catch (err) {
     return res.status(400).send({ message: 'Invalid content!', error: err })
   }
 
   await poi.save()
-  updateVersions(req.body, res)
+  updateVersions(body, res)
   return res.send(`POI of type ${poi.type} created successfully`);
 })
 
