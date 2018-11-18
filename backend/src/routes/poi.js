@@ -63,18 +63,18 @@ router.post('/', upload.fields(formData), filePaths, async (req, res, next) => {
   }
 
   await poi.save()
-  updateVersions(body, res)
-  return res.send(`POI of type ${poi.type} created successfully`);
+  await updateVersions(body, res);
+  return res.send({message: `POI of type ${poi.type} created successfully`});
 })
 
-router.put('/', upload.fields(formData), filePaths, async (req, res) => {
+router.put('/', upload.fields(formData), filePaths, async (req, res, next) => {
 
-  const poi = await POI.findOne({ key: req.body.key });
+  const poi = await POI.findOneAndUpdate({ key: req.body.key }, req.body);
 
   if (!poi) {
-    res.send(404, { message: 'POI not found!' })
+    return res.status(404).send({ message: 'POI not found!' })
   }
-
+  /*
   //remove existing langs
   poi.media.content.clear();
   
@@ -85,9 +85,9 @@ router.put('/', upload.fields(formData), filePaths, async (req, res) => {
   }
 
   await poi.save();
-
-  await updateVersions(req.body, res)
-  res.send(`POI of type ${poi.type} updated successfully`);
+*/
+  await updateVersions(req.body, res);
+  res.send({message: `POI of type ${poi.type} updated successfully`});
 });
 
 router.delete('/:key', auth, admin, async (req, res, next) => {
