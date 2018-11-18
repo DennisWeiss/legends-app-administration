@@ -31,7 +31,7 @@ export class PoiEditFormsService {
     preview: ['', Validators.required]
   });
 
-  vuforiaArray = new FormControl([]);
+  vuforiaArray = new FormArray([]);
 
   poiForm = this.fb.group({
     key: [''],
@@ -60,7 +60,11 @@ export class PoiEditFormsService {
     this.clearFormGroup(this.contentForm);
     this.createContentForm(poi);
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
+    poi.media.vuforiaTargets.forEach((url) => {
+      this.vuforiaArray.push(new FormControl(url));
+    })
     this.poiForm.patchValue(poi);
+
   }
 
   reset() {

@@ -8,27 +8,29 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./img-preview-multiple.component.css']
 })
 export class ImgPreviewMultipleComponent implements OnInit {
-  @Input() fileControl: FormControl;
+  @Input() fileArray: FormArray;
 
   imgLoaded = true;
   faPlusCircle = faPlusCircle;
   images = [];
+  imagePreview = [];
 
   constructor() {}
 
   ngOnInit() {
 
     // set initial url
-    this.images = this.fileControl.value;
-    // listen to changes
-    this.fileControl.valueChanges.subscribe(() => {
-      this.images = this.fileControl.value;
+    this.images = this.fileArray.controls.map((control) => control.value);
+
+    this.fileArray.valueChanges.subscribe(() => {
+      this.images = this.fileArray.controls.map((control) => control.value);
     })
+
   }
 
   handleFileInput(files) {
     for (let i = 0; i < files.length; i++) {
-      this.fileControl.value.push(files.item(i));
+      this.fileArray.push(new FormControl(files.item(i)));
       this.loadFile(files[i]);
     }
   }

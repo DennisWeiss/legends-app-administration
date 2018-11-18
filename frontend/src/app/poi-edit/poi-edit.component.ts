@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { LocaleService } from '../locale.service';
 import translate from '../translations/translate';
 import {PoiEditFormsService} from './poi-edit-forms.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Sight, Legend, Restaurant } from './poi.model';
 
 @Component({
@@ -29,7 +29,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   contentForm: FormGroup;
   videoForm: FormGroup;
   imgForm: FormGroup;
-  vuforiaArray: FormControl;
+  vuforiaArray: FormArray;
   iconForm: FormGroup;
 
   paramSub: Subscription;
@@ -92,7 +92,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
-          console.log(this.poi.kind);
           this.formsService.update(poi);
         });
     }
@@ -116,7 +115,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.poiForm);
-    this.poiService.postPOI(this.poiForm.value).pipe(take(1)).subscribe((res) => {
+    const value = this.poiForm.value;
+    this.poiService.postPOI(value).pipe(take(1)).subscribe((res) => {
 
     });
   }
