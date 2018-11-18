@@ -23,7 +23,9 @@ export class ImgPreviewMultipleComponent implements OnInit {
     this.images = this.fileArray.controls.map((control) => control.value);
 
     this.fileArray.valueChanges.subscribe(() => {
-      this.images = this.fileArray.controls.map((control) => control.value);
+      this.images = this.fileArray.controls
+      .map((control) => control.value)
+      .filter((data) => typeof data === 'string');
     })
 
   }
