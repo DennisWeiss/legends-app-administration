@@ -63,9 +63,16 @@ export class PoiEditFormsService {
   }
 
   reset() {
+    this.clearFormArray(this.vuforiaArray);
     const type = this.poiForm.controls.type.value;
     this.poiForm.reset();
     this.poiForm.controls.type.setValue(type);
+  }
+
+  private clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0)
+    }
   }
 
 }

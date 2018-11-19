@@ -87,7 +87,8 @@ export class ImgPreviewComponent implements OnInit {
 
     // listen to changes
     this.fileControl.valueChanges.subscribe(() => {
-      if (typeof this.fileControl.value === 'string') {
+      const val = this.fileControl.value;
+      if (typeof val === 'string' || !val) {
         this.imgPreviewUrl = this.fileControl.value;
       }
     })

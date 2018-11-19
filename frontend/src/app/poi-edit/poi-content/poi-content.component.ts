@@ -125,8 +125,10 @@ export class PoiContentComponent implements OnInit {
     }));
   }
 
-  addLang() {
-
+  addLang(lang) {
+    if (lang !== '') {
+      this.contentFormService.addLang(lang, this.type);
+    }
   }
 
   content(lang) {

@@ -118,9 +118,10 @@ private createLegendForm(content): FormGroup {
   })
 }
 
-addLang(lang) {
-  const currType = (this.contentForm.root as FormGroup).controls.type.value;
-  this.contentForm.addControl(lang, this.poiCallbacks[currType]);
+addLang(lang, type) {
+  //const currType = (this.contentForm.root as FormGroup).controls.type.value;
+  const formFactory = this.poiCallbacks[type];
+  this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
 }
 
 removeLang(lang) {

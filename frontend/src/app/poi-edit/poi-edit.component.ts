@@ -120,11 +120,11 @@ export class PoiEditComponent implements OnInit, OnDestroy {
    * revert to initial poi
    */
   resetForms() {
+    this.formsService.reset();
     if (this.poi) {
       this.formsService.update(this.poi);
-    } else {
-      this.formsService.reset();
     }
+
   }
 
   get langs() {

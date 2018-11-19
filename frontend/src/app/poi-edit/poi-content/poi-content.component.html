@@ -1,4 +1,13 @@
-<h2>Content</h2>
+<div fxLayoutGap="10px" fxLayout fxLayoutAlign="space-between center">
+  <h2>Content</h2>
+  <div>
+  <mat-form-field>
+    <input matInput #newLang type="text" placeholder="Add new language...">
+  </mat-form-field>
+  <button type="button" mat-icon-button color="primary" (click)="addLang(newLang.value); newLang.value=''">+</button>
+  </div>
+</div>
+<mat-divider></mat-divider>
 <mat-tab-group [formGroup]="contentForm">
   <mat-tab *ngFor="let lang of langs" [formGroupName]="lang.toLowerCase()" [label]="lang">
     <mat-accordion  *ngIf="type === 'legends'">
@@ -76,3 +85,5 @@
 
   </mat-tab>
 </mat-tab-group>
+
+
