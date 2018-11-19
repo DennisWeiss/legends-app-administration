@@ -1,0 +1,39 @@
+
+mat-card {
+  margin-bottom: 20px;
+}
+
+mat-card, mat-form-field, input {
+  width: 100%;
+}
+
+mat-form-field * {
+  width: 100%;
+}
+
+.container {
+  margin: 20px;
+}
+
+quill-editor {
+  height: 300px;
+}
+
+.media-section {
+  margin: 30px 0;
+}
+
+.poi-edit-page {
+  margin: auto;
+}
+
+.poi-content {
+  margin: 30px 0;
+}
+
+.poi-edit-buttons-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+

@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <img *ngFor="let image of images" [src]="image"/>
+
+    <div class="drag-and-drop-field"
+         ngFileDrop
+         [options]="options"
+         (uploadOutput)="onUploadOutput($event)"
+         (click)="imgFileInput.click()"
+         [uploadInput]="uploadInput"
+         [ngClass]="{ 'is-drop-over': dragOver }">
+      Drag &amp; Drop into here
+    </div>
+
+
+    <input hidden type="file" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
+  </div>
+</div>

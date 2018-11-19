@@ -12,7 +12,12 @@ import {
   MatSortModule,
   MatFormFieldModule,
   MatInputModule,
-  MatMenuModule
+  MatMenuModule,
+  MatCardModule,
+  MatSelectModule,
+  MatDividerModule,
+  MatTabsModule,
+  MatExpansionModule
 } from "@angular/material";
 
 @NgModule({
@@ -29,7 +34,12 @@ import {
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {}

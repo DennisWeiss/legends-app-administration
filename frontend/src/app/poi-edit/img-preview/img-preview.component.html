@@ -1,0 +1,28 @@
+
+<div fxLayout="column" fxLayoutAlign ="center">
+  <span fxLayoutAlign="center"><h4>{{name}}</h4></span>
+
+    <div *ngIf="!imgPreviewUrl">
+      <div class="drag-and-drop-field"
+           ngFileDrop
+           [options]="options"
+           (uploadOutput)="onUploadOutput($event)"
+           (click)="imgFileInput.click()"
+           [uploadInput]="uploadInput"
+           [ngClass]="{ 'is-drop-over': dragOver }">
+        Drag &amp; Drop into here
+      </div>
+    </div>
+    <input hidden type="file" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
+
+    <!--TODO: Show tooltip when hovering over div-->
+    <div class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl">
+      <img [src]="imgPreviewUrl" ngFileDrop
+      [options]="options"
+      (uploadOutput)="onUploadOutput($event)"
+      (click)="imgFileInput.click()"
+      [uploadInput]="uploadInput"
+      [ngClass]="{ 'is-drop-over': dragOver }">
+    </div>
+</div>
+

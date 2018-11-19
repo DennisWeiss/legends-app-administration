@@ -1,0 +1,42 @@
+img {
+  border: solid black 0.5px;
+}
+
+img, button {
+  width: 150px;
+  height: 100px;
+}
+
+
+.add-button {
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.lieco.at/wp-content/uploads/2015/11/placeholder-300x225.png');
+  background-size: cover;
+  background-position: center;
+}
+
+button{
+  padding: 0;
+}
+
+.image-preview {
+  margin: 4px;
+}
+
+.drag-and-drop-field {
+  margin: 20px 10px;
+  height: 100px;
+  width: 100%;
+  background: #e9e9e9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #555555;
+  border-radius: 2px;
+  cursor: pointer;
+  background-image: url("https://studentcard.ae/wp-content/plugins/orchitech-dm/resources/alive-dm/img/empty-image.png");
+  background-size: cover;
+  background-position: center;
+}

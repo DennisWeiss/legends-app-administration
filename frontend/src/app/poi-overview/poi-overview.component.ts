@@ -5,6 +5,9 @@ import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
 import {LocaleService} from '../locale.service'
 import formatcoords from 'formatcoords'
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 
 const mapPOIs = pois => {
@@ -57,10 +60,17 @@ export class PoiOverviewComponent implements OnInit {
   localeService: LocaleService
   t
 
+  $authState: Observable<any>;
+  isAuth = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(poiService: PoiService, localeService: LocaleService) {
+  constructor(
+    poiService: PoiService,
+    localeService: LocaleService,
+    private router: Router,
+    private authService: AuthService) {
     this.poiService = poiService
     this.localeService = localeService
     this.setT(localeService.getLocale())
@@ -90,6 +100,8 @@ export class PoiOverviewComponent implements OnInit {
         this.pois = mapPOIs(pois)
         this.initializeTableDataSource()
       })
+
+      this.$authState = this.authService.authStatusChanged;
   }
 
   setFilterPredicate = () => {
@@ -102,8 +114,20 @@ export class PoiOverviewComponent implements OnInit {
     this.initializeTableDataSource()
   }
 
-  newPOI = () => window.location.href = '/new/'
+  newPOI = () => {
+    this.router.navigate(['new']);
+  }
 
-  editPOI = (poiKey: string) => window.location.href = `/edit?key=${poiKey}`
+  editPOI = (poiKey: string, poiType: string) => {
+    this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
+  }
+
+  editContents = (poiKey: string, poiType: string) => {
+   // this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}})
+  }
+
+  isAdmin(user) {
+    return user.rights.some((right) => right === 'admin');
+  }
 
 }
