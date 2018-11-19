@@ -47,6 +47,7 @@ export class AuthService {
     .pipe(map((userData) => {
       console.log('userData', userData);
       this.userData = userData;
+      this.saveToken(this.userData.token);
       this._authStatusChanged.next(this.userData.user);
     }));
   }

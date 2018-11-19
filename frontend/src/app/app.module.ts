@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SignupComponent} from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
@@ -28,6 +28,7 @@ import {PoiContentComponent} from './poi-edit/poi-content/poi-content.component'
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MediaSectionComponent} from './poi-edit/media-section/media-section.component';
 import {NgxUploaderModule} from "ngx-uploader";
+import { TokenInterceptor } from './auth/token.interceptor';
 
 
 @NgModule({
@@ -65,7 +66,13 @@ import {NgxUploaderModule} from "ngx-uploader";
     NgxUploaderModule
   ],
   exports: [],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

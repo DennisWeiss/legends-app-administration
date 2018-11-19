@@ -50,7 +50,7 @@ const formData = [
   {name: 'vuforia_targets', maxCount: 30}
 ];
 
-router.post('/', upload.fields(formData), filePaths, async (req, res, next) => {
+router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
 
   const body = req.body;
 
@@ -67,7 +67,7 @@ router.post('/', upload.fields(formData), filePaths, async (req, res, next) => {
   return res.send({message: `POI of type ${poi.type} created successfully`});
 })
 
-router.put('/', upload.fields(formData), filePaths, async (req, res, next) => {
+router.put('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
 
   const poi = await POI.findOneAndUpdate({ key: req.body.key }, req.body);
 
