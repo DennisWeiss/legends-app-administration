@@ -36,6 +36,10 @@ export class AuthService {
     return this._authStatusChanged.asObservable();
   }
 
+  get authState() {
+    return this._authStatusChanged.value;
+  }
+
   constructor(private http: HttpClient) { }
 
   login(username, password): Observable<any> {
