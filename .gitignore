@@ -36,6 +36,7 @@ typings
 e2e/
 *.log
 .eslintrc.*
+files/
 
 # System Files
 .DS_Store
