@@ -5,7 +5,7 @@
       <app-poi-type-selection [types]="types" [onChange]="onChangeTypeFilter"></app-poi-type-selection>
     </div>
 
-    <div class="new-poi-btn-container">
+    <div *ngIf="$authState | async as user" class="new-poi-btn-container">
       <button mat-raised-button class="new-poi-btn" color="primary" (click)="newPOI()">
         <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
         <span style="padding: 5px">{{t('NEW_POI')}}</span>
@@ -50,7 +50,20 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editPOI(poi.key, poi.type)"></tr>
+
+    <ng-container *ngIf="!($authState | async)">
+      <tr mat-row *matRowDef="let poi; columns: displayedColumns"></tr>
+    </ng-container>
+
+    <ng-container *ngIf="$authState | async as user">
+      <ng-container *ngIf="isAdmin(user)">
+        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editPOI(poi.key, poi.type)"></tr>
+      </ng-container>
+
+      <ng-container *ngIf="!isAdmin(user)">
+          <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editContents(poi.key, poi.type)"></tr>
+      </ng-container>
+    </ng-container>
 
   </table>
 

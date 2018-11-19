@@ -9,6 +9,7 @@ import { PoiContentComponent } from './poi-edit/poi-content/poi-content.componen
 const routes: Routes = [
   {path: 'edit/content/:id', component: PoiContentComponent},
   {path: 'edit/:id', component: PoiEditComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent},
   {path: '', component: PoiOverviewComponent}
 ]

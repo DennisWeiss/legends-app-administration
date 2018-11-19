@@ -25,7 +25,7 @@ import {VideoPreviewComponent} from './poi-edit/video-preview/video-preview.comp
 import {HtmlEditorComponent} from './poi-edit/html-editor/html-editor.component';
 import {QuillModule} from 'ngx-quill';
 import {PoiContentComponent} from './poi-edit/poi-content/poi-content.component'
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MediaSectionComponent} from './poi-edit/media-section/media-section.component';
 import {NgxUploaderModule} from "ngx-uploader";
 
@@ -61,6 +61,7 @@ import {NgxUploaderModule} from "ngx-uploader";
     LeafletModule.forRoot(),
     QuillModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxUploaderModule
   ],
   exports: [],

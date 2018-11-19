@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PoiService } from '../poi.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -8,14 +12,21 @@ import { Component, OnInit } from '@angular/core';
 export class SidenavComponent implements OnInit {
 
   isAuthenticated = false;
+  @Input() sidenav;
 
-  constructor() { }
+  $authStatus: Observable<any>;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.$authStatus = this.authService.authStatusChanged;
   }
 
+
   logout() {
-    
+    this.authService.logout();
+    this.sidenav.close();
+    this.router.navigate(['']);
   }
 
 }
