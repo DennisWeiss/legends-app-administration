@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { environment } from '../environments/environment';
 import { Sight, Legend, Restaurant } from './poi-edit/poi.model';
+import { Subject } from 'rxjs';
 
 
 
@@ -10,11 +11,12 @@ import { Sight, Legend, Restaurant } from './poi-edit/poi.model';
 })
 export class PoiService {
 
+  poiFetched = new Subject<any>();
+
   constructor(private http: HttpClient) {
   }
 
   retrievePOIs = (type?: String) => this.http.get(`${environment.backendUrl}poi/${type ? `${type}/` : ''}`)
-
 
   /**
    * TODO: Create model for POI

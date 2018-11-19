@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PoiService } from 'src/app/poi.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { point } from 'leaflet';
+import { Restaurant, Sight, Legend } from '../poi.model';
 
 @Component({
   selector: 'app-poi-content',
@@ -16,11 +18,28 @@ import { Subscription } from 'rxjs';
 })
 export class PoiContentComponent implements OnInit {
 
+  private _poi;
+
   t;
   @Input() type: string;
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;
+  @Input() set poi(val: Legend | Restaurant | Sight) {
+
+    // we need to listen to changes in order to dynamically create
+    // contentForm before assigning data to poiForm
+    if (val) {
+      this._poi = val;
+      this.contentFormService.update(this._poi.media.content, this._poi.type);
+    }
+  }
   @Output() contentFormCreated: EventEmitter<FormGroup> = new EventEmitter();
+
+
+  get poi() {
+    return this._poi;
+  }
+
 
   contentForm: FormGroup;
 
@@ -82,11 +101,17 @@ export class PoiContentComponent implements OnInit {
       // pass over form to parent-component
       this.contentFormCreated.emit(this.contentFormService.contentForm);
 
+
       if (!this.editMode) {
+        // change structure of content based on current type
           this.poiForm.controls.type.valueChanges.subscribe((val) => {
           this.contentFormService.initContentForm(val);
       })
     }
+
+    this.poiForm.valueChanges.subscribe((val) => {
+      console.log('poi-content', val);
+    })
 
     }
   }
