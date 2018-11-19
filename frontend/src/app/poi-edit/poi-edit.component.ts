@@ -13,7 +13,8 @@ import { ContentFormService } from './poi-content/content-form.service';
 @Component({
   selector: 'app-poi-edit',
   templateUrl: './poi-edit.component.html',
-  styleUrls: ['./poi-edit.component.css']
+  styleUrls: ['./poi-edit.component.css'],
+  providers: [PoiEditFormsService]
 })
 export class PoiEditComponent implements OnInit, OnDestroy {
   t;
@@ -38,8 +39,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private poiService: PoiService,
     public localeService: LocaleService,
-    public formsService: PoiEditFormsService,
-    private contentFormService: ContentFormService
+    public formsService: PoiEditFormsService
   ) {
   }
 
@@ -65,7 +65,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
      this.poiForm.controls.type.valueChanges
      .subscribe((val) => {
        if (!this.editMode) {
-         this.contentFormService.initContentForm(val);
+         // this.contentFormService.initContentForm(val);
        }
     });
 
@@ -85,17 +85,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.queryParamMap.get('type');
 
-    if (this.id && this.type) {
-      this.editMode = true;
-      this.poiService
-        .getPOI(this.id)
-        .pipe(take(1))
-        .subscribe((poi: Sight | Legend | Restaurant) => {
-          this.poi = poi;
-          this.formsService.update(poi);
-        });
-    }
-
     this.paramSub = this.route.paramMap.subscribe(params => {
       if (params.has('id') && params.has('type')) {
         this.editMode = true;
@@ -103,6 +92,10 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         this.type = params.get('type');
       }
     });
+
+    if (this.id && this.type) {
+      this.editMode = true;
+    }
 
     this.setupForms();
     console.log('in edit', this.contentForm);
@@ -141,6 +134,17 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   initContentForm(contentForm: FormGroup) {
     (this.formsService.poiForm.get('media') as FormGroup).removeControl('content');
     (this.formsService.poiForm.get('media')as FormGroup).addControl('content', contentForm);
+
+    if (this.editMode) {
+      this.editMode = true;
+      this.poiService
+        .getPOI(this.id)
+        .pipe(take(1))
+        .subscribe((poi: Sight | Legend | Restaurant) => {
+          this.poi = poi;
+          this.formsService.update(poi);
+        });
+    }
   }
 
   ngOnDestroy() {

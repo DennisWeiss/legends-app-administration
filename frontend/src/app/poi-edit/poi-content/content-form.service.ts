@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ContentFormService {
 
   constructor(private fb: FormBuilder) { }

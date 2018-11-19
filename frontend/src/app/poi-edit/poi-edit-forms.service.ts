@@ -3,13 +3,10 @@ import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@ang
 import { ContentFormService } from './poi-content/content-form.service';
 import { rootRenderNodes } from '@angular/core/src/view';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PoiEditFormsService {
 
-  constructor(private fb: FormBuilder,
-    private contentFormService: ContentFormService) {}
+  constructor(private fb: FormBuilder) {}
 
   langs = ['de', 'en', 'pl'];
 
@@ -34,11 +31,11 @@ export class PoiEditFormsService {
   vuforiaArray = new FormArray([]);
 
   poiForm = this.fb.group({
-    key: [''],
+    key: ['', Validators.required],
     name: this.fb.group({
-      en: [''],
-      de: [''],
-      pl: ['']
+      en: ['', Validators.required],
+      de: ['', Validators.required],
+      pl: ['', Validators.required]
     }),
     beaconId: [-1, Validators.required],
     type: ['', Validators.required], // select deactivated when editing
@@ -57,7 +54,6 @@ export class PoiEditFormsService {
 
 
   update(poi) {
-    this.contentFormService.update(poi.media.content, poi.type);
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
     poi.media.vuforiaTargets.forEach((url) => {
       this.vuforiaArray.push(new FormControl(url));
@@ -67,7 +63,6 @@ export class PoiEditFormsService {
   }
 
   reset() {
-    this.contentFormService.reset({}, {});
     const type = this.poiForm.controls.type.value;
     this.poiForm.reset();
     this.poiForm.controls.type.setValue(type);

@@ -4,11 +4,13 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
+import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component';
 
 const routes: Routes = [
-  {path: '', component: PoiOverviewComponent},
+  {path: 'edit/content/:id', component: PoiContentComponent},
   {path: 'edit/:id', component: PoiEditComponent},
-  {path: 'new', component: PoiEditComponent}
+  {path: 'new', component: PoiEditComponent},
+  {path: '', component: PoiOverviewComponent}
 ]
 
 @NgModule({

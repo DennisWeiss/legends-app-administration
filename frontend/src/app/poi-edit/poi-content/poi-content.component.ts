@@ -11,13 +11,15 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-poi-content',
   templateUrl: './poi-content.component.html',
-  styleUrls: ['./poi-content.component.css']
+  styleUrls: ['./poi-content.component.css'],
+  providers: [ContentFormService]
 })
 export class PoiContentComponent implements OnInit {
 
   t;
   @Input() type: string;
   @Input() poiForm: FormGroup;
+  @Input() editMode: boolean;
   @Output() contentFormCreated: EventEmitter<FormGroup> = new EventEmitter();
 
   contentForm: FormGroup;
@@ -47,13 +49,14 @@ export class PoiContentComponent implements OnInit {
     this.contentForm = this.contentFormService.contentForm;
 
     if (this.type) {
+      // type received from parent-component
       this.contentFormService.initContentForm(this.type);
     } else {
       this.contentFormService.initContentForm('legends');
     }
 
     if (!this.poiForm) {
-      // no poiForm was passed to this component
+      // no poiForm was passed to this component -> get content
       this.id = this.route.snapshot.paramMap.get('id');
       this.type = this.route.snapshot.queryParamMap.get('type');
 
@@ -76,14 +79,16 @@ export class PoiContentComponent implements OnInit {
       });
 
     } else {
+      // pass over form to parent-component
       this.contentFormCreated.emit(this.contentFormService.contentForm);
+
+      if (!this.editMode) {
+          this.poiForm.controls.type.valueChanges.subscribe((val) => {
+          this.contentFormService.initContentForm(val);
+      })
     }
 
-    this.contentFormService.contentForm.valueChanges
-    .subscribe((val) => {
-      console.log('contentForm', val);
-   });
-
+    }
   }
 
   createHint(lang) {
