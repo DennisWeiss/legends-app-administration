@@ -32,10 +32,10 @@ const storage = multer.diskStorage({
       .join("-");
     //const ext = MIME_TYPE_MAP[file.mimetype];
 
-    const ext = name.split('.')[1];
+    const [fileName, ext] = name.split('.');
 
     //example: test-1.1.2001.jpg
-    cb(null, name + "-" + Date.now() + "." + ext);
+    cb(null, fileName + "-" + Date.now() + "." + ext);
   }
 });
 
