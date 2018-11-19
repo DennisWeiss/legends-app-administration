@@ -28,4 +28,8 @@ export class PoiMapComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleClick(event) {
+    console.log('event', event);
+  }
+
 }

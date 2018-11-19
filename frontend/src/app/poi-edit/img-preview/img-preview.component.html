@@ -16,7 +16,7 @@
     <input hidden type="file" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
 
     <!--TODO: Show tooltip when hovering over div-->
-    <div class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl" (click)="imgFileInput.click()">
+    <div class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl">
       <img [src]="imgPreviewUrl" ngFileDrop
       [options]="options"
       (uploadOutput)="onUploadOutput($event)"

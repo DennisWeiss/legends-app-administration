@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { PoiService } from 'src/app/poi.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { point } from 'leaflet';
 import { Restaurant, Sight, Legend } from '../poi.model';
 
 @Component({

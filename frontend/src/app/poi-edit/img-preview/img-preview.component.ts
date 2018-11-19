@@ -1,18 +1,18 @@
-import { FormControl } from "@angular/forms";
+import { FormControl } from '@angular/forms';
 
-import { Component, OnInit, Input, EventEmitter } from "@angular/core";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   UploaderOptions,
   UploadFile,
   UploadInput,
   UploadOutput
-} from "ngx-uploader";
+} from 'ngx-uploader';
 
 @Component({
-  selector: "app-img-preview",
-  templateUrl: "./img-preview.component.html",
-  styleUrls: ["./img-preview.component.css"]
+  selector: 'app-img-preview',
+  templateUrl: './img-preview.component.html',
+  styleUrls: ['./img-preview.component.css']
 })
 export class ImgPreviewComponent implements OnInit {
   @Input() name: string;
@@ -37,42 +37,42 @@ export class ImgPreviewComponent implements OnInit {
   }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === "allAddedToQueue") {
+    if (output.type === 'allAddedToQueue') {
       // when all files added in queue
       const event: UploadInput = {
-        type: "uploadAll",
-        url: "/upload",
-        method: "POST",
-        data: { foo: "bar" }
+        type: 'uploadAll',
+        url: '/upload',
+        method: 'POST',
+        data: { foo: 'bar' }
       };
       this.uploadInput.emit(event);
       this.imgLoaded = true;
     } else if (
-      output.type === "addedToQueue" &&
-      typeof output.file !== "undefined"
+      output.type === 'addedToQueue' &&
+      typeof output.file !== 'undefined'
     ) {
       // add file to array when added
       this.files.push(output.file);
       this.handleFileInput([output.file.nativeFile]);
     } else if (
-      output.type === "uploading" &&
-      typeof output.file !== "undefined"
+      output.type === 'uploading' &&
+      typeof output.file !== 'undefined'
     ) {
       // update current data in files array for uploading file
       const index = this.files.findIndex(
-        file => typeof output.file !== "undefined" && file.id === output.file.id
+        file => typeof output.file !== 'undefined' && file.id === output.file.id
       );
       this.files[index] = output.file;
-    } else if (output.type === "removed") {
+    } else if (output.type === 'removed') {
       // remove file from array when removed
       this.files = this.files.filter(
         (file: UploadFile) => file !== output.file
       );
-    } else if (output.type === "dragOver") {
+    } else if (output.type === 'dragOver') {
       this.dragOver = true;
-    } else if (output.type === "dragOut") {
+    } else if (output.type === 'dragOut') {
       this.dragOver = false;
-    } else if (output.type === "drop") {
+    } else if (output.type === 'drop') {
       this.dragOver = false;
     }
   }
@@ -87,7 +87,9 @@ export class ImgPreviewComponent implements OnInit {
 
     // listen to changes
     this.fileControl.valueChanges.subscribe(() => {
-      this.imgPreviewUrl = this.fileControl.value;
+      if (typeof this.fileControl.value === 'string') {
+        this.imgPreviewUrl = this.fileControl.value;
+      }
     })
   }
 
@@ -107,7 +109,7 @@ export class ImgPreviewComponent implements OnInit {
   }
 
   resetFile() {
-    this.fileControl.setValue("");
+    this.fileControl.setValue('');
     this.imgPreviewUrl = null;
   }
 }
