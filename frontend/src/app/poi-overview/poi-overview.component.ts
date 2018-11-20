@@ -123,7 +123,7 @@ export class PoiOverviewComponent implements OnInit {
   }
 
   editContents = (poiKey: string, poiType: string) => {
-   // this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}})
+    this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
   }
 
   isAdmin(user) {

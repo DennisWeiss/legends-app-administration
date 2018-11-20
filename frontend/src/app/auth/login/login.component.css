@@ -1,6 +1,7 @@
 mat-card {
   width: 300px;
   margin:  100px auto;
+  padding: 30px;
 }
 
 mat-form-field, input {

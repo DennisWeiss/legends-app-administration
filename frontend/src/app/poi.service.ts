@@ -34,6 +34,8 @@ export class PoiService {
 
   getContents = (key: string) => this.http.get<any>(`${environment.backendUrl}poi/content/${key}`);
 
+  putContents = (contents, key) => this.http.put<any>(`${environment.backendUrl}poi/content/${key}`, contents);
+
   private createFormData = (poi) => {
     const postData = new FormData();
     postData.append('poi', JSON.stringify(poi));

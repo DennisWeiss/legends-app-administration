@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../poi.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LocaleService } from '../locale.service';
 import translate from '../translations/translate';
@@ -25,6 +25,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   type: string  = null;
   id = null;
   defaultType = 'legends';
+  reset = new Subject<boolean>();
+
 
   poiForm: FormGroup;
   contentForm: FormGroup;
@@ -120,6 +122,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
    * revert to initial poi
    */
   resetForms() {
+    this.reset.next(true);
     this.formsService.reset();
     if (this.poi) {
       this.formsService.update(this.poi);

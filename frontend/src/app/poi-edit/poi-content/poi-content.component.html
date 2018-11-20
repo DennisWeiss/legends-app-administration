@@ -1,5 +1,6 @@
 <div fxLayoutGap="10px" fxLayout fxLayoutAlign="space-between center">
-  <h2>Content</h2>
+  <h2 *ngIf="poiForm">Content</h2>
+  <h2 *ngIf="!poiForm">{{type | uppercase}} - {{id}}</h2>
   <div>
   <mat-form-field>
     <input matInput #newLang type="text" placeholder="Add new language...">
@@ -8,8 +9,9 @@
   </div>
 </div>
 <mat-divider></mat-divider>
-<mat-tab-group [formGroup]="contentForm">
-  <mat-tab *ngFor="let lang of langs" [formGroupName]="lang.toLowerCase()" [label]="lang">
+<form [formGroup]="contentForm" (ngSubmit)="onSubmit()">
+<mat-tab-group>
+  <mat-tab *ngFor="let lang of langs" [formGroupName]="lang" [label]="lang">
     <mat-accordion  *ngIf="type === 'legends'">
       <mat-expansion-panel formGroupName="explored">
         <mat-expansion-panel-header>
@@ -85,5 +87,12 @@
 
   </mat-tab>
 </mat-tab-group>
+
+<div *ngIf="!hasParent" class="poi-content-buttons-bottom">
+    <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
+    <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
+</div>
+
+</form>
 
 

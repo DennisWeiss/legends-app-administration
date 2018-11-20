@@ -104,7 +104,8 @@
         (contentFormCreated)="initContentForm($event)"
         [editMode]="editMode"
         [poiForm]="formsService.poiForm"
-        [type]="poiForm.controls.type.value">
+        [type]="poiForm.controls.type.value"
+        [parentReset] = reset.asObservable()>
       </app-poi-content>
       </div>
 

@@ -29,8 +29,9 @@ export class ContentFormService {
 
   }
 
-  reset(content, type) {
+  reset() {
     this.contentForm.reset();
+    this.clearFormGroup(this.contentForm);
   }
 
 

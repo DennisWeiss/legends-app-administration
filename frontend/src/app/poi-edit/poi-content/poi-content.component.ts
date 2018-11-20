@@ -6,7 +6,7 @@ import { ContentFormService } from './content-form.service';
 import { ActivatedRoute } from '@angular/router';
 import { PoiService } from 'src/app/poi.service';
 import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Restaurant, Sight, Legend } from '../poi.model';
 
 @Component({
@@ -23,6 +23,7 @@ export class PoiContentComponent implements OnInit {
   @Input() type: string;
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;
+  @Input() parentReset: Observable<any>;
   @Input() set poi(val: Legend | Restaurant | Sight) {
 
     // we need to listen to changes in order to dynamically create
@@ -32,18 +33,21 @@ export class PoiContentComponent implements OnInit {
       this.contentFormService.update(this._poi.media.content, this._poi.type);
     }
   }
-  @Output() contentFormCreated: EventEmitter<FormGroup> = new EventEmitter();
-
 
   get poi() {
     return this._poi;
   }
 
+  get hasParent() {
+    return this.poiForm;
+  }
 
+  @Output() contentFormCreated: EventEmitter<FormGroup> = new EventEmitter();
+
+  contents;
   contentForm: FormGroup;
 
   id: string;
-  contents;
 
   paramSub: Subscription;
 
@@ -66,6 +70,7 @@ export class PoiContentComponent implements OnInit {
 
     this.contentForm = this.contentFormService.contentForm;
 
+
     if (this.type) {
       // type received from parent-component
       this.contentFormService.initContentForm(this.type);
@@ -80,6 +85,10 @@ export class PoiContentComponent implements OnInit {
 
       if (this.id && this.type) {
 
+        // initialize form based on type
+        this.contentFormService.initContentForm(this.type);
+
+        // get content from poi
         this.poiService
           .getContents(this.id)
           .pipe(take(1))
@@ -100,18 +109,18 @@ export class PoiContentComponent implements OnInit {
       // pass over form to parent-component
       this.contentFormCreated.emit(this.contentFormService.contentForm);
 
-
       if (!this.editMode) {
         // change structure of content based on current type
           this.poiForm.controls.type.valueChanges.subscribe((val) => {
           this.contentFormService.initContentForm(val);
       })
     }
-
-    this.poiForm.valueChanges.subscribe((val) => {
-      console.log('poi-content', val);
+    this.parentReset.subscribe((val) => {
+      this.contentFormService.reset();
+      if (this.editMode) {
+        this.contentFormService.update(this.poi.media.content, this.type);
+      }
     })
-
     }
   }
 
@@ -141,6 +150,18 @@ export class PoiContentComponent implements OnInit {
 
   get langs() {
     return Object.keys((this.contentForm.controls)) as Array<string>;
+  }
+
+  resetForms() {
+    this.contentFormService.reset();
+    this.contentFormService.update(this.contents, this.type);
+  }
+
+  onSubmit() {
+    const contentVal = this.contentForm.value;
+    this.poiService.putContents(contentVal, this.id).pipe(take(1)).subscribe(() => {
+
+    });
   }
 
 }
