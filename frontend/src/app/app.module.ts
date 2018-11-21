@@ -29,6 +29,8 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MediaSectionComponent} from './poi-edit/media-section/media-section.component';
 import {NgxUploaderModule} from "ngx-uploader";
 import { TokenInterceptor } from './auth/token.interceptor';
+import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
+import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { TokenInterceptor } from './auth/token.interceptor';
     VideoPreviewComponent,
     HtmlEditorComponent,
     PoiContentComponent,
-    MediaSectionComponent
+    MediaSectionComponent,
+    StatusBarComponent,
+    UploadStatusDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +77,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
       multi: true
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [UploadStatusDialogComponent]
 })
 export class AppModule {
 }

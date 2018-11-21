@@ -63,15 +63,20 @@ export class ImgPreviewComponent implements OnInit {
         file => typeof output.file !== 'undefined' && file.id === output.file.id
       );
       this.files[index] = output.file;
-    } else if (output.type === 'removed') {
+      this.handleFileInput([output.file.nativeFile]);
+      } else if (output.type === 'removed') {
       // remove file from array when removed
       this.files = this.files.filter(
         (file: UploadFile) => file !== output.file
       );
+      this.imgPreviewUrl = null;
+      this.fileControl.setValue(null);
     } else if (output.type === 'dragOver') {
       this.dragOver = true;
     } else if (output.type === 'dragOut') {
       this.dragOver = false;
+      this.imgPreviewUrl = null;
+      this.fileControl.setValue(null);
     } else if (output.type === 'drop') {
       this.dragOver = false;
     }

@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h1 *ngIf="!error" class="title" mat-dialog-title>Upload pending...</h1>
+  <h1 *ngIf="error" class="title" mat-dialog-title>Upload failed!</h1>
+
+  <app-status-bar *ngIf="!error" class="content" [percentDone]="percentDone"></app-status-bar>
+
+  <div class="error" *ngIf="error">Status: {{error.status}} <br> Message: {{error.error.message}}</div>
+
+  <div fxLayout fxLayoutAlign="space-between center" mat-dialog-actions class="actions-bottom">
+    <button *ngIf="error" mat-raised-button color="primary" (click)="startRequest()">Retry</button>
+    <button mat-raised-button color="accent" (click)="cancelUpload()">Cancel</button>
+  </div>
+</div>

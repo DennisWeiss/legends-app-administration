@@ -65,7 +65,7 @@
     </div>
 
     <div fxFlex="1 1" class="map-container">
-      <app-poi-map></app-poi-map>
+      <app-poi-map (coordsChanged)="updateCoords($event)"></app-poi-map>
     </div>
   </div>
 
@@ -110,7 +110,7 @@
       </div>
 
 
-      <div class="poi-edit-buttons-bottom">
+      <div class="poi-edit-buttons-bottom" *ngIf="!reqPending">
         <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
         <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
       </div>

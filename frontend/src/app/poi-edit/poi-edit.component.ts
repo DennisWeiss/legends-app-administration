@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Event } from '@angular/router';
 import { PoiService } from '../poi.service';
 import { Subscription, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -8,7 +8,8 @@ import translate from '../translations/translate';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Sight, Legend, Restaurant } from './poi.model';
-import { ContentFormService } from './poi-content/content-form.service';
+import { MatDialog } from '@angular/material';
+import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 
 @Component({
   selector: 'app-poi-edit',
@@ -28,6 +29,8 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   reset = new Subject<boolean>();
 
 
+  reqPending = false;
+
   poiForm: FormGroup;
   contentForm: FormGroup;
   videoForm: FormGroup;
@@ -36,12 +39,15 @@ export class PoiEditComponent implements OnInit, OnDestroy {
   iconForm: FormGroup;
 
   paramSub: Subscription;
+  reqSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private poiService: PoiService,
     public localeService: LocaleService,
-    public formsService: PoiEditFormsService
+    public formsService: PoiEditFormsService,
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -63,16 +69,9 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.vuforiaArray = this.formsService.vuforiaArray;
     this.imgForm = this.formsService.imgForm;
 
-     // subscribe to future changes of type
-     this.poiForm.controls.type.valueChanges
-     .subscribe((val) => {
-       if (!this.editMode) {
-         // this.contentFormService.initContentForm(val);
-       }
-    });
 
     this.poiForm.valueChanges.subscribe((val) => {
-      console.log('poi sub', this.poiForm);
+     // console.log('poi sub', this.poiForm);
     })
 
   }
@@ -100,8 +99,19 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     }
 
     this.setupForms();
-    console.log('in edit', this.contentForm);
 
+  }
+
+  openDialog(req): void {
+    this.reqPending = true;
+    const dialogRef = this.dialog.open(UploadStatusDialogComponent, {
+      width: '50%',
+      data: {req}
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+      this.reqPending = false;
+    });
   }
 
   isLegend(): boolean {
@@ -110,12 +120,16 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.poiForm);
-
     const poi = this.poiForm.value;
-    const request =  this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
-    request.pipe(take(1)).subscribe((res) => {
-      console.log('res', res);
-    });
+    this.reqPending = true;
+
+    // cancel existing request
+    if ( this.reqSub ) {
+      this.reqSub.unsubscribe();
+   }
+
+    const req =  this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
+    this.openDialog(req);
   }
 
   /**
@@ -150,8 +164,16 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateCoords(coords) {
+    this.poiForm.controls.coordinates.setValue(coords);
+  }
+
   ngOnDestroy() {
     this.paramSub.unsubscribe();
+
+    if (this.reqSub) {
+      this.reqSub.unsubscribe();
+    }
 
   }
 }
