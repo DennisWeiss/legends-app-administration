@@ -2,6 +2,6 @@ mat-card {
   margin-bottom: 20px;
 }
 
-.media-section-title > h3 {
+.media-section-title > mat-card-title {
   margin: 10px auto;
 }

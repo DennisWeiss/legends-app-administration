@@ -12,11 +12,11 @@
     class="poi-edit-page">
 
   <mat-card class="mat-elevation-z4">
-    <div
+    <mat-card
       fxLayout
       fxLayoutGap="20px"
       fxLayoutAlign="space-around"
-      class="general-info-container"
+      class="general-info-container mat-elevation-z7"
     >
 
     <div
@@ -67,7 +67,7 @@
     <div fxFlex="1 1" class="map-container">
       <app-poi-map (coordsChanged)="updateCoords($event)"></app-poi-map>
     </div>
-  </div>
+  </mat-card>
 
 
   <div fxLayout="row wrap"
@@ -97,7 +97,7 @@
     <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
   </app-media-section>
 
-
+   <mat-card class="mat-elevation-z7">
       <div class="poi-content">
         <app-poi-content
         [poi]="poi"
@@ -106,6 +106,7 @@
         [poiForm]="formsService.poiForm"
         [type]="poiForm.controls.type.value"
         [parentReset] = reset.asObservable()>
+        <mat-card-title>Content</mat-card-title>
       </app-poi-content>
       </div>
 
@@ -114,6 +115,7 @@
         <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
         <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
       </div>
+  </mat-card>
 
     </mat-card>
   </div>

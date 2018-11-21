@@ -1,5 +1,5 @@
 <div fxLayoutGap="10px" fxLayout fxLayoutAlign="space-between center">
-  <h2 *ngIf="poiForm">Content</h2>
+  <ng-content></ng-content>
   <h2 *ngIf="!poiForm">{{type | uppercase}} - {{id}}</h2>
   <div>
   <mat-form-field>

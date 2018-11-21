@@ -1,7 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="center">
   <div fxLayout fxLayoutAlign="center center">
-    <h4>{{name}}</h4>
-    <button *ngIf="videoUrl" (click)="resetFile()" mat-icon-button color="accent"><mat-icon>cancel</mat-icon></button>
+    <mat-card-subtitle>
+      {{name}}
+      <button *ngIf="videoUrl" (click)="resetFile()" mat-icon-button color="accent"><mat-icon>cancel</mat-icon></button>
+    </mat-card-subtitle>
   </div>
   <div *ngIf="!videoUrl">
     <div class="drag-and-drop-field"
