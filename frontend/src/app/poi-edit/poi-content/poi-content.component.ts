@@ -31,6 +31,7 @@ export class PoiContentComponent implements OnInit {
     if (val) {
       this._poi = val;
       this.contentFormService.update(this._poi.media.content, this._poi.type);
+      this.contentFormFilled.emit(true);
     }
   }
 
@@ -42,7 +43,11 @@ export class PoiContentComponent implements OnInit {
     return this.poiForm;
   }
 
+  // called after contentForm was initialized
   @Output() contentFormCreated: EventEmitter<FormGroup> = new EventEmitter();
+
+  // called after contentForm received values and updated.
+  @Output() contentFormFilled: EventEmitter<any> = new EventEmitter();
 
   contents;
   contentForm: FormGroup;

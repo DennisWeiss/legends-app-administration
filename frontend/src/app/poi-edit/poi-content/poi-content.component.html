@@ -80,7 +80,7 @@
         <mat-form-field>
           <input matInput type="text" formControlName="heading" placeholder="Heading">
         </mat-form-field>
-        <quill-editor [formControl] ="content(lang).info.controls.url"></quill-editor>
+        <quill-editor (onContentChanged)="this.contentForm.markAsPristine()" [formControl] ="content(lang).info.controls.url"></quill-editor>
       </mat-expansion-panel>
 
     </mat-accordion>

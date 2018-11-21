@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Event } from '@angular/router';
 import { PoiService } from '../poi.service';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LocaleService } from '../locale.service';
 import translate from '../translations/translate';
@@ -10,6 +10,9 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Sight, Legend, Restaurant } from './poi.model';
 import { MatDialog } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
+import { CanComponentDeactivate } from '../can-deactivate.guard';
+import {isEqual} from 'lodash';
+
 
 @Component({
   selector: 'app-poi-edit',
@@ -17,17 +20,22 @@ import { UploadStatusDialogComponent } from './upload-status-dialog/upload-statu
   styleUrls: ['./poi-edit.component.css'],
   providers: [PoiEditFormsService]
 })
-export class PoiEditComponent implements OnInit, OnDestroy {
-  t;
-  poiTypes = ['restaurants', 'legends', 'sights'];
+export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
-  editMode = false;
+  t;
+
+  poiTypes = ['restaurants', 'legends', 'sights'];
+  defaultType = 'legends';
+
   poi = null;
+  initPoi = null;
+
   type: string  = null;
   id = null;
-  defaultType = 'legends';
-  reset = new Subject<boolean>();
 
+  editMode = false;
+
+  reset = new Subject<boolean>();
 
   reqPending = false;
 
@@ -46,7 +54,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     private poiService: PoiService,
     public localeService: LocaleService,
     public formsService: PoiEditFormsService,
-    private router: Router,
     private dialog: MatDialog
   ) {
   }
@@ -69,7 +76,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     this.vuforiaArray = this.formsService.vuforiaArray;
     this.imgForm = this.formsService.imgForm;
 
-
     this.poiForm.valueChanges.subscribe((val) => {
      // console.log('poi sub', this.poiForm);
     })
@@ -78,7 +84,6 @@ export class PoiEditComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-
 
     this.setT(this.localeService.getLocale())
     this.localeService.localeUpdated.subscribe(this.setT.bind(this))
@@ -91,6 +96,7 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         this.editMode = true;
         this.id = params.get('id');
         this.type = params.get('type');
+        this.setupForms();
       }
     });
 
@@ -136,10 +142,14 @@ export class PoiEditComponent implements OnInit, OnDestroy {
    * revert to initial poi
    */
   resetForms() {
+    // inform child about reset
     this.reset.next(true);
+
     this.formsService.reset();
     if (this.poi) {
       this.formsService.update(this.poi);
+    } else {
+      this.poiForm.setValue(this.initPoi);
     }
 
   }
@@ -160,7 +170,11 @@ export class PoiEditComponent implements OnInit, OnDestroy {
         .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
           this.formsService.update(poi);
+          this.initPoi = this.poiForm.value;
         });
+    } else {
+      // save object with no values for later dirty-check
+      this.initPoi = this.poiForm.value;
     }
   }
 
@@ -176,4 +190,17 @@ export class PoiEditComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // check if initial poi-object and poiForm-value are the same
+    const formValue = this.poiForm.value;
+    if (isEqual(formValue, this.initPoi)) {
+      return true;
+    }
+
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    return window.confirm('There are unsaved changes! You really want to leave?');
+  }
+
 }

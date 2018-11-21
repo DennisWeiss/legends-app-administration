@@ -40,8 +40,8 @@ export class PoiEditFormsService {
     beaconId: [-1, Validators.required],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
-      lat: ['', Validators.required],
-      lng: ['', Validators.required]
+      lat: [null, Validators.required],
+      lng: [null, Validators.required]
     }),
     icons: this.iconForm,
     media: this.fb.group({
@@ -59,6 +59,7 @@ export class PoiEditFormsService {
       this.vuforiaArray.push(new FormControl(url));
     })
     this.poiForm.patchValue(poi);
+    this.poiForm.markAsPristine();
 
   }
 
@@ -67,6 +68,7 @@ export class PoiEditFormsService {
     const type = this.poiForm.controls.type.value;
     this.poiForm.reset();
     this.poiForm.controls.type.setValue(type);
+    this.poiForm.markAsPristine();
   }
 
   private clearFormArray = (formArray: FormArray) => {

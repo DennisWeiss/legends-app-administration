@@ -101,11 +101,12 @@
       <div class="poi-content">
         <app-poi-content
         [poi]="poi"
-        (contentFormCreated)="initContentForm($event)"
         [editMode]="editMode"
         [poiForm]="formsService.poiForm"
         [type]="poiForm.controls.type.value"
-        [parentReset] = reset.asObservable()>
+        [parentReset] = "reset.asObservable()"
+        (contentFormCreated)="initContentForm($event)"
+        (contentFormFilled)="initPoi = poiForm.value">
         <mat-card-title>Content</mat-card-title>
       </app-poi-content>
       </div>

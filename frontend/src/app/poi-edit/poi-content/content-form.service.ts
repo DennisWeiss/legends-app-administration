@@ -26,12 +26,13 @@ export class ContentFormService {
     this.createContentForm(contents, type);
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
     this.contentForm.patchValue(contents);
-
+    this.contentForm.markAsPristine();
   }
 
   reset() {
     this.contentForm.reset();
     this.clearFormGroup(this.contentForm);
+    this.contentForm.markAsPristine();
   }
 
 
@@ -50,6 +51,7 @@ initContentForm(type): void {
     this.contentForm.removeControl(lang);
     this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
   })
+  this.contentForm.markAsPristine();
 }
 
 /**
@@ -120,7 +122,6 @@ private createLegendForm(content): FormGroup {
 }
 
 addLang(lang, type) {
-  //const currType = (this.contentForm.root as FormGroup).controls.type.value;
   const formFactory = this.poiCallbacks[type];
   this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
 }

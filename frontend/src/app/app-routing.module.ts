@@ -6,12 +6,13 @@ import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
 import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component';
 import { AuthGuard } from './auth/auth.guard';
+import { CanDeactivateGuard } from './can-deactivate.guard';
 
 const routes: Routes = [
   {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard]},
-  {path: 'edit/:id', component: PoiEditComponent, canActivate: [AuthGuard]},
+  {path: 'edit/:id', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard]},
+  {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: '', component: PoiOverviewComponent}
 ]
 
