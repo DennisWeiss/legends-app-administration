@@ -112,6 +112,7 @@ export class PoiContentComponent implements OnInit {
       if (!this.editMode) {
         // change structure of content based on current type
           this.poiForm.controls.type.valueChanges.subscribe((val) => {
+          this.contentFormService.reset();
           this.contentFormService.initContentForm(val);
       })
     }
