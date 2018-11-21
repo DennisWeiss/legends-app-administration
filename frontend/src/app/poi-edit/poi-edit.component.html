@@ -110,12 +110,12 @@
       </app-poi-content>
       </div>
 
-
-      <div class="poi-edit-buttons-bottom" *ngIf="!reqPending">
+    </mat-card>
+      <mat-card class="poi-edit-buttons-bottom mat-elevation-z7" *ngIf="!reqPending">
         <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
         <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
-      </div>
-  </mat-card>
+      </mat-card>
+
 
     </mat-card>
   </div>

@@ -34,6 +34,11 @@ quill-editor {
 .poi-edit-buttons-bottom {
   display: flex;
   justify-content: space-between;
+
+}
+
+.poi-edit-buttons-bottom > button {
+  font-size: 1.5rem;
 }
 
 .request-status {
