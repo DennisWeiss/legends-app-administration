@@ -69,23 +69,18 @@ router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next
 
 router.put('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
 
+  try {
+    await POI.validateContent(req.body.media.content, req.body.type);
+  } catch (err) {
+    return res.status(400).send({ message: 'Invalid content!', error: err })
+  }
+
   const poi = await POI.findOneAndUpdate({ key: req.body.key }, req.body);
 
   if (!poi) {
     return res.status(404).send({ message: 'POI not found!' })
   }
-  /*
-  //remove existing langs
-  poi.media.content.clear();
-  
-  try {
-    await poi.addContent(req.body.media.content);
-  } catch (err) {
-    return res.status(400).send({ message: 'Invalid content!', error: err })
-  }
 
-  await poi.save();
-*/
   await updateVersions(req.body, res);
   res.send({message: `POI of type ${poi.type} updated successfully`});
 });

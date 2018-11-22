@@ -58,4 +58,12 @@ POISchema.methods.addContent = async function (content) {
   }
 }
 
+POISchema.statics.validateContent = async function (content, type) {
+  const Content = poiContentModelCallbacks[type]
+  for (let [lang, contentObj] of Object.entries(content)) {
+    const content = new Content(contentObj)
+    await content.validate();
+  }
+}
+
 export default mongoose.model('POI', POISchema)
