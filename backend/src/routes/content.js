@@ -26,7 +26,7 @@ router.put('/:key', auth, async (req, res, next) => {
   await poi.save()
 
   await updateVersions(req.body, res)
-  res.send(`POI-content of type ${poi.type} updated successfully`);
+  res.send({message: `POI-content of type ${poi.type} updated successfully!`});
 });
 
 router.get('/:key', async (req, res, next) => {
