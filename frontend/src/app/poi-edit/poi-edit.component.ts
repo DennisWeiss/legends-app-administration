@@ -8,7 +8,7 @@ import translate from '../translations/translate';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Sight, Legend, Restaurant } from './poi.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
@@ -27,7 +27,9 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   poiTypes = ['restaurants', 'legends', 'sights'];
   defaultType = 'legends';
 
+  // original object from backend, has additional props like mongoose-id
   poi = null;
+  // initial value received from the actual form, used for dirty-check
   initPoi = null;
 
   type: string  = null;
@@ -35,9 +37,11 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   editMode = false;
 
+  // needed to inform child about reset
   reset = new Subject<boolean>();
 
   reqPending = false;
+  responseSuccess = false;
 
   poiForm: FormGroup;
   contentForm: FormGroup;
@@ -48,6 +52,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   paramSub: Subscription;
   reqSub: Subscription;
+
+  dialogOpened = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -115,6 +121,10 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       data: {req}
     });
 
+    dialogRef.afterOpened().pipe(take(1)).subscribe(() => {
+      this.dialogOpened = true;
+    })
+
     dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
       this.reqPending = false;
     });
@@ -173,7 +183,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
           this.initPoi = this.poiForm.value;
         });
     } else {
-      // save object with no values for later dirty-check
+      // save object with no values for dirty-check
       this.initPoi = this.poiForm.value;
     }
   }
@@ -194,12 +204,11 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   canDeactivate(): Observable<boolean> | boolean {
     // check if initial poi-object and poiForm-value are the same
     const formValue = this.poiForm.value;
-    if (isEqual(formValue, this.initPoi)) {
+    if (isEqual(formValue, this.initPoi) || this.dialogOpened) {
       return true;
     }
 
-    // Otherwise ask the user with the dialog service and return its
-    // observable which resolves to true or false when the user decides
+    // form is dirty
     return window.confirm('There are unsaved changes! You really want to leave?');
   }
 

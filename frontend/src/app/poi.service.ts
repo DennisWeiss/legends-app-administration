@@ -35,6 +35,8 @@ export class PoiService {
     const req = new HttpRequest('PUT', `${environment.backendUrl}poi`, this.createFormData(poi), {
       reportProgress: true
     });
+
+
     return this.http.request(req);
   }
 

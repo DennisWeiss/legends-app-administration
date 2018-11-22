@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpEventType, HttpResponse, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription, Observable, of } from 'rxjs';
@@ -27,7 +27,8 @@ export class UploadStatusDialogComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<UploadStatusDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private router: Router) {}
+    private router: Router,
+    public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.dialogRef.disableClose = true;
@@ -52,6 +53,7 @@ export class UploadStatusDialogComponent implements OnInit, OnDestroy {
         this.reqPending = false;
         this.router.navigate(['']).then(() => {
           this.dialogRef.close();
+          this.openSnackBar(event.body.message, 'OK');
         });
       }
     }),
@@ -65,6 +67,13 @@ export class UploadStatusDialogComponent implements OnInit, OnDestroy {
   cancelUpload() {
     this.reqSub.unsubscribe();
     this.dialogRef.close();
+  }
+
+  openSnackBar(message: string, action: string) {
+
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 
   ngOnDestroy() {

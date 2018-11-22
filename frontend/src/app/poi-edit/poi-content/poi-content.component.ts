@@ -3,11 +3,14 @@ import { LocaleService } from '../../locale.service';
 import translate from 'src/app/translations/translate';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ContentFormService } from './content-form.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PoiService } from 'src/app/poi.service';
 import { take } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { Restaurant, Sight, Legend } from '../poi.model';
+import { CanComponentDeactivate } from 'src/app/can-deactivate.guard';
+import { isEqual } from 'lodash';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-poi-content',
@@ -15,11 +18,15 @@ import { Restaurant, Sight, Legend } from '../poi.model';
   styleUrls: ['./poi-content.component.css'],
   providers: [ContentFormService]
 })
-export class PoiContentComponent implements OnInit {
+export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
   private _poi;
+  initContent;
+
+  responseSuccess = false;
 
   t;
+
   @Input() type: string;
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;
@@ -62,7 +69,9 @@ export class PoiContentComponent implements OnInit {
     private fb: FormBuilder,
     private contentFormService: ContentFormService,
     private route: ActivatedRoute,
-    private poiService: PoiService
+    private router: Router,
+    private poiService: PoiService,
+    public snackBar: MatSnackBar
     ) { }
 
   setT(locale: string) {
@@ -100,6 +109,7 @@ export class PoiContentComponent implements OnInit {
           .subscribe((contents) => {
             this.contents = contents;
             this.contentFormService.update(contents, this.type);
+            this.initContent = this.contentForm.value;
           });
       }
 
@@ -125,6 +135,7 @@ export class PoiContentComponent implements OnInit {
       this.contentFormService.reset();
       if (this.editMode) {
         this.contentFormService.update(this.poi.media.content, this.type);
+        this.contentForm.setValue(this.initContent);
       }
     })
     }
@@ -165,9 +176,34 @@ export class PoiContentComponent implements OnInit {
 
   onSubmit() {
     const contentVal = this.contentForm.value;
-    this.poiService.putContents(contentVal, this.id).pipe(take(1)).subscribe(() => {
-
+    this.poiService.putContents(contentVal, this.id).pipe(take(1))
+    .subscribe(
+      (result) => {
+        this.responseSuccess = true;
+        this.router.navigate([''])
+        .then(() => this.openSnackBar(result.message, 'OK'));
+    }, (error) => {
+      const message = `Error ${error.status}: ${error.error.message}`;
+      this.openSnackBar(message, 'OK');
     });
+  }
+
+  openSnackBar(message: string, action: string) {
+
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // check if initial poi-object and poiForm-value are the same
+    const formValue = this.contentForm.value;
+    if (isEqual(formValue, this.initContent)) {
+      return true;
+    }
+
+    // form is dirty
+    return window.confirm('There are unsaved changes! You really want to leave?');
   }
 
 }

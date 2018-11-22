@@ -9,7 +9,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { CanDeactivateGuard } from './can-deactivate.guard';
 
 const routes: Routes = [
-  {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard]},
+  {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'edit/:id', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},

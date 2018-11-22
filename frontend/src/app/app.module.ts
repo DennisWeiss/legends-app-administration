@@ -31,6 +31,7 @@ import {NgxUploaderModule} from "ngx-uploader";
 import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
+import { ResponseSnackbarComponent } from './response-snackbar/response-snackbar.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upl
     PoiContentComponent,
     MediaSectionComponent,
     StatusBarComponent,
-    UploadStatusDialogComponent
+    UploadStatusDialogComponent,
+    ResponseSnackbarComponent
   ],
   imports: [
     BrowserModule,
