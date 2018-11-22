@@ -20,12 +20,12 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
+  name = 'poi-content';
+
   private _poi;
   initContent;
 
   responseSuccess = false;
-
-  t;
 
   @Input() type: string;
   @Input() poiForm: FormGroup;
@@ -65,7 +65,6 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
 
   constructor(
-    public localeService: LocaleService,
     private fb: FormBuilder,
     private contentFormService: ContentFormService,
     private route: ActivatedRoute,
@@ -74,13 +73,8 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
     public snackBar: MatSnackBar
     ) { }
 
-  setT(locale: string) {
-    this.t = translate('poi-content', locale)
-  }
 
   ngOnInit() {
-    this.setT(this.localeService.getLocale())
-    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
 
     this.contentForm = this.contentFormService.contentForm;
 
@@ -176,7 +170,8 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
   onSubmit() {
     const contentVal = this.contentForm.value;
-    this.poiService.putContents(contentVal, this.id).pipe(take(1))
+    this.poiService.putContents(contentVal, this.id)
+    .pipe(take(1))
     .subscribe(
       (result) => {
         this.responseSuccess = true;
@@ -186,7 +181,6 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
   }
 
   openSnackBar(message: string, action: string) {
-
     this.snackBar.open(message, action, {
       duration: 5000,
     });

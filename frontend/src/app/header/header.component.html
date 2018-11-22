@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <span class="title">{{t('TITLE')}}</span>
+    <span class="title">{{'TITLE' | translate:name}}</span>
 
     <div class="lang-select">
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -14,7 +14,7 @@
     </div>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let lang of langs" (click)="localeService.setLocale(lang)">{{lang.toUpperCase()}} - {{t(lang)}}</button>
+      <button mat-menu-item *ngFor="let lang of langs" (click)="localeService.setLocale(lang)">{{lang.toUpperCase()}} - {{lang | translate:name}}</button>
     </mat-menu>
   </div>
 

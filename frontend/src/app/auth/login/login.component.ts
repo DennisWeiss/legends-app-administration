@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  name = 'login';
+
   constructor(private authService: AuthService, private router: Router ) { }
 
   ngOnInit() {
@@ -18,7 +20,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(vals.username, vals.password).subscribe(() => {
       this.router.navigate(['']);
     }, (err) => {
-        
     });
   }
 

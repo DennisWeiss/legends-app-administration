@@ -1,5 +1,12 @@
 export default {
   "en": {
+    "actions": {
+      "LOGIN": "Login",
+      "SUBMIT": "Submit",
+      "RESET": "Reset",
+      "RETRY": "Retry",
+      "CANCEL": "Cancel"
+    },
     "header": {
       "TITLE": "Legends App Administration",
       "en": "English",
@@ -42,10 +49,27 @@ export default {
     },
     "poi-content": {
       "EXPLORED": "Explored",
-      "PUZZLES": "Puzzles"
+      "PUZZLES": "Puzzles",
+      "EXPLORED_TEXT": "Add text that is shown after exploring point of interest",
+      "PREVIEW_TEXT": "Add text that is shown as a preview for point of interest.",
+      "PUZZLE_TEXT": "Add a puzzle with some hints.",
+      "INFO_TEXT": "Füge einen Info-Text hinzu.",
+      "SUBMIT": "Submit",
+      "CLEAR": "Clear"
+    },
+    "login": {
+      "NAME": "Username",
+      "PW": "Password"
     }
   },
   "de": {
+    "actions": {
+      "LOGIN": "Anmelden",
+      "SUBMIT": "Absenden",
+      "RESET": "Zurücksetzen",
+      "RETRY": "Wiederholen",
+      "CANCEL": "Abbrechen"
+    },
     "header": {
       "TITLE": "Sagenhaftes Görlitz POI Verwaltung",
       "en": "Englisch",
@@ -88,7 +112,17 @@ export default {
     },
     "poi-content": {
       "EXPLORED": "Erkundet",
-      "PUZZLES": "Rätsel"
+      "EXPLORED_TEXT": "Füge Text hinzu, der bei Entdeckung angezeigt wird.",
+      "PREVIEW_TEXT": "Füge Text hinzu, der als Vorschau dient.",
+      "PUZZLE_TEXT": "Füge ein Rätsel mit Hinweisen hinzu.",
+      "INFO_TEXT": "Füge einen Info-Text hinzu.",
+      "PUZZLES": "Rätsel",
+      "SUBMIT": "Abschließen",
+      "CLEAR": "Zurücksetzen"
+    },
+    "login": {
+      "NAME": "Benutzername",
+      "PW": "Passwort"
     }
   }
 }

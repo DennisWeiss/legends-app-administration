@@ -27,9 +27,9 @@
       >
 
           <mat-form-field>
-            <mat-select [disabled]="editMode" formControlName="type" [placeholder]="t('TYPE')">
+            <mat-select [disabled]="editMode" formControlName="type" [placeholder]=" 'TYPE' | translate:name">
               <mat-option *ngFor="let type of poiTypes" [value]="type">
-                {{ t(type) }}
+                {{ type | translate:name:name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -37,7 +37,7 @@
           <mat-tab-group formGroupName="name">
             <mat-tab *ngFor="let lang of langs" [label]="lang">
                 <mat-form-field>
-                    <input matInput type="text"  [formControlName]="lang.toLowerCase()" [placeholder]="t('NAME')" />
+                    <input matInput type="text"  [formControlName]="lang.toLowerCase()" [placeholder]="'NAME' | translate:name" />
                   </mat-form-field>
             </mat-tab>
           </mat-tab-group>
@@ -47,18 +47,18 @@
             </mat-form-field>
 
         <mat-form-field *ngIf="isLegend()">
-          <input matInput type="number" formControlName="beaconId" [placeholder]="t('BEACON_ID')" />
+          <input matInput type="number" formControlName="beaconId" [placeholder]="'BEACON_ID' | translate:name" />
         </mat-form-field>
 
 
       <div fxLayout  fxLayoutGap="10px"
       fxLayoutAlign="space-around" formGroupName="coordinates">
         <mat-form-field>
-          <input matInput type="number" formControlName="lat" [placeholder]="t('LATITUDE')" />
+          <input matInput min="-90" max="90" type="number" formControlName="lat" [placeholder]="'LATITUDE' | translate:name" />
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" formControlName="lng" [placeholder]="t('LONGITUDE')" />
+          <input matInput min="-180" max="180" type="number" formControlName="lng" [placeholder]="'LONGITUDE' | translate:name" />
         </mat-form-field>
     </div>
 
@@ -77,23 +77,23 @@
   >
 
 
-  <app-media-section [title]="t('ICON')" [formGroup]="iconForm">
-    <app-img-preview [fileControl]="iconForm.controls.default" [name]="t('DEFAULT')"></app-img-preview>
-    <app-img-preview [fileControl]="iconForm.controls.explored" [name]="t('EXPLORED')"></app-img-preview>
+  <app-media-section [title]="'ICON' | translate:name" [formGroup]="iconForm">
+    <app-img-preview [fileControl]="iconForm.controls.default" [name]="'DEFAULT' | translate:name"></app-img-preview>
+    <app-img-preview [fileControl]="iconForm.controls.explored" [name]="'EXPLORED' | translate:name"></app-img-preview>
   </app-media-section>
 
 
-  <app-media-section [title]="t('IMAGE')" [formGroup]="imgForm">
-    <app-img-preview [fileControl]="imgForm.controls.preview" [name]="t('PREVIEW')"></app-img-preview>
+  <app-media-section [title]="'IMAGE' | translate:name" [formGroup]="imgForm">
+    <app-img-preview [fileControl]="imgForm.controls.preview" [name]="'PREVIEW' | translate:name"></app-img-preview>
   </app-media-section>
 
-  <app-media-section *ngIf="isLegend()" [title]="t('VIDEO')" [formGroup]="videoForm">
-    <app-video-preview [fileControl]="videoForm.controls.arScene" [name]="t('AR_SCENE')"></app-video-preview>
-    <app-video-preview [fileControl]="videoForm.controls.iconScene" [name]="t('ICON_SCENE')"></app-video-preview>
+  <app-media-section *ngIf="isLegend()" [title]="'VIDEO' | translate:name" [formGroup]="videoForm">
+    <app-video-preview [fileControl]="videoForm.controls.arScene" [name]="'AR_SCENE' |translate:name"></app-video-preview>
+    <app-video-preview [fileControl]="videoForm.controls.iconScene" [name]="'ICON_SCENE' | translate:name"></app-video-preview>
   </app-media-section>
 </div>
 
-  <app-media-section *ngIf="isLegend()" [title]="t('VUFORIA_TARGETS')">
+  <app-media-section *ngIf="isLegend()" [title]="'VUFORIA_TARGETS' | translate:name">
     <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
   </app-media-section>
 
@@ -113,8 +113,8 @@
 
     </mat-card>
       <mat-card class="poi-edit-buttons-bottom mat-elevation-z7" *ngIf="!reqPending">
-        <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
-        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
+        <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' | translate:name}}</button>
+        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}</button>
       </mat-card>
 
 

@@ -15,9 +15,9 @@
     <mat-accordion  *ngIf="type === 'legends'">
       <mat-expansion-panel formGroupName="explored">
         <mat-expansion-panel-header>
-          <mat-panel-title> {{t('EXPLORED')}} </mat-panel-title>
+          <mat-panel-title> {{'EXPLORED' | translate:name}} </mat-panel-title>
           <mat-panel-description>
-            Add information that is shown when point of interest was explored.
+            {{'EXPLORED_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
@@ -34,7 +34,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title> Preview</mat-panel-title>
           <mat-panel-description>
-            Create preview-text for point of view
+           {{'PREVIEW_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
@@ -49,9 +49,9 @@
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title> {{t('PUZZLES')}}  </mat-panel-title>
+          <mat-panel-title> {{'PUZZLES' | translate:name}}  </mat-panel-title>
           <mat-panel-description>
-            Create puzzle for point of view
+            {{'PUZZLE_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
@@ -74,7 +74,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title> Information </mat-panel-title>
           <mat-panel-description>
-            Add some general information.
+            {{'INFO_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-form-field>
@@ -89,8 +89,8 @@
 </mat-tab-group>
 
 <div *ngIf="!hasParent" class="poi-content-buttons-bottom">
-    <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{t('CLEAR')}}</button>
-    <button class="submit-btn" type="submit" mat-raised-button color="primary">{{t('SUBMIT')}}</button>
+    <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' | translate:name}}</button>
+    <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}</button>
 </div>
 
 </form>

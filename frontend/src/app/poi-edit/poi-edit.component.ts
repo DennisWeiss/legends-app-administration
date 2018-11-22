@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
+import { TranslatePipe } from '../translations.pipe';
 
 
 @Component({
@@ -22,7 +23,7 @@ import {isEqual} from 'lodash';
 })
 export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
-  t;
+  name = 'poi-edit';
 
   poiTypes = ['restaurants', 'legends', 'sights'];
   defaultType = 'legends';
@@ -58,16 +59,11 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   constructor(
     private route: ActivatedRoute,
     private poiService: PoiService,
-    public localeService: LocaleService,
     public formsService: PoiEditFormsService,
     private dialog: MatDialog
   ) {
   }
 
-
-  setT(locale: string) {
-    this.t = translate('poi-edit', locale)
-  }
 
   setupForms(): void {
 
@@ -90,9 +86,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
 
   ngOnInit() {
-
-    this.setT(this.localeService.getLocale())
-    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.queryParamMap.get('type');

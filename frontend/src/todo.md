@@ -1,20 +1,16 @@
 TODO:
 
-- Login - DONE
-- Interceptor assigning jwt-token to req-header - DONE
-- Route-Guard protecting routes from unregistered users - DONE
-- warning when trying to leave the poi-edit site - DONE
-- file-upload - DONE
 - adjusting quill-editor
-- adjusting map
+- adjusting map (markers)
 - completing drag and drop feature
-- validators for reactive-forms
+- validators for reactive-forms: validate mime-type of files!
 - extensive use of TypeScript
 - proper documentation 
 - error-handling (via interceptor?)
-- write custom pipe for translation
+- proper translation with pipes
 
 Bugs:
-- ersetzen eines bestehenden Bildes muss 2-mal wiederholt werden - fixed
+- quill-editor setzt dirty flag sobald inhalte programmatisch eingefügt werden (Package-Bug)
+- vorherige URL wird bei Abbrechen der Unchanged-Saves-Warnung verändert
 
 

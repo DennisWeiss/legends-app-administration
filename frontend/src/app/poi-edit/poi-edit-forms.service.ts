@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { ContentFormService } from './poi-content/content-form.service';
-import { rootRenderNodes } from '@angular/core/src/view';
 
 @Injectable()
 export class PoiEditFormsService {
@@ -40,8 +38,8 @@ export class PoiEditFormsService {
     beaconId: [-1, Validators.required],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
-      lat: [null, Validators.required],
-      lng: [null, Validators.required]
+      lat: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+      lng: [null, [Validators.required, Validators.min(-180), Validators.max(180)]]
     }),
     icons: this.iconForm,
     media: this.fb.group({

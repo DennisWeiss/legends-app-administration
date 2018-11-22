@@ -33,6 +33,7 @@ import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
 import { ResponseSnackbarComponent } from './response-snackbar/response-snackbar.component';
 import { ErrorInterceptor } from './error-interceptor';
+import { TranslatePipe } from './translations.pipe';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ErrorInterceptor } from './error-interceptor';
     MediaSectionComponent,
     StatusBarComponent,
     UploadStatusDialogComponent,
-    ResponseSnackbarComponent
+    ResponseSnackbarComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,8 @@ import { ErrorInterceptor } from './error-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
-    }
+    },
+    TranslatePipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [UploadStatusDialogComponent]

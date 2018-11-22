@@ -10,25 +10,17 @@ import {LocaleService} from '../locale.service'
 })
 export class HeaderComponent implements OnInit {
 
+  name = 'header';
+
   @Input() title: string
   @Output() sidenavToggled: EventEmitter<any> = new EventEmitter()
 
-  localeService: LocaleService
-  t
   langs = ['en', 'de']
 
-  constructor(localeService: LocaleService) {
-    this.localeService = localeService
-    this.setT(localeService.getLocale())
-  }
+  constructor(public localeService: LocaleService) {}
 
-  setT(locale: string) {
-    this.t = translate('header', locale)
-  }
 
-  ngOnInit() {
-    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
-  }
+  ngOnInit() {}
 
   toggleSidenav() {
     this.sidenavToggled.emit()

@@ -30,6 +30,8 @@ const typesListOf = types => Object.keys(types).filter(type => types[type].check
 })
 export class PoiOverviewComponent implements OnInit {
 
+  name = 'poi-overview';
+
   poiService: PoiService
   displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit']
   pois
@@ -57,8 +59,6 @@ export class PoiOverviewComponent implements OnInit {
       checked: true
     }
   }
-  localeService: LocaleService
-  t
 
   $authState: Observable<any>;
   isAuth = false;
@@ -67,13 +67,11 @@ export class PoiOverviewComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort
 
   constructor(
+    public localeService: LocaleService,
     poiService: PoiService,
-    localeService: LocaleService,
     private router: Router,
     private authService: AuthService) {
     this.poiService = poiService
-    this.localeService = localeService
-    this.setT(localeService.getLocale())
   }
 
   initializeTableDataSource = () => {
@@ -89,12 +87,8 @@ export class PoiOverviewComponent implements OnInit {
     this.setFilterPredicate()
   }
 
-  setT(locale: string) {
-    this.t = translate('poi-overview', locale)
-  }
 
   ngOnInit() {
-    this.localeService.localeUpdated.subscribe(this.setT.bind(this))
     this.poiService.retrievePOIs()
       .subscribe(pois => {
         this.pois = mapPOIs(pois)
