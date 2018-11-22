@@ -44,7 +44,7 @@ export class PoiService {
 
   putContents = (contents, key) => this.http.put<any>(`${environment.backendUrl}poi/content/${key}`, contents);
 
-  private createFormData = (poi) => {
+  private createFormData = (poi): FormData => {
     const postData = new FormData();
     postData.append('poi', JSON.stringify(poi));
     postData.append('icon_default', poi.icons.default);

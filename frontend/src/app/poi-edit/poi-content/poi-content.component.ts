@@ -182,9 +182,6 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
         this.responseSuccess = true;
         this.router.navigate([''])
         .then(() => this.openSnackBar(result.message, 'OK'));
-    }, (error) => {
-      const message = `Error ${error.status}: ${error.error.message}`;
-      this.openSnackBar(message, 'OK');
     });
   }
 

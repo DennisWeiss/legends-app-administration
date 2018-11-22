@@ -32,6 +32,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
 import { ResponseSnackbarComponent } from './response-snackbar/response-snackbar.component';
+import { ErrorInterceptor } from './error-interceptor';
 
 
 @NgModule({
@@ -78,6 +79,11 @@ import { ResponseSnackbarComponent } from './response-snackbar/response-snackbar
       useClass: TokenInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [UploadStatusDialogComponent]

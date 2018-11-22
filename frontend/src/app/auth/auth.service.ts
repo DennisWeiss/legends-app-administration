@@ -42,7 +42,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username, password): Observable<any> {
+  login(username, password): Observable<void> {
     return this.http.post<UserData>(`${environment.backendUrl}auth/login`, {username, password})
     .pipe(map((userData) => {
       console.log('userData', userData);
