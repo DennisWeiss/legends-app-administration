@@ -1,13 +1,15 @@
-import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
-import { icon, latLng, Map, marker, point, polyline, tileLayer, latLngBounds, LeafletMouseEvent } from 'leaflet';
+import {Component, Input, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
+import { icon, latLng, marker, tileLayer, latLngBounds, LeafletMouseEvent } from 'leaflet';
 import { environment } from '../../../environments/environment';
+import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-poi-map',
   templateUrl: './poi-map.component.html',
   styleUrls: ['./poi-map.component.css']
 })
-export class PoiMapComponent implements OnInit {
+export class PoiMapComponent implements OnInit, OnDestroy {
 
   corner1 = latLng(51.16, 14.99 );
   corner2 = latLng(51.18, 15.01);
@@ -15,51 +17,68 @@ export class PoiMapComponent implements OnInit {
 
   @Output() coordsChanged = new EventEmitter<any>();
 
+  @Input() coordsForm: FormGroup;
 
-    // Marker for the top of Mt. Ranier
-    summit = marker([ 46.8523, -121.7603 ], {
-      icon: icon({
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 41 ],
-        iconUrl: 'leaflet/marker-icon.png',
-        shadowUrl: 'leaflet/marker-shadow.png'
-      })
-    });
+  map;
+  locMarker;
+
+  coordsSub: Subscription;
 
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' }),
-      this.summit
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Open Street Map' }),
     ],
     zoom: environment.map.defaultZoom,
     center: latLng(environment.map.defaultCenter),
     maxBounds: this.bounds
   };
 
-  layersControl = {
-    overlays: {
-      'Mt. Rainier Summit': this.summit,
-    }
-  };
-
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  onMapReady(map) {
+    // get a local reference to the map as we need it later
+    this.map = map;
+    const lat = this.coordsForm.controls.lat.value || 0;
+    const lng = this.coordsForm.controls.lng.value || 0;
+    this.addMarker(lat, lng);
+
+    this.coordsSub = this.coordsForm.valueChanges.subscribe((coords) => {
+      this.addMarker(coords.lat || 0, coords.lng || 0);
+    })
   }
 
   handleClick(event) {
     const ev = event as LeafletMouseEvent;
-    this.layersControl.overlays['test'] = marker([ ev.latlng.lat, ev.latlng.lng ], {
+
+    this.addMarker(ev.latlng.lat, ev.latlng.lng);
+
+    this.coordsChanged.emit(ev.latlng);
+
+  }
+
+  addMarker(lat, lng) {
+
+    if(this.locMarker) {
+      this.locMarker.removeFrom(this.map);
+    }
+
+    this.locMarker = marker([ lat, lng ], {
       icon: icon({
         iconSize: [ 25, 41 ],
         iconAnchor: [ 13, 41 ],
-        iconUrl: 'leaflet/marker-icon.png',
-        shadowUrl: 'leaflet/marker-shadow.png'
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
       })
     });
-    this.coordsChanged.emit(ev.latlng);
-   // console.log('event', ev.latlng) ;
+
+    this.locMarker.addTo(this.map);
+  }
+
+  ngOnDestroy() {
+    this.coordsSub.unsubscribe();
   }
 
 }

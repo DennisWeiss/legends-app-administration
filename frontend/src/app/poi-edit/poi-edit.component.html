@@ -65,7 +65,7 @@
     </div>
 
     <div fxFlex="1 1" class="map-container">
-      <app-poi-map (coordsChanged)="updateCoords($event)"></app-poi-map>
+      <app-poi-map [coordsForm]="this.poiForm.get('coordinates')" (coordsChanged)="updateCoords($event)"></app-poi-map>
     </div>
   </mat-card>
 
