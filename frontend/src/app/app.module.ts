@@ -31,9 +31,9 @@ import {NgxUploaderModule} from "ngx-uploader";
 import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
-import { ResponseSnackbarComponent } from './response-snackbar/response-snackbar.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { TranslatePipe } from './translations.pipe';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -57,8 +57,8 @@ import { TranslatePipe } from './translations.pipe';
     MediaSectionComponent,
     StatusBarComponent,
     UploadStatusDialogComponent,
-    ResponseSnackbarComponent,
-    TranslatePipe
+    TranslatePipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

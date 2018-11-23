@@ -7,13 +7,16 @@ import { PoiEditComponent } from './poi-edit/poi-edit.component';
 import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component';
 import { AuthGuard } from './auth/auth.guard';
 import { CanDeactivateGuard } from './can-deactivate.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'edit/:id', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
-  {path: '', component: PoiOverviewComponent}
+  {path: 'poi-list', component: PoiOverviewComponent},
+  {path: '', redirectTo: 'poi-list', pathMatch: 'full'},
+  {path: '**', component: PageNotFoundComponent}
 ]
 
 @NgModule({
