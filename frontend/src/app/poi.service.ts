@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http'
 import { environment } from '../environments/environment';
-import { Sight, Legend, Restaurant } from './poi-edit/poi.model';
+import { Sight, Legend, Restaurant, POI } from './poi-edit/poi.model';
 import { Subject } from 'rxjs';
 
 
@@ -22,9 +22,9 @@ export class PoiService {
    * TODO: Create model for POI
    */
 
-  getPOI = (key: string) => this.http.get<Sight | Legend | Restaurant>(`${environment.backendUrl}poi/key/${key}`)
+  getPOI = (key: string) => this.http.get<POI>(`${environment.backendUrl}poi/key/${key}`)
 
-  postPOI = (poi: Restaurant | Legend | Sight) => {
+  postPOI = (poi: POI) => {
     const req = new HttpRequest('POST', `${environment.backendUrl}poi`, this.createFormData(poi), {
       reportProgress: true
     });
@@ -35,7 +35,6 @@ export class PoiService {
     const req = new HttpRequest('PUT', `${environment.backendUrl}poi`, this.createFormData(poi), {
       reportProgress: true
     });
-
 
     return this.http.request(req);
   }

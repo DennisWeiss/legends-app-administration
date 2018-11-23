@@ -1,38 +1,37 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LocaleService } from '../../locale.service';
-import translate from 'src/app/translations/translate';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
-import { ContentFormService } from './content-form.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PoiService } from 'src/app/poi.service';
-import { take } from 'rxjs/operators';
-import { Subscription, Observable } from 'rxjs';
-import { Restaurant, Sight, Legend } from '../poi.model';
-import { CanComponentDeactivate } from 'src/app/can-deactivate.guard';
-import { isEqual } from 'lodash';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
+import { ContentFormService } from "./content-form.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PoiService } from "src/app/poi.service";
+import { take } from "rxjs/operators";
+import { Subscription, Observable } from "rxjs";
+import { Restaurant, Sight, Legend, POI } from "../poi.model";
+import { CanComponentDeactivate } from "src/app/can-deactivate.guard";
+import { isEqual } from "lodash";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
-  selector: 'app-poi-content',
-  templateUrl: './poi-content.component.html',
-  styleUrls: ['./poi-content.component.css'],
+  selector: "app-poi-content",
+  templateUrl: "./poi-content.component.html",
+  styleUrls: ["./poi-content.component.css"],
   providers: [ContentFormService]
 })
 export class PoiContentComponent implements OnInit, CanComponentDeactivate {
-
-  name = 'poi-content';
+  name = "poi-content";
 
   private _poi;
   initContent;
 
   responseSuccess = false;
 
+  parentSubmit = false;
+
   @Input() type: string;
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;
-  @Input() parentReset: Observable<any>;
-  @Input() set poi(val: Legend | Restaurant | Sight) {
-
+  @Input() parentStatus: Observable<any>;
+  @Input()
+  set poi(val: POI) {
     // we need to listen to changes in order to dynamically create
     // contentForm before assigning data to poiForm
     if (val) {
@@ -63,36 +62,30 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
   paramSub: Subscription;
 
-
   constructor(
-    private fb: FormBuilder,
     private contentFormService: ContentFormService,
     private route: ActivatedRoute,
     private router: Router,
     private poiService: PoiService,
     public snackBar: MatSnackBar
-    ) { }
-
+  ) {}
 
   ngOnInit() {
-
     this.contentForm = this.contentFormService.contentForm;
-
 
     if (this.type) {
       // type received from parent-component
       this.contentFormService.initContentForm(this.type);
     } else {
-      this.contentFormService.initContentForm('legends');
+      this.contentFormService.initContentForm("legends");
     }
 
     if (!this.poiForm) {
       // no poiForm was passed to this component -> get content
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.type = this.route.snapshot.queryParamMap.get('type');
+      this.id = this.route.snapshot.paramMap.get("id");
+      this.type = this.route.snapshot.queryParamMap.get("type");
 
       if (this.id && this.type) {
-
         // initialize form based on type
         this.contentFormService.initContentForm(this.type);
 
@@ -100,7 +93,7 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
         this.poiService
           .getContents(this.id)
           .pipe(take(1))
-          .subscribe((contents) => {
+          .subscribe(contents => {
             this.contents = contents;
             this.contentFormService.update(contents, this.type);
             this.initContent = this.contentForm.value;
@@ -108,45 +101,50 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
       }
 
       this.paramSub = this.route.paramMap.subscribe(params => {
-        if (params.has('id') && params.has('type')) {
-          this.id = params.get('id');
-          this.type = params.get('type');
+        if (params.has("id") && params.has("type")) {
+          this.id = params.get("id");
+          this.type = params.get("type");
         }
       });
-
     } else {
       // pass over form to parent-component
       this.contentFormCreated.emit(this.contentFormService.contentForm);
 
       if (!this.editMode) {
         // change structure of content based on current type
-          this.poiForm.controls.type.valueChanges.subscribe((val) => {
+        this.poiForm.controls.type.valueChanges.subscribe(val => {
           this.contentFormService.reset();
           this.contentFormService.initContentForm(val);
-      })
-    }
-    this.parentReset.subscribe((val) => {
-      this.contentFormService.reset();
-      if (this.editMode) {
-        this.contentFormService.update(this.poi.media.content, this.type);
-        this.contentForm.setValue(this.initContent);
+        });
       }
-    })
+      this.parentStatus.subscribe(val => {
+        switch (val) {
+          case 'reset':
+            this.contentFormService.reset();
+            if (this.editMode) {
+              this.contentFormService.update(this.poi.media.content, this.type);
+             // this.contentForm.setValue(this.initContent);
+            }
+            break;
+          case 'submit': {
+            this.parentSubmit = true;
+            break;
+          }
+        }
+      });
     }
   }
 
   createHint(lang) {
+    this.contentFormService.addHint(this.hints(lang));
+  }
 
-    const index = this.hints(lang).length;
-
-    this.hints(lang).push(this.fb.group({
-      index: [index],
-      url: ['']
-    }));
+  removeHint(hints: FormArray, index) {
+    this.contentFormService.removeHint(hints, index);
   }
 
   addLang(lang) {
-    if (lang !== '') {
+    if (lang !== "") {
       this.contentFormService.addLang(lang, this.type);
     }
   }
@@ -156,11 +154,12 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
   }
 
   hints(lang) {
-    return (this.contentForm.get(lang).get('puzzle') as FormGroup).controls.hints as FormArray;
+    return (this.contentForm.get(lang).get("puzzle") as FormGroup).controls
+      .hints as FormArray;
   }
 
   get langs() {
-    return Object.keys((this.contentForm.controls)) as Array<string>;
+    return Object.keys(this.contentForm.controls) as Array<string>;
   }
 
   resetForms() {
@@ -170,31 +169,34 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
   onSubmit() {
     const contentVal = this.contentForm.value;
-    this.poiService.putContents(contentVal, this.id)
-    .pipe(take(1))
-    .subscribe(
-      (result) => {
+    this.poiService
+      .putContents(contentVal, this.id)
+      .pipe(take(1))
+      .subscribe(result => {
         this.responseSuccess = true;
-        this.router.navigate([''])
-        .then(() => this.openSnackBar(result.message, 'OK'));
-    });
+        this.router
+          .navigate([""])
+          .then(() => this.openSnackBar(result.message, "OK"));
+      });
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 5000,
+      duration: 5000
     });
   }
 
   canDeactivate(): Observable<boolean> | boolean {
     // check if initial poi-object and poiForm-value are the same
+
     const formValue = this.contentForm.value;
-    if (isEqual(formValue, this.initContent)) {
+    if (isEqual(formValue, this.initContent) || this.hasParent) {
       return true;
     }
 
     // form is dirty
-    return window.confirm('There are unsaved changes! You really want to leave?');
+    return window.confirm(
+      "There are unsaved changes! You really want to leave?"
+    );
   }
-
 }

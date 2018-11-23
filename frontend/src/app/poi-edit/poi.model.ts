@@ -1,3 +1,39 @@
+export interface POI {
+
+  beaconId: number;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  explored: boolean;
+  icons: {
+    default: string;
+    explored: string;
+  };
+  id: number;
+  key: string;
+  media: {
+    content: {
+      [key: string]: object;
+    }
+    image: {
+      preview: string;
+    };
+    video: {
+      arScene: string;
+      iconScene: string;
+    };
+    vuforiaTargets: Array<string>;
+  };
+  name: {
+    de: string;
+    en: string;
+    pl: string;
+  };
+  type: string;
+
+}
+
 export interface Legend {
 
   beaconId: number;

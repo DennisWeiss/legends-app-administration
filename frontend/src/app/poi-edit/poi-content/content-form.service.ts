@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Injectable()
 export class ContentFormService {
@@ -128,6 +128,19 @@ addLang(lang, type) {
 
 removeLang(lang) {
   this.contentForm.removeControl(lang);
+}
+
+addHint(hints: FormArray) {
+  const index = hints.length;
+
+  hints.push(this.fb.group({
+    index: [index],
+    url: ['']
+  }));
+}
+
+removeHint(hints, index) {
+  hints.removeAt(index);
 }
 
 

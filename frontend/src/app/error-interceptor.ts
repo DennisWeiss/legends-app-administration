@@ -21,7 +21,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {}, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        const message = `Error ${err.status}: ${err.error.message}`
+
+        const message = `Error ${err.status}: ${err.error.message || err.message}`
         this.openSnackBar(message, 'OK');
       }
     }));

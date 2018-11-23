@@ -58,9 +58,9 @@
             <input matInput type="text" formControlName="heading" placeholder="Heading">
           </mat-form-field>
         <div formArrayName="hints">
-         <div *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
+         <div fxLayout fxLayoutAlign="center center" *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
           <quill-editor [formControl]="hint.controls.url" ></quill-editor>
-          <mat-divider></mat-divider>
+          <button type="button" (click)="removeHint(hints(lang), i)" mat-icon-button color="accent"><mat-icon>cancel</mat-icon></button>
         </div>
       </div>
         <button mat-button color='primary' type="button" (click)='createHint(lang)'>Add new hint</button>

@@ -104,8 +104,8 @@
         [editMode]="editMode"
         [poiForm]="formsService.poiForm"
         [type]="poiForm.controls.type.value"
-        [parentReset] = "reset.asObservable()"
-        (contentFormCreated)="initContentForm($event)"
+        [parentStatus] = "statusChanged.asObservable()"
+        (contentFormCreated)="onContentFormReceived($event)"
         (contentFormFilled)="initPoi = poiForm.value">
         <mat-card-title>Content</mat-card-title>
       </app-poi-content>
