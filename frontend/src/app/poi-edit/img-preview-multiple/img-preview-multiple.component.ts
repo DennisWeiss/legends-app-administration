@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormArray, FormControl } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-img-preview-multiple',
   templateUrl: './img-preview-multiple.component.html',

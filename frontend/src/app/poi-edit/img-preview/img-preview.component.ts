@@ -33,19 +33,10 @@ export class ImgPreviewComponent implements OnInit {
   constructor() {
     this.options = { concurrency: 1, maxUploads: 3 };
     this.files = []; // local uploading files array
-    this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
   }
 
   onUploadOutput(output: UploadOutput): void {
     if (output.type === 'allAddedToQueue') {
-      // when all files added in queue
-      const event: UploadInput = {
-        type: 'uploadAll',
-        url: '/upload',
-        method: 'POST',
-        data: { foo: 'bar' }
-      };
-      this.uploadInput.emit(event);
       this.imgLoaded = true;
     } else if (
       output.type === 'addedToQueue' &&
