@@ -70,7 +70,9 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post('/verify', auth, async (req, res, next) => {
-  res.status(200).send(req.user)
+  res.status(200).send({
+      user: req.user
+  })
 })
 
 module.exports = router;
