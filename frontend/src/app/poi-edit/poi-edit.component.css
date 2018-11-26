@@ -1,6 +1,7 @@
 
 mat-card {
   margin-bottom: 20px;
+  border-radius: 0;
 }
 
 mat-card, mat-form-field, input {
