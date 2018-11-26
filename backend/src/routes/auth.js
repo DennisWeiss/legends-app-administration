@@ -7,6 +7,9 @@ const appConf =  require("../../app-conf");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const auth = require('../middlewares/authentication')
+
+
 router.post("/register", async (req, res, next) => {
 
     const hash = await bcrypt.hash(req.body.password, 10);
@@ -65,5 +68,9 @@ router.post("/login", async (req, res, next) => {
     expiresIn: "3600"
   });
 });
+
+router.post('/verify', auth, async (req, res, next) => {
+  res.status(200).send(req.user)
+})
 
 module.exports = router;

@@ -1,4 +1,3 @@
-
 <form [formGroup]="poiForm" (ngSubmit)="onSubmit()" class="container">
   <div
     fxLayout
@@ -11,20 +10,21 @@
     fxFlex.xs="100%"
     class="poi-edit-page">
 
-  <mat-card class="mat-elevation-z4">
-    <mat-card
-      fxLayout
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-around"
-      class="general-info-container mat-elevation-z7"
-    >
+    <div>
 
-    <div
-      fxLayout="column"
-      fxFlex="1 1"
-      fxLayoutAlign="center stretch"
-      class="general-data"
+      <mat-card
+        fxLayout
+        fxLayoutGap="20px"
+        fxLayoutAlign="space-around"
+        class="general-info-container mat-elevation-z4"
       >
+
+        <div
+          fxLayout="column"
+          fxFlex="1 1"
+          fxLayoutAlign="center stretch"
+          class="general-data"
+        >
 
           <mat-form-field>
             <mat-select [disabled]="editMode" formControlName="type" [placeholder]=" 'TYPE' | translate:name">
@@ -36,88 +36,99 @@
 
           <mat-tab-group formGroupName="name">
             <mat-tab *ngFor="let lang of langs" [label]="lang">
-                <mat-form-field>
-                    <input matInput type="text"  [formControlName]="lang.toLowerCase()" [placeholder]="'NAME' | translate:name" />
-                  </mat-form-field>
+              <mat-form-field>
+                <input matInput type="text" [formControlName]="lang.toLowerCase()"
+                       [placeholder]="'NAME' | translate:name"/>
+              </mat-form-field>
             </mat-tab>
           </mat-tab-group>
 
           <mat-form-field>
-              <input matInput type="text" formControlName="key" placeholder="Key" />
+            <input matInput type="text" formControlName="key" placeholder="Key"/>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="isLegend()">
+            <input matInput type="number" formControlName="beaconId" [placeholder]="'BEACON_ID' | translate:name"/>
+          </mat-form-field>
+
+
+          <div fxLayout fxLayoutGap="10px"
+               fxLayoutAlign="space-around" formGroupName="coordinates">
+            <mat-form-field>
+              <input matInput min="-90" max="90" type="number" formControlName="lat"
+                     [placeholder]="'LATITUDE' | translate:name"/>
             </mat-form-field>
 
-        <mat-form-field *ngIf="isLegend()">
-          <input matInput type="number" formControlName="beaconId" [placeholder]="'BEACON_ID' | translate:name" />
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput min="-180" max="180" type="number" formControlName="lng"
+                     [placeholder]="'LONGITUDE' | translate:name"/>
+            </mat-form-field>
+          </div>
 
+        </div>
 
-      <div fxLayout  fxLayoutGap="10px"
-      fxLayoutAlign="space-around" formGroupName="coordinates">
-        <mat-form-field>
-          <input matInput min="-90" max="90" type="number" formControlName="lat" [placeholder]="'LATITUDE' | translate:name" />
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput min="-180" max="180" type="number" formControlName="lng" [placeholder]="'LONGITUDE' | translate:name" />
-        </mat-form-field>
-    </div>
-
-    </div>
-
-    <div fxFlex="1 1" class="map-container">
-      <app-poi-map [coordsForm]="this.poiForm.get('coordinates')" (coordsChanged)="updateCoords($event)"></app-poi-map>
-    </div>
-  </mat-card>
-
-
-  <div fxLayout="row wrap"
-  fxLayoutGap="10px"
-  fxLayoutAlign="space-around"
-  class="media-section"
-  >
-
-
-  <app-media-section [title]="'ICON' | translate:name" [formGroup]="iconForm">
-    <app-img-preview [fileControl]="iconForm.controls.default" [name]="'DEFAULT' | translate:name"></app-img-preview>
-    <app-img-preview [fileControl]="iconForm.controls.explored" [name]="'EXPLORED' | translate:name"></app-img-preview>
-  </app-media-section>
-
-
-  <app-media-section [title]="'IMAGE' | translate:name" [formGroup]="imgForm">
-    <app-img-preview [fileControl]="imgForm.controls.preview" [name]="'PREVIEW' | translate:name"></app-img-preview>
-  </app-media-section>
-
-  <app-media-section *ngIf="isLegend()" [title]="'VIDEO' | translate:name" [formGroup]="videoForm">
-    <app-video-preview [fileControl]="videoForm.controls.arScene" [name]="'AR_SCENE' |translate:name"></app-video-preview>
-    <app-video-preview [fileControl]="videoForm.controls.iconScene" [name]="'ICON_SCENE' | translate:name"></app-video-preview>
-  </app-media-section>
-</div>
-
-  <app-media-section *ngIf="isLegend()" [title]="'VUFORIA_TARGETS' | translate:name">
-    <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
-  </app-media-section>
-
-   <mat-card class="mat-elevation-z7">
-      <div class="poi-content">
-        <app-poi-content
-        [poi]="poi"
-        [editMode]="editMode"
-        [poiForm]="formsService.poiForm"
-        [type]="poiForm.controls.type.value"
-        [parentStatus] = "statusChanged.asObservable()"
-        (contentFormCreated)="onContentFormReceived($event)"
-        (contentFormFilled)="initPoi = poiForm.value">
-        <mat-card-title>Content</mat-card-title>
-      </app-poi-content>
-      </div>
-
-    </mat-card>
-      <mat-card class="poi-edit-buttons-bottom mat-elevation-z7" *ngIf="!reqPending">
-        <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' | translate:name}}</button>
-        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}</button>
+        <div fxFlex="1 1" class="map-container">
+          <app-poi-map [coordsForm]="this.poiForm.get('coordinates')"
+                       (coordsChanged)="updateCoords($event)"></app-poi-map>
+        </div>
       </mat-card>
 
 
-    </mat-card>
+      <div fxLayout="row wrap"
+           fxLayoutGap="10px"
+           fxLayoutAlign="space-around"
+           class="media-section"
+      >
+
+
+        <app-media-section [title]="'ICON' | translate:name" [formGroup]="iconForm">
+          <app-img-preview [fileControl]="iconForm.controls.default"
+                           [name]="'DEFAULT' | translate:name"></app-img-preview>
+          <app-img-preview [fileControl]="iconForm.controls.explored"
+                           [name]="'EXPLORED' | translate:name"></app-img-preview>
+        </app-media-section>
+
+
+        <app-media-section [title]="'IMAGE' | translate:name" [formGroup]="imgForm">
+          <app-img-preview [fileControl]="imgForm.controls.preview"
+                           [name]="'PREVIEW' | translate:name"></app-img-preview>
+        </app-media-section>
+
+        <app-media-section *ngIf="isLegend()" [title]="'VIDEO' | translate:name" [formGroup]="videoForm">
+          <app-video-preview [fileControl]="videoForm.controls.arScene"
+                             [name]="'AR_SCENE' |translate:name"></app-video-preview>
+          <app-video-preview [fileControl]="videoForm.controls.iconScene"
+                             [name]="'ICON_SCENE' | translate:name"></app-video-preview>
+        </app-media-section>
+      </div>
+
+      <app-media-section *ngIf="isLegend()" [title]="'VUFORIA_TARGETS' | translate:name">
+        <app-img-preview-multiple [fileArray]="vuforiaArray"></app-img-preview-multiple>
+      </app-media-section>
+
+      <mat-card class="mat-elevation-z4">
+        <div class="poi-content">
+          <app-poi-content
+            [poi]="poi"
+            [editMode]="editMode"
+            [poiForm]="formsService.poiForm"
+            [type]="poiForm.controls.type.value"
+            [parentStatus]="statusChanged.asObservable()"
+            (contentFormCreated)="onContentFormReceived($event)"
+            (contentFormFilled)="initPoi = poiForm.value">
+            <mat-card-title>Content</mat-card-title>
+          </app-poi-content>
+        </div>
+
+      </mat-card>
+      <mat-card class="poi-edit-buttons-bottom mat-elevation-z4" *ngIf="!reqPending">
+        <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' |
+          translate:name}}
+        </button>
+        <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}
+        </button>
+      </mat-card>
+
+    </div>
   </div>
 </form>

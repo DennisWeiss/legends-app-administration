@@ -52,6 +52,14 @@ export class AuthService {
     }));
   }
 
+  verify = () => this.http
+    .post<UserData>(`${environment.backendUrl}auth/verify`, {})
+    .pipe(map(userData => {
+      this.userData = userData
+      this.userData.token = localStorage.getItem('token')
+      this._authStatusChanged.next(this.userData.user)
+    }))
+
   logout() {
     localStorage.removeItem('token');
     this._authStatusChanged.next(null);
