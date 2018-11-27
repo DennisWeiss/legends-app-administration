@@ -7,7 +7,7 @@
   <div class="error" *ngIf="error">Status: {{error.status}} <br> Message: {{error.error.message}}</div>
 
   <div fxLayout fxLayoutAlign="space-between center" mat-dialog-actions class="actions-bottom">
-    <button *ngIf="error" mat-raised-button color="primary" (click)="startRequest()">{{'RETRY' | translate:'actions'}}</button>
-    <button mat-raised-button color="accent" (click)="cancelUpload()">{{'CANCEL' | translate:'actions'}}</button>
+    <button *ngIf="error" mat-button color="primary" (click)="startRequest()">{{'RETRY' | translate:'actions'}}</button>
+    <button mat-button color="accent" (click)="cancelUpload()">{{'CANCEL' | translate:'actions'}}</button>
   </div>
 </div>

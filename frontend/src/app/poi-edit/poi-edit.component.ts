@@ -105,7 +105,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   openDialog(req): void {
     this.reqPending = true;
     const dialogRef = this.dialog.open(UploadStatusDialogComponent, {
-      width: '50%',
+      width: '300px',
       data: {req}
     });
 
