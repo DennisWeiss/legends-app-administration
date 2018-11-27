@@ -27,9 +27,9 @@ export default {
       "restaurants": "Restaurants"
     },
     "poi-edit": {
-      "legends": "legend",
-      "sights": "sight",
-      "restaurants": "restaurant",
+      "legends": "Legend",
+      "sights": "Sight",
+      "restaurants": "Restaurant",
       "TYPE": "Type",
       "NAME": "Name",
       "BEACON_ID": "Beacon ID",

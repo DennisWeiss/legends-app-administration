@@ -198,7 +198,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     }
 
     // form is dirty
-    return window.confirm('There are unsaved changes! You really want to leave?');
+    return window.confirm('There are unsaved changes! Do you really want to leave?');
   }
 
 }
