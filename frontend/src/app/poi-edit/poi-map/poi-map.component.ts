@@ -11,10 +11,6 @@ import { Subscription } from 'rxjs';
 })
 export class PoiMapComponent implements OnInit, OnDestroy {
 
-  corner1 = latLng(51.16, 14.99 );
-  corner2 = latLng(51.18, 15.01);
-  bounds =  latLngBounds(this.corner1, this.corner2);
-
   @Output() coordsChanged = new EventEmitter<any>();
 
   @Input() coordsForm: FormGroup;
@@ -30,7 +26,6 @@ export class PoiMapComponent implements OnInit, OnDestroy {
     ],
     zoom: environment.map.defaultZoom,
     center: latLng(environment.map.defaultCenter),
-    maxBounds: this.bounds
   };
 
 

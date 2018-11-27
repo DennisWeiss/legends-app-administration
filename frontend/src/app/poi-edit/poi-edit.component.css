@@ -38,7 +38,6 @@ quill-editor {
 
 }
 
-
 .request-status {
   position: fixed;
   bottom: 30px;
@@ -50,4 +49,8 @@ quill-editor {
 
 .poi-title {
   margin: 12px 0 0 0;
+}
+
+.mat-tab-label {
+  min-width: 80px !important;
 }

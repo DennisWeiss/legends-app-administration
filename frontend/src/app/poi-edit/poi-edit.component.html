@@ -21,7 +21,7 @@
 
         <div
           fxLayout="column"
-          fxFlex="1 1"
+          fxFlex="50%"
           fxLayoutAlign="center stretch"
           class="general-data"
         >
@@ -69,7 +69,9 @@
 
         </div>
 
-        <div fxFlex="1 1" class="map-container">
+        <div
+          fxFlex="50%"
+          class="map-container">
           <app-poi-map [coordsForm]="this.poiForm.get('coordinates')"
                        (coordsChanged)="updateCoords($event)"></app-poi-map>
         </div>
