@@ -1,6 +1,7 @@
 
 mat-card {
   margin-bottom: 20px;
+  border-radius: 0;
 }
 
 mat-card, mat-form-field, input {
@@ -37,9 +38,6 @@ quill-editor {
 
 }
 
-.poi-edit-buttons-bottom > button {
-  font-size: 1.5rem;
-}
 
 .request-status {
   position: fixed;
@@ -50,3 +48,6 @@ quill-editor {
   width: 50%;
 }
 
+.poi-title {
+  margin: 12px 0 0 0;
+}

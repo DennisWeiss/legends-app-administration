@@ -1,5 +1,6 @@
 mat-card {
   margin-bottom: 20px;
+  border-radius: 0;
 }
 
 .media-section-title > mat-card-title {
