@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
-import {map} from "rxjs/operators";
+import {map, take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,12 @@ export class AuthGuard implements CanActivate {
     if (this.authService.authState) {
       return true
     }
-    return this.authService.verify().pipe(map(userData => true, err => false))
 
+    return new Promise((resolve, reject) => {
+      this.authService.verify().pipe(take(1)).subscribe(
+        userData => {resolve(true)},
+        err => {this.router.navigate(['/login']);
+                resolve(false)});
+    })
   }
 }

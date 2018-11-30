@@ -13,8 +13,5 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // auto-login if valid token already exists
-    this.authService.verify()
-     .subscribe((value) => {})
   }
 }

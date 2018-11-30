@@ -26,7 +26,7 @@ export class SidenavComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.sidenav.close();
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
 }
