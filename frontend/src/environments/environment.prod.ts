@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  backendUrl: "prodUrl",
+  backendUrl: "http://localhost:3000",
   map: {
     defaultCenter: {
       lat: 51.15,

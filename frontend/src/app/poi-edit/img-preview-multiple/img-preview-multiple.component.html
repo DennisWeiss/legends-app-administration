@@ -5,11 +5,7 @@
 
     <div class="drag-and-drop-field"
          ngFileDrop
-         [options]="options"
-         (uploadOutput)="onUploadOutput($event)"
-         (click)="imgFileInput.click()"
-         [uploadInput]="uploadInput"
-         [ngClass]="{ 'is-drop-over': dragOver }">
+         (click)="imgFileInput.click()">
       Drag &amp; Drop into here
     </div>
 

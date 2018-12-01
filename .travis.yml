@@ -1,0 +1,25 @@
+language: node_js
+sudo: true
+
+install:
+  - cd frontend
+  - npm install
+  - cd ../backend
+  - npm install
+  - cd ..
+
+script:
+  - cd frontend
+  - ng test
+  - ng build --prod
+  - tar -zcf legends-app-frontend-${TRAVIS_BUILD_NUMBER}.tar.gz /dist
+  - cd ../backend
+  - npm run build
+  - tar -zcf legends-app-backend-${TRAVIS_BUILD_NUMBER}.tar.gz /dist
+  - cd ..
+
+after_success:
+  - curl -T frontend/legends-app-frontend-${TRAVIS_BUILD_NUMBER}.tar.gz -u $FTP_USER:$FTP_PASSWORD ftp://193.31.26.152
+  - curl -T backend/legends-app-backend-${TRAVIS_BUILD_NUMBER}.tar.gz -u $FTP_USER:$FTP_PASSWORD ftp://193.31.26.152
+
+  
