@@ -8,12 +8,10 @@
   </div>
 
     <div class="drag-and-drop-field"
-         ngFileDrop
-         [options]="options"
-         (uploadOutput)="onUploadOutput($event)"
-         (click)="imgFileInput.click()"
-         [uploadInput]="uploadInput"
-         [ngClass]="{ 'is-drop-over': dragOver }">
+        ngFileDrop
+        (uploadOutput)="onUploadOutput($event)"
+        (click)="imgFileInput.click()"
+        [ngClass]="{ 'is-drop-over': dragOver }">
       Drag &amp; Drop into here
     </div>
 

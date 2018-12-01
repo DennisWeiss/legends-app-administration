@@ -28,6 +28,14 @@ export class ImgPreviewMultipleComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+
+    window.addEventListener('dragover', function(e) {
+      e.preventDefault();
+    }, false);
+    window.addEventListener('drop', function(e) {
+      e.preventDefault();
+    }, false)
+
     // set initial url
     this.images = this.fileArray.controls.map((control, index) => {
       return { preview: control.value, index: index };
@@ -51,22 +59,7 @@ export class ImgPreviewMultipleComponent implements OnInit {
   }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === 'allAddedToQueue') {
-      this.imgLoaded = true;
-    } else if (
-      output.type === 'addedToQueue' &&
-      typeof output.file !== 'undefined'
-    ) {
-      this.handleFileInput([output.file.nativeFile]);
-    } else if (
-      output.type === 'uploading' &&
-      typeof output.file !== 'undefined'
-    ) {
-      // update current data in files array for uploading file
-      const index = this.images.findIndex(
-        file => typeof output.file !== 'undefined' && file.id === output.file.id
-      );
-      this.images[index] = output.file;
+   if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
       this.handleFileInput([output.file.nativeFile]);
     }
   }
@@ -96,6 +89,10 @@ export class ImgPreviewMultipleComponent implements OnInit {
     const index = this.images.findIndex((el) => el === image);
     this.images.splice(index, 1);
     this.fileArray.removeAt(image.index);
+
+  }
+
+  onDrop(event) {
 
   }
 
