@@ -28,8 +28,8 @@
 
           <mat-form-field>
             <mat-select [disabled]="editMode" formControlName="type" [placeholder]=" 'TYPE' | translate:name">
-              <mat-option *ngFor="let type of poiTypes" [value]="type | translate:name">
-                {{ type | translate:name:name }}
+              <mat-option *ngFor="let type of poiTypes" [value]=" type">
+                {{ type | translate:name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
