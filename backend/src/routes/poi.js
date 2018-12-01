@@ -2,6 +2,7 @@ import POI from '../models/poi.model'
 import {mapListOfPOIsToDict} from '../mapper/poi.mapper'
 
 import VersionLocationData from '../models/version-location-data'
+const winston = require('winston');
 
 const express = require('express')
 const router = express.Router()
@@ -55,7 +56,7 @@ const formatToKey = (name, iteration) => name.toUpperCase().replace(' ', '_') + 
 const keyExists = async key => !!(await POI.findOne({key}))
 
 const generateKey = async (poi, iteration=0) => {
-  const key = formatToKey(poi.name.en, iteration)
+  const key = formatToKey(poi.name.get('en'), iteration)
   if (await keyExists(key)) {
     return generateKey(poi, iteration + 1)
   }
@@ -66,6 +67,8 @@ router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next
 
   const body = req.body
 
+
+
   const poi = new POI(body)
 
   try {
@@ -74,6 +77,7 @@ router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next
     return res.status(400).send({message: 'Invalid content!', error: err})
   }
 
+  winston.info(poi);
   poi.key = await generateKey(poi)
 
   await poi.save()
