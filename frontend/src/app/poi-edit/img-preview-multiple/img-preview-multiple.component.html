@@ -1,7 +1,11 @@
 <div fxLayout="column" fxLayoutAlign="center center">
 
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <img *ngFor="let image of images" [src]="image"/>
+  <div fxLayout="column" fxlayoutAlign="center center" >
+    <div fxLayout="row wrap" fxLayoutAlign="center center" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div cdkDrag *ngFor="let image of images" (cdkDragEnded)="onDragEnd(image)"  >
+      <img [src]='image.preview'/>
+    </div>
+  </div>
 
     <div class="drag-and-drop-field"
          ngFileDrop

@@ -2,7 +2,7 @@ TODO:
 
 - adjusting quill-editor
 - adjusting map (markers)
-- completing drag and drop feature
+- replacing ngx-uploader with other drag and drop package
 - validators for reactive-forms: validate mime-type of files!
 - extensive use of TypeScript
 - proper documentation 

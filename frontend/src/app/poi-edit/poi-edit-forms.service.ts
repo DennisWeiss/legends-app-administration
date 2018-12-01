@@ -53,9 +53,11 @@ export class PoiEditFormsService {
 
   update(poi) {
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend
+    const formArray = new FormArray([]);
     poi.media.vuforiaTargets.forEach((url) => {
-      this.vuforiaArray.push(new FormControl(url));
+      formArray.push(new FormControl(url));
     })
+    this.vuforiaArray.controls = formArray.controls;
     this.poiForm.patchValue(poi);
     this.poiForm.markAsPristine();
 

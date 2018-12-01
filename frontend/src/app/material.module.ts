@@ -24,6 +24,8 @@ import {
   MatSnackBarModule
 } from "@angular/material";
 
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 @NgModule({
   exports: [
     MatCheckboxModule,
@@ -46,7 +48,9 @@ import {
     MatExpansionModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule
+
   ]
 })
 export class MaterialModule {}
