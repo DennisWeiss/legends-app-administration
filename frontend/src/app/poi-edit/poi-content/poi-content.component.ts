@@ -9,6 +9,7 @@ import { Restaurant, Sight, Legend, POI } from "../poi.model";
 import { CanComponentDeactivate } from "src/app/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { MatSnackBar } from "@angular/material";
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: "app-poi-content",
@@ -186,6 +187,7 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
     });
   }
 
+  @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     // check if initial poi-object and poiForm-value are the same
 

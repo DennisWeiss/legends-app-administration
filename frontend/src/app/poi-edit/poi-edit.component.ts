@@ -10,7 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
-
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-poi-edit',
@@ -190,6 +190,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   }
 
+  @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     // check if initial poi-object and poiForm-value are the same
     const formValue = this.poiForm.value;
