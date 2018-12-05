@@ -22,3 +22,7 @@ body {
 mat-card {
   border-radius: 0 !important;
 }
+
+.mat-form-field-infix {
+  width: initial !important;
+}
