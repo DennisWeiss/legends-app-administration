@@ -2,6 +2,8 @@ import POI from '../models/poi.model'
 import {mapListOfPOIsToDict} from '../mapper/poi.mapper'
 
 import VersionLocationData from '../models/version-location-data'
+import {applyUrlToPoi} from "../utils/helperfunctions"
+
 const winston = require('winston');
 
 const express = require('express')
@@ -55,7 +57,7 @@ const formatToKey = (name, iteration) => name.toUpperCase().replace(' ', '_') + 
 
 const keyExists = async key => !!(await POI.findOne({key}))
 
-const generateKey = async (poi, iteration=0) => {
+const generateKey = async (poi, iteration = 0) => {
   const key = formatToKey(poi.name.get('en'), iteration)
   if (await keyExists(key)) {
     return generateKey(poi, iteration + 1)
@@ -66,7 +68,6 @@ const generateKey = async (poi, iteration=0) => {
 router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
 
   const body = req.body
-
 
 
   const poi = new POI(body)
@@ -117,18 +118,21 @@ router.delete('/:key', auth, admin, async (req, res, next) => {
 
 router.get('/', async (req, res) => {
   const poi = await POI.find({})
+  poi.forEach(poiObj => applyUrlToPoi(poiObj, req))
   const versions = await VersionLocationData.find({})
   res.send(mapListOfPOIsToDict(poi, versions))
 })
 
 router.get('/:type', async (req, res) => {
   const poi = await POI.find({type: req.params.type})
+  poi.forEach(poiObj => applyUrlToPoi(poiObj, req))
   const versions = await VersionLocationData.find({})
   res.send(mapListOfPOIsToDict(poi, versions))
 })
 
 router.get('/key/:key', async (req, res) => {
   const poi = await POI.findOne({key: req.params.key})
+  applyUrlToPoi(poi, req)
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})
   }
