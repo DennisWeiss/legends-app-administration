@@ -28,6 +28,10 @@ quill-editor {
   margin: auto;
 }
 
+.poi-edit-form {
+  width: 100%;
+}
+
 .poi-content {
   margin: 30px 0;
 }
