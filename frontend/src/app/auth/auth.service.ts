@@ -45,7 +45,6 @@ export class AuthService {
   login(username, password): Observable<void> {
     return this.http.post<UserData>(`${environment.backendUrl}auth/login`, {username, password})
     .pipe(map((userData) => {
-      console.log('userData', userData);
       this.userData = userData;
       this.saveToken(this.userData.token);
       this._authStatusChanged.next(this.userData.user);
@@ -55,7 +54,6 @@ export class AuthService {
   verify = () => this.http
     .post<UserData>(`${environment.backendUrl}auth/verify`, {})
     .pipe(map(userData => {
-      console.log('userData', userData)
       this.userData = userData
       this.userData.token = localStorage.getItem('token')
       this._authStatusChanged.next(this.userData.user)

@@ -8,7 +8,6 @@ export class PoiEditFormsService {
 
   langs = ['de', 'en', 'pl'];
 
-
   contentForm = this.fb.group({
   });
 
