@@ -1,12 +1,5 @@
-img {
-  width: 200px;
-  height: 120px;
-}
 
 .drag-and-drop-field {
-  height: 100px;
-  width: 100%;
-  background: #e9e9e9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,9 +7,8 @@ img {
   border: 1px solid #555555;
   border-radius: 2px;
   cursor: pointer;
-  background-image: url("https://studentcard.ae/wp-content/plugins/orchitech-dm/resources/alive-dm/img/empty-image.png");
+  background: #e9e9e9 url("https://studentcard.ae/wp-content/plugins/orchitech-dm/resources/alive-dm/img/empty-image.png") center;
   background-size: cover;
-  background-position: center;
 }
 
 .image-preview-loaded {

@@ -16,14 +16,12 @@ import {
 })
 export class ImgPreviewComponent implements OnInit {
   @Input() name: string;
-  fileToUpload: File = null;
   @Input() fileControl: FormControl;
+  @Input() width = 133;
+  @Input() height = 100;
 
   imgPreviewUrl = null;
-  imgUploaded = false;
   imgLoaded = false;
-
-  faPlusCircle = faPlusCircle;
 
   options: UploaderOptions;
   files: UploadFile[];

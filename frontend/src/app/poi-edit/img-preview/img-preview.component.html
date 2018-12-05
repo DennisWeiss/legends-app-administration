@@ -1,28 +1,30 @@
-
-<div fxLayout="column" fxLayoutAlign ="center">
+<div fxLayout="column" fxLayoutAlign="center">
   <span fxLayoutAlign="center"><mat-card-subtitle>{{name}}</mat-card-subtitle></span>
 
-    <div *ngIf="!imgPreviewUrl">
-      <div class="drag-and-drop-field"
-           ngFileDrop
-           [options]="options"
-           (uploadOutput)="onUploadOutput($event)"
-           (click)="imgFileInput.click()"
-           [uploadInput]="uploadInput"
-           [ngClass]="{ 'is-drop-over': dragOver }">
-        Drag &amp; Drop into here
-      </div>
+  <div *ngIf="!imgPreviewUrl" [style.width.px]="width" [style.height.px]="height">
+    <div class="drag-and-drop-field"
+         [style.width.px]="width" [style.height.px]="height"
+         ngFileDrop
+         [options]="options"
+         (uploadOutput)="onUploadOutput($event)"
+         (click)="imgFileInput.click()"
+         [uploadInput]="uploadInput"
+         [ngClass]="{ 'is-drop-over': dragOver }">
+      Drag &amp; Drop into here
     </div>
-    <input hidden type="file" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
+  </div>
+  <input hidden type="file" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
 
-    <!--TODO: Show tooltip when hovering over div-->
-    <div class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl">
-      <img [src]="imgPreviewUrl" ngFileDrop
-      [options]="options"
-      (uploadOutput)="onUploadOutput($event)"
-      (click)="imgFileInput.click()"
-      [uploadInput]="uploadInput"
-      [ngClass]="{ 'is-drop-over': dragOver }">
-    </div>
+  <!--TODO: Show tooltip when hovering over div-->
+  <div [style.width.px]="width" [style.height.px]="height" class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl">
+    <img [src]="imgPreviewUrl"
+         [style.width.px]="width" [style.height.px]="height"
+         ngFileDrop
+         [options]="options"
+         (uploadOutput)="onUploadOutput($event)"
+         (click)="imgFileInput.click()"
+         [uploadInput]="uploadInput"
+         [ngClass]="{ 'is-drop-over': dragOver }">
+  </div>
 </div>
 
