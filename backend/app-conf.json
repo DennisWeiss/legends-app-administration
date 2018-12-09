@@ -2,5 +2,7 @@
   "serverPort": 3000,
   "mongoDbUrl": "mongodb://localhost:27017/legends",
   "dbName": "legends",
-  "jwtPrivateKey": "test"
+  "jwtPrivateKey": "test",
+  "tokenExpInSec": 3600
+
 }

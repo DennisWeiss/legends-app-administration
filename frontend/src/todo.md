@@ -14,3 +14,7 @@ Bugs:
 - vorherige URL wird bei Abbrechen der Unchanged-Saves-Warnung verändert
 
 
+
+https://stackoverflow.com/questions/26739167/jwt-json-web-token-automatic-prolongation-of-expiration
+
+

@@ -55,7 +55,7 @@ router.post("/login", async (req, res, next) => {
   const key = appConf.jwtPrivateKey;
 
   //generate a token
-  const token = user.generateAuthToken('1h');
+  const token = user.generateAuthToken(appConf.tokenExpInSec);
 
   res.status(200).send({
     message: "Login successful",
@@ -65,13 +65,18 @@ router.post("/login", async (req, res, next) => {
       rights: user.rights
     },
     token: token,
-    expiresIn: "3600"
+    expiresIn: appConf.tokenExpInSec
   });
 });
 
 router.post('/verify', auth, async (req, res, next) => {
+
+  const token = User.generateAuthToken(appConf.tokenExpInSec , req.user);
+
   res.status(200).send({
-      user: req.user
+      user: req.user,
+      token: token,
+      expiresIn: appConf.tokenExpInSec
   })
 })
 
