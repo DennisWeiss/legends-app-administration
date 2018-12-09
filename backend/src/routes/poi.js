@@ -33,10 +33,12 @@ const storage = multer.diskStorage({
       .join('-')
     //const ext = MIME_TYPE_MAP[file.mimetype];
 
-    const [fileName, ext] = name.split('.')
+    //handling filenames with additional points in between
+    const fileNameArr = name.split('.');
+    const ext = fileNameArr.pop();
+    const fileName = fileNameArr.join(''); 
 
-    //example: test-1.1.2001.jpg
-    cb(null, fileName + '-' + Date.now() + '.' + ext)
+    cb(null, fileName + '-' + Date.now() + '.' + ext);
   }
 })
 
@@ -66,7 +68,6 @@ const generateKey = async (poi, iteration=0) => {
 router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
 
   const body = req.body
-
 
 
   const poi = new POI(body)
