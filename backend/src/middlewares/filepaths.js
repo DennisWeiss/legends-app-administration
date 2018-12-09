@@ -1,9 +1,11 @@
 
+
 const getFilePath = function (prop, files, url) {
     return url + '/' + files[prop][0].filename;
 }
 
-module.exports = (req, res, next) => {
+
+module.exports.middleware = async (req, res, next) => {
     // since mime-type is multipart/formData, poi-object was stringified and needs to be parsed
     const body = JSON.parse(req.body.poi);
 
@@ -16,6 +18,7 @@ module.exports = (req, res, next) => {
     body.icons.default = files['icon_default'] ? getFilePath('icon_default', files, url) : body.icons.default;
     body.icons.explored = files['icon_explored'] ? getFilePath('icon_explored', files, url) : body.icons.explored;
     body.media.image.preview = files['image_preview'] ? getFilePath('image_preview', files, url) : body.media.image.preview;
+
     body.media.video.arScene = files['video_ar_scene'] ? getFilePath('video_ar_scene', files, url) : body.media.video.arScene;
     body.media.video.iconScene = files['video_icon_scene'] ? getFilePath('video_icon_scene', files, url): body.media.video.iconScene;
 

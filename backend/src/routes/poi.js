@@ -11,18 +11,22 @@ const updateVersions = require('../utils/updateVersions')
 
 const auth = require('../middlewares/authentication')
 const admin = require('../middlewares/admin')
-const filePaths = require('../middlewares/filepaths')
+const filePaths = require('../middlewares/filepaths').middleware;
 
 const multer = require('multer')
 
+const mimetypes = require('../middlewares/file-validation').mimetypes;
+const validateFiles = require('../middlewares/file-validation').validate;
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    //const isValid = MIME_TYPE_MAP[file.mimetype];
-    // let error = new Error("Invalid MIME type");
-    //if (isValid) {
-    //error = null;
-    //}
-    cb(null, 'files')
+    const isValid = mimetypes.includes(file.mimetype);
+    let error = new Error("Invalid MIME type!");
+    if (isValid) {
+    error = null;
+    }
+    cb(error, 'files')
   },
   filename: (req, file, cb) => {
 
@@ -31,7 +35,6 @@ const storage = multer.diskStorage({
       .toLowerCase()
       .split(' ')
       .join('-')
-    //const ext = MIME_TYPE_MAP[file.mimetype];
 
     //handling filenames with additional points in between
     const fileNameArr = name.split('.');
@@ -65,7 +68,7 @@ const generateKey = async (poi, iteration=0) => {
   return key
 }
 
-router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
+router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
 
   const body = req.body
 
@@ -86,7 +89,7 @@ router.post('/', auth, upload.fields(formData), filePaths, async (req, res, next
   return res.send({message: `POI of type ${poi.type} created successfully`})
 })
 
-router.put('/', auth, upload.fields(formData), filePaths, async (req, res, next) => {
+router.put('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
 
   try {
     await POI.validateContent(req.body.media.content, req.body.type)
