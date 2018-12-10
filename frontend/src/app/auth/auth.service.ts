@@ -78,18 +78,22 @@ export class AuthService implements OnDestroy {
   }
 
   private setupTokenRefresh(exp): void {
+
+    if (this.tokenRefreshSub) {
+      this.tokenRefreshSub.unsubscribe();
+    }
+
     const refreshTime = (exp * 1000) / 4;
+
     this.tokenRefreshSub = interval(refreshTime).subscribe(x => {
-      this.getNewToken().pipe(take(1)).subscribe(() => {
+      this.getNewToken().pipe(take(1)).subscribe((userData) => {
+        this.saveToken(userData.token);
       });
     });
   }
 
   private getNewToken(): Observable<any> {
-    return this.http.post<UserData>(`${environment.backendUrl}auth/verify`, {})
-    .pipe(map((userData) => {
-      this.saveToken(userData.token);
-    }));
+    return this.http.post<UserData>(`${environment.backendUrl}auth/verify`, {});
   }
 
   ngOnDestroy() {
