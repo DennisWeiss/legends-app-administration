@@ -23,15 +23,15 @@ const imgMimeTypes = [
 module.exports.mimetypes = [...videoMimeTypes, ...imgMimeTypes];
     
 
-const validateImg = async (...imgArr) => {
+const validateImg = (...imgArr) => {
     return validateFile(imgMimeTypes, imgArr);
 }
 
-const validateVideo = async (...videoArr) => {
+const validateVideo = (...videoArr) => {
     return validateFile(videoMimeTypes, videoArr);
 }
 
-const validateFile = async (mimetypes, fileArr) => {
+const validateFile = (mimetypes, fileArr) => {
     for(let file of fileArr) {
         if(!mimetypes.includes(file[0].mimetype)) {
             return false;
@@ -56,14 +56,14 @@ module.exports.validate = async (req, res, next) => {
         return typeof file !== 'undefined'
     })
 
-    if (! await validateImg(...images)) { isValid = false; }
+    if (!validateImg(...images)) { isValid = false; }
     
     const videos = [files['video_ar_scene'], files['video_icon_scene']]
     .filter((file) => {
         return typeof file !== 'undefined'
     })
 
-    if (! await validateVideo(...videos)) { isValid = false; }
+    if (!validateVideo(...videos)) { isValid = false; }
  
     if (isValid) {
         next();
