@@ -12,7 +12,7 @@ const applyUrlToPoi = (poi, req) => {
   })
   arrayNeedUrl.forEach(obj => {
     for (let i = 0; i < obj.length; i++) {
-      obj[i] = obj[key] ? url + obj[i] : ''
+      obj[i] = url + obj[i]
     }
   })
 }
