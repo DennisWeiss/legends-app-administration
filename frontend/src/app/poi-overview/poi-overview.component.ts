@@ -87,7 +87,6 @@ export class PoiOverviewComponent implements OnInit {
     this.setFilterPredicate()
   }
 
-
   ngOnInit() {
     this.poiService.retrievePOIs()
       .subscribe(pois => {

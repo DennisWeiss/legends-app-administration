@@ -168,7 +168,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
         .pipe(take(1))
         .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
-          this.formsService.update(poi);
+          this.formsService.update(this.poi);
           this.initPoi = this.poiForm.value;
         });
     } else {

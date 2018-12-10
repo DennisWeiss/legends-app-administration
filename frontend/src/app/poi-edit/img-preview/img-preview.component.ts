@@ -1,13 +1,14 @@
-import { FormControl } from '@angular/forms';
+import {FormControl} from '@angular/forms';
 
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import {Component, OnInit, Input, EventEmitter} from '@angular/core';
+import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import {
   UploaderOptions,
   UploadFile,
   UploadInput,
   UploadOutput
 } from 'ngx-uploader';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-img-preview',
@@ -29,7 +30,7 @@ export class ImgPreviewComponent implements OnInit {
   dragOver;
 
   constructor() {
-    this.options = { concurrency: 1, maxUploads: 3 };
+    this.options = {concurrency: 1, maxUploads: 3};
     this.files = []; // local uploading files array
   }
 
@@ -53,7 +54,7 @@ export class ImgPreviewComponent implements OnInit {
       );
       this.files[index] = output.file;
       this.handleFileInput([output.file.nativeFile]);
-      } else if (output.type === 'removed') {
+    } else if (output.type === 'removed') {
       // remove file from array when removed
       this.files = this.files.filter(
         (file: UploadFile) => file !== output.file
@@ -70,9 +71,6 @@ export class ImgPreviewComponent implements OnInit {
       this.dragOver = false;
     }
   }
-
-  // TODO: Implement manual upload with file explorer
-  manualUpload() {}
 
   ngOnInit() {
 
