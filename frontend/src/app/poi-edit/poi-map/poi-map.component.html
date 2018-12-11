@@ -1,7 +1,8 @@
-<!--<div class="poi-edit-map"-->
-  <!--leaflet-->
-  <!--[leafletOptions]="options"-->
-  <!--(leafletClick)="handleClick($event)"-->
-  <!--(leafletMapReady)="onMapReady($event)">-->
-  <!--&gt;</div>-->
-<agm-map style='height: 400px' [latitude]="position.lat" [longitude]="position.lng"></agm-map>
+<agm-map
+  style='height: 400px'
+  [latitude]="position.lat"
+  [longitude]="position.lng"
+  (mapClick)="addOrMoveMarker($event)"
+  mapTypeControl="true">
+  <agm-marker *ngIf="markerIsSet" [latitude]="coordsForm.controls.lat.value" [longitude]="coordsForm.controls.lng.value"></agm-marker>
+</agm-map>
