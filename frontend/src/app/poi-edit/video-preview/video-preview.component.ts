@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
+import { loadFile } from 'src/app/utils/fileLoader';
 
 @Component({
   selector: 'app-video-preview',
@@ -31,12 +32,16 @@ export class VideoPreviewComponent implements OnInit {
 
 
   ngOnInit() {
-    // set initial url
-    this.videoUrl = this.fileControl.value;
-    // check for changes
-    this.fileControl.valueChanges.subscribe(() => {
-      this.videoUrl = this.fileControl.value;
-    })
+   // check for initial url
+   this.videoUrl = this.fileControl.value;
+
+   // listen to changes
+   this.fileControl.valueChanges.subscribe(() => {
+     const val = this.fileControl.value;
+     if (typeof val === 'string' || !val) {
+       this.videoUrl = this.fileControl.value;
+     }
+   })
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -73,16 +78,14 @@ export class VideoPreviewComponent implements OnInit {
   }
 
   handleFileInput(files) {
-    this.fileControl.setValue(files.item(0));
-    this.loadFile(files[0]);
-}
+    if (files[0]) {
+      this.fileControl.setValue(files[0]);
 
-loadFile(file) {
-  const reader = new FileReader();
-  reader.onload = () => {
-    this.videoUrl = reader.result;
-  };
-  reader.readAsDataURL(file);
+      // load image for preview
+      loadFile(files[0]).then(result => {
+        this.videoUrl = result;
+      });
+    }
 }
 
 resetFile() {
