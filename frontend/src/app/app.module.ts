@@ -34,6 +34,7 @@ import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upl
 import { ErrorInterceptor } from './error-interceptor';
 import { TranslatePipe } from './translations.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {AgmCoreModule} from '@agm/core'
 
 
 @NgModule({
@@ -72,7 +73,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     QuillModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxUploaderModule
+    NgxUploaderModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBOYYsPrpWTunxjOVUoUwl1aJc9rBpzLWA'
+    })
   ],
   exports: [],
   providers: [

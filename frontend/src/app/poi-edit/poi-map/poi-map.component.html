@@ -1,6 +1,7 @@
-<div class="poi-edit-map"
-  leaflet
-  [leafletOptions]="options"
-  (leafletClick)="handleClick($event)"
-  (leafletMapReady)="onMapReady($event)">
-  ></div>
+<!--<div class="poi-edit-map"-->
+  <!--leaflet-->
+  <!--[leafletOptions]="options"-->
+  <!--(leafletClick)="handleClick($event)"-->
+  <!--(leafletMapReady)="onMapReady($event)">-->
+  <!--&gt;</div>-->
+<agm-map style='height: 400px' [latitude]="position.lat" [longitude]="position.lng"></agm-map>

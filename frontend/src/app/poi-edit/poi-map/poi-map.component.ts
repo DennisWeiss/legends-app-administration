@@ -28,6 +28,8 @@ export class PoiMapComponent implements OnInit, OnDestroy {
     center: latLng(environment.map.defaultCenter),
   };
 
+  position = environment.map.defaultCenter
+
 
   constructor() { }
 
