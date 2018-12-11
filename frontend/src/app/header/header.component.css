@@ -28,3 +28,8 @@ mat-toolbar {
   font-weight: normal;
 }
 
+a.toolbar-title {
+  text-decoration: none;
+  color: white;
+}
+
