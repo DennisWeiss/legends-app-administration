@@ -1,6 +1,7 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup } from '@angular/forms';
+import {MapTypeControlStyle} from "@agm/core/services/google-maps-types";
 
 @Component({
   selector: 'app-poi-map',
@@ -14,6 +15,8 @@ export class PoiMapComponent {
   @Input() coordsForm: FormGroup;
 
   position = environment.map.defaultCenter
+  defaultZoom = 11
+
 
   constructor() { }
 
