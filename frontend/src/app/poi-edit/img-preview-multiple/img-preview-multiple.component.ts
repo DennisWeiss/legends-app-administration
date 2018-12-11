@@ -8,6 +8,7 @@ import {
   UploadOutput
 } from "ngx-uploader";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { loadFile } from "src/app/utils/fileLoader";
 
 @Component({
   selector: "app-img-preview-multiple",
@@ -48,7 +49,7 @@ export class ImgPreviewMultipleComponent implements OnInit {
         if (typeof preview !== 'string') { // implying value is a file
           if (!this.imgBuffer.has(preview.name)) {
             // load and add img-preview to buffer
-            this.imgBuffer.set(preview.name, await this.loadFile(preview));
+            this.imgBuffer.set(preview.name, await loadFile(preview));
           }
           preview = this.imgBuffer.get(preview.name);
         }
@@ -74,22 +75,11 @@ export class ImgPreviewMultipleComponent implements OnInit {
     }
   }
 
-  loadFile(file): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
 
   onDragEnd(image) {
-
     const index = this.images.findIndex((el) => el === image);
     this.images.splice(index, 1);
     this.fileArray.removeAt(image.index);
-
   }
 
   onDrop(event) {

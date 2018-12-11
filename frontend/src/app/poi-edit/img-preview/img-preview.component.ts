@@ -9,6 +9,7 @@ import {
   UploadOutput
 } from 'ngx-uploader';
 import {environment} from "../../../environments/environment";
+import { loadFile } from 'src/app/utils/fileLoader';
 
 @Component({
   selector: 'app-img-preview',
@@ -89,16 +90,12 @@ export class ImgPreviewComponent implements OnInit {
   handleFileInput(files: FileList | File[]) {
     if (files[0]) {
       this.fileControl.setValue(files[0]);
-      this.loadFile(files[0]);
-    }
-  }
 
-  loadFile(file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imgPreviewUrl = reader.result;
-    };
-    reader.readAsDataURL(file);
+      // load image for preview
+      loadFile(files[0]).then(result => {
+        this.imgPreviewUrl = result;
+      });
+    }
   }
 
   resetFile() {
