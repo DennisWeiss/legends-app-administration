@@ -3,6 +3,7 @@
   [latitude]="position.lat"
   [longitude]="position.lng"
   (mapClick)="addOrMoveMarker($event)"
-  mapTypeControl="true">
+  mapTypeControl="true"
+  fullscreenControl="true">
   <agm-marker *ngIf="markerIsSet" [latitude]="coordsForm.controls.lat.value" [longitude]="coordsForm.controls.lng.value"></agm-marker>
 </agm-map>
