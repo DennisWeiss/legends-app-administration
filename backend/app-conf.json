@@ -3,6 +3,7 @@
   "mongoDbUrl": "mongodb://localhost:27017/legends",
   "dbName": "legends",
   "jwtPrivateKey": "test",
-  "tokenExpInSec": 3600
+  "tokenExpInSec": 3600,
+  "minPwLength": 6
 
 }

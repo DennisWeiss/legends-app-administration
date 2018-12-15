@@ -12,7 +12,13 @@ const auth = require('../middlewares/authentication')
 
 router.post("/register", async (req, res, next) => {
 
-    const hash = await bcrypt.hash(req.body.password, 10);
+  const minPwLength = appConf.minPwLength;
+
+  if (!req.body.password || req.body.password.length < minPwLength) {
+    return res.status(400).send({message: `Password must at least be ${minPwLength} characters long!`});
+  }
+
+  const hash = await bcrypt.hash(req.body.password, 10);
 
   const user = new User({
     username: req.body.username,
@@ -20,11 +26,17 @@ router.post("/register", async (req, res, next) => {
   });
 
   try {
-    const result = await user.save();
+      const result = await user.save();
+
   } catch (err) {
-    return res
-      .status(400)
-      .send({ message: "User with same username already registered!" });
+
+    if(err.name === 'ValidationError') {
+      console.log(err.errors);
+      return res.status(400).send({message: err.message, error: err});
+    } else if (err.code === 11000) { // duplicate key
+      return res.status(400)
+        .send({ message: "User with same username already registered!", error: err });
+    }
   }
 
   res.status(201).send({
