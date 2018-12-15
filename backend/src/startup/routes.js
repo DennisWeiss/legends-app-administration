@@ -6,4 +6,7 @@ module.exports = function(app) {
   app.use("/auth", authRoutes);
   app.use("/poi/content", contentRoutes);
   app.use("/poi", poiRoutes);
+
+  const errorMiddleware = require('../middlewares/error');
+  app.use(errorMiddleware);
 };
