@@ -1,6 +1,11 @@
-<div class="poi-edit-map"
-  leaflet
-  [leafletOptions]="options"
-  (leafletClick)="handleClick($event)"
-  (leafletMapReady)="onMapReady($event)">
-  ></div>
+<agm-map
+  style='height: 400px'
+  [latitude]="position.lat"
+  [longitude]="position.lng"
+  [zoom]="defaultZoom"
+  (mapClick)="addOrMoveMarker($event)"
+  mapTypeControl="true"
+  fullscreenControl="true"
+  [mapTypeControlOptions]="mapTypeControlOptions">
+  <agm-marker *ngIf="markerIsSet" [latitude]="coordsForm.controls.lat.value" [longitude]="coordsForm.controls.lng.value"></agm-marker>
+</agm-map>

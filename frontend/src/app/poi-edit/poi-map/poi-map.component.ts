@@ -1,79 +1,30 @@
-import {Component, Input, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
-import { icon, latLng, marker, tileLayer, latLngBounds, LeafletMouseEvent } from 'leaflet';
+import {Component, Input, EventEmitter, Output} from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import {MapTypeControlStyle} from "@agm/core/services/google-maps-types";
 
 @Component({
   selector: 'app-poi-map',
   templateUrl: './poi-map.component.html',
   styleUrls: ['./poi-map.component.css']
 })
-export class PoiMapComponent implements OnInit, OnDestroy {
+export class PoiMapComponent {
 
   @Output() coordsChanged = new EventEmitter<any>();
 
   @Input() coordsForm: FormGroup;
 
-  map;
-  locMarker;
-
-  coordsSub: Subscription;
-
-  options = {
-    layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Open Street Map' }),
-    ],
-    zoom: environment.map.defaultZoom,
-    center: latLng(environment.map.defaultCenter),
-  };
+  position = environment.map.defaultCenter
+  defaultZoom = 11
 
 
   constructor() { }
 
-  ngOnInit() {}
-
-  onMapReady(map) {
-    // get a local reference to the map as we need it later
-    this.map = map;
-    const lat = this.coordsForm.controls.lat.value || 0;
-    const lng = this.coordsForm.controls.lng.value || 0;
-    this.addMarker(lat, lng);
-
-    this.coordsSub = this.coordsForm.valueChanges.subscribe((coords) => {
-      this.addMarker(coords.lat || 0, coords.lng || 0);
-    })
+  addOrMoveMarker(event) {
+    this.coordsChanged.emit(event.coords)
   }
 
-  handleClick(event) {
-    const ev = event as LeafletMouseEvent;
+  markerIsSet = () => this.coordsForm.controls.lat.value != null || this.coordsForm.controls.lng.value != null
 
-    this.addMarker(ev.latlng.lat, ev.latlng.lng);
-
-    this.coordsChanged.emit(ev.latlng);
-
-  }
-
-  addMarker(lat, lng) {
-
-    if(this.locMarker) {
-      this.locMarker.removeFrom(this.map);
-    }
-
-    this.locMarker = marker([ lat, lng ], {
-      icon: icon({
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 41 ],
-        iconUrl: 'assets/marker-icon.png',
-        shadowUrl: 'assets/marker-shadow.png'
-      })
-    });
-
-    this.locMarker.addTo(this.map);
-  }
-
-  ngOnDestroy() {
-    this.coordsSub.unsubscribe();
-  }
 
 }
