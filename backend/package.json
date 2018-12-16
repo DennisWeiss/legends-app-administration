@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
+  "engines": { 
+    "node": "10.4.0" 
+ },
   "dependencies": {
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
