@@ -1,6 +1,8 @@
 const winston = require('winston');
 require('winston-mongodb');
 
+const appConf = require('../../app-conf');
+
 module.exports = function() {
 
 
@@ -28,7 +30,7 @@ module.exports = function() {
 
     winston.add(new winston.transports.File({filename: 'logfile.log'}));
     winston.add(new winston.transports.MongoDB({
-        db: 'mongodb://localhost/legends',
+        db: appConf.mongoDbUrl,
         level: 'error'
     }));
 
