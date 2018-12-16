@@ -1,6 +1,6 @@
 {
   "serverPort": 3000,
-  "mongoDbUrl": "mongodb://localhost:27017/legends",
+  "mongoDbUrl": "mongodb://admin:admin1@ds113435.mlab.com:13435/legends-app-administration",
   "dbName": "legends",
   "jwtPrivateKey": "test",
   "tokenExpInSec": 3600,
