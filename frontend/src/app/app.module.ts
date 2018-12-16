@@ -27,7 +27,7 @@ import {QuillModule} from 'ngx-quill';
 import {PoiContentComponent} from './poi-edit/poi-content/poi-content.component'
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MediaSectionComponent} from './poi-edit/media-section/media-section.component';
-import {NgxUploaderModule} from "ngx-uploader";
+import {NgxUploaderModule} from 'ngx-uploader';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
@@ -36,6 +36,10 @@ import { TranslatePipe } from './translations.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AgmCoreModule} from '@agm/core'
 
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
 
 @NgModule({
   declarations: [
@@ -76,7 +80,11 @@ import {AgmCoreModule} from '@agm/core'
     NgxUploaderModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBOYYsPrpWTunxjOVUoUwl1aJc9rBpzLWA'
-    })
+    }),
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   exports: [],
   providers: [

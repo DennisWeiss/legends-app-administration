@@ -16,10 +16,7 @@ export class ContentFormService {
     'legends': this.createLegendForm.bind(this)
   };
 
-  contentForm = this.fb.group({
-  });
-
-
+  contentForm = this.fb.group({});
 
   update(contents, type) {
     this.clearFormGroup(this.contentForm);

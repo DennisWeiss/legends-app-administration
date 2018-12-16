@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PoiService } from "src/app/poi.service";
 import { take } from "rxjs/operators";
 import { Subscription, Observable } from "rxjs";
-import { Restaurant, Sight, Legend, POI } from "../poi.model";
+import { POI } from "../poi.model";
 import { CanComponentDeactivate } from "src/app/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { MatSnackBar } from "@angular/material";

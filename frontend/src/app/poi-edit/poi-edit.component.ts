@@ -35,7 +35,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   editMode = false;
 
-  // needed to inform child about reset
+  // needed to inform child about status change
   statusChanged = new Subject<string>();
 
   reqPending = false;

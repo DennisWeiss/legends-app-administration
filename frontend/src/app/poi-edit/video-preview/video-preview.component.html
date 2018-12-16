@@ -15,14 +15,15 @@
          [ngClass]="{ 'is-drop-over': dragOver }">
       Drag &amp; Drop into here
     </div>
-    <input hidden type="file" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
+    <input hidden type="file" accept="video/*" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
   </div>
 
-
-  <video *ngIf="videoUrl" width="320" height="240" controls preload="none">
+  <vg-player>
+    <video *ngIf="videoUrl" width="320" height="240" [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
     <source [src]="videoUrl" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+      Your browser does not support the video tag.
+    </video>
+  </vg-player>
 
 </div>
 

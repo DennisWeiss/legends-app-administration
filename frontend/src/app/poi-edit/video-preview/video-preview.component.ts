@@ -3,6 +3,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 import { loadFile } from 'src/app/utils/fileLoader';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-preview',
@@ -26,7 +27,7 @@ export class VideoPreviewComponent implements OnInit {
   uploadInput: EventEmitter<UploadInput>;
   dragOver;
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
     this.files = []; // local uploading files array
   }
 
@@ -81,10 +82,8 @@ export class VideoPreviewComponent implements OnInit {
     if (files[0]) {
       this.fileControl.setValue(files[0]);
 
-      // load image for preview
-      loadFile(files[0]).then(result => {
-        this.videoUrl = result;
-      });
+      // sanitize url since angular marks it as unsave otherwise
+      this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(files[0]));
     }
 }
 

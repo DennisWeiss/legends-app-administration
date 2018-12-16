@@ -13,7 +13,7 @@
       Drag &amp; Drop into here
     </div>
   </div>
-  <input hidden type="file" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
+  <input hidden type="file" accept="image/*" accept="image/*" (change)="handleFileInput($event.target.files)" #imgFileInput/>
 
   <!--TODO: Show tooltip when hovering over div-->
   <div [style.width.px]="width" [style.height.px]="height" class="image-preview-loaded" role="button" *ngIf="imgPreviewUrl">
