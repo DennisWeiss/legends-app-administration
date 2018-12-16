@@ -40,6 +40,8 @@ app.get('/versions/', async (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-app.listen(appConf.serverPort, function() {
-  winston.log('info', `Server running on ${appConf.serverPort}`);
+const port = process.env.PORT || appConf.serverPort;
+
+app.listen(port, function() {
+  winston.log('info', `Server running on ${port}`);
 });
