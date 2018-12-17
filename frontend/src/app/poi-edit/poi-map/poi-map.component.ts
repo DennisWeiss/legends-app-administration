@@ -17,6 +17,8 @@ export class PoiMapComponent {
   position = environment.map.defaultCenter
   defaultZoom = 11
 
+  mapTypeControlOptions = {};
+
 
   constructor() { }
 

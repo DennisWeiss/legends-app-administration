@@ -11,6 +11,10 @@
   background-size: cover;
 }
 
+.drag-and-drop-field:hover {
+  border: 3px solid red;
+}
+
 .image-preview-loaded {
   cursor: pointer;
 }

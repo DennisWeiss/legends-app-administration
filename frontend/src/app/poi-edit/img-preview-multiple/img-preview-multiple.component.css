@@ -42,3 +42,7 @@ button{
   border-radius: 2px;
   cursor: pointer;
 }
+
+.drag-and-drop-field:hover {
+  border: 3px solid red;
+}
