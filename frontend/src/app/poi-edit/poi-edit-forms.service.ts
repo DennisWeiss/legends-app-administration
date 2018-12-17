@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import moment from 'moment'
+import moment from "moment";
+
 
 @Injectable()
 export class PoiEditFormsService {
@@ -31,8 +32,8 @@ export class PoiEditFormsService {
   poiForm = this.fb.group({
     key: ['', Validators.required],
     publishImmediately: [true, Validators.required],
-    publishingDate: [new Date(), Validators.required],
-    publishingTime: [moment().format('HH:mm a'), Validators.required],
+    publishingDate: [moment().add(1, 'day').toDate(), Validators.required],
+    publishingTime: ['12:00 am', Validators.required],
     name: this.fb.group({
       en: ['', Validators.required],
       de: ['', Validators.required],

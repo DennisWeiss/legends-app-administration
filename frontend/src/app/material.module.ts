@@ -24,7 +24,7 @@ import {
   MatSnackBarModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSliderModule
+  MatSlideToggleModule
 } from "@angular/material";
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -55,7 +55,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {}
