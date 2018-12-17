@@ -11,6 +11,7 @@ import { UploadStatusDialogComponent } from './upload-status-dialog/upload-statu
 import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
+import {DateAdapter} from "@angular/material";
 
 @Component({
   selector: 'app-poi-edit',
@@ -188,6 +189,10 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       this.reqSub.unsubscribe();
     }
 
+  }
+
+  timeSet(event) {
+    console.log(event)
   }
 
   @HostListener('window:beforeunload')

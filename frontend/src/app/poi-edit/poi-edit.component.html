@@ -63,6 +63,32 @@
             </mat-form-field>
           </div>
 
+          <div>
+            <mat-form-field>
+              <mat-slide-toggle
+                [checked]="poiForm.controls.publishImmediately.value"
+                (change)="poiForm.control.publishImmediately.setValue"
+              >
+                {{'PUBLISH_IMMEDIATELY' | translate:name}}
+              </mat-slide-toggle>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout fxLayoutGap="10px">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dp"
+                     [placeholder]="'SELECT_PUBLISHING_DATE' | translate:name"
+                     formControlName="publishingDate">
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="!publishImmediately">
+              <input matInput [ngxTimepicker]="timepicker" formControlName="publishingTime">
+              <ngx-material-timepicker #timepicker (timeSet)="timeSet($event)"></ngx-material-timepicker>
+            </mat-form-field>
+          </div>
+
         </div>
 
         <div

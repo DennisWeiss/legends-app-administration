@@ -13,6 +13,7 @@ const poiContentModelCallbacks = {
 const POISchema = new mongoose.Schema(
   {
     key: { type: String, required: true, index: { unique: true } },
+    publishingTimestamp: {type: Number, required: true},
     beaconId: { type: Number, required: true },
     coordinates: {
       lat: { type: Number, required: true },
