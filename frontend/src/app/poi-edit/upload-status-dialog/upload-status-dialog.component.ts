@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { HttpEventType, HttpResponse, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HttpEventType, HttpResponse, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subscription, Observable, of } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
+import SnackbarService from 'src/app/snackbar.service';
 
 export interface DialogData {
   animal: string;
@@ -15,6 +16,7 @@ export interface DialogData {
   templateUrl: './upload-status-dialog.component.html',
   styleUrls: ['./upload-status-dialog.component.css']
 })
+
 export class UploadStatusDialogComponent implements OnInit, OnDestroy {
 
   percentDone = 0;
@@ -28,7 +30,7 @@ export class UploadStatusDialogComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<UploadStatusDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private router: Router,
-    public snackBar: MatSnackBar) {}
+    private snackBarService: SnackbarService) {}
 
   ngOnInit() {
     this.dialogRef.disableClose = true;
@@ -70,10 +72,7 @@ export class UploadStatusDialogComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(message: string, action: string) {
-
-    this.snackBar.open(message, action, {
-      duration: 5000,
-    });
+    this.snackBarService.openSnackBar(message, action);
   }
 
   ngOnDestroy() {

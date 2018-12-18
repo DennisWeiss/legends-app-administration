@@ -11,11 +11,12 @@ import {
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import SnackbarService from './snackbar.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(public snackBar: MatSnackBar) {}
+  constructor(private snackBarService: SnackbarService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -23,15 +24,9 @@ export class ErrorInterceptor implements HttpInterceptor {
       if (err instanceof HttpErrorResponse) {
 
         const message = `Error ${err.status}: ${err.error.message || err.message}`
-        this.openSnackBar(message, 'OK');
+        this.snackBarService.openSnackBar(message, 'OK');
       }
     }));
   }
 
-  openSnackBar(message: string, action: string) {
-
-    this.snackBar.open(message, action, {
-      duration: 5000,
-    });
-  }
 }
