@@ -3,7 +3,7 @@ const getFilePath = function (prop, files) {
     return files[prop][0].filename;
 }
 
-const parsePathStr = function(pathStr) {
+const parsePathStr = function(pathStr = '') {
     //cut off path to host
     return pathStr.split('/').pop();
 }
@@ -32,7 +32,9 @@ module.exports.middleware = async (req, res, next) => {
     // existing urls are already added in vuforia_targets
     // not reading from parsed poi since array also includes {}
     if(req.body.vuforia_targets) {
-     targets.push(...req.body.vuforia_targets.map(pathStr => parsePathStr(pathStr)));
+        // handle special case in which vuforia_targets is a string and not an array
+        const urlArr = [].concat(req.body.vuforia_targets);
+        targets.push(...urlArr.map(pathStr => parsePathStr(pathStr)));
     }
     body.media.vuforiaTargets  = targets;
 
