@@ -103,8 +103,7 @@ export class PoiOverviewComponent implements OnInit {
   formatTimestamp = timestamp => {
     const dateTime = moment.unix(timestamp)
     if (moment().isAfter(dateTime)) {
-      // TODO: use i18n
-      return `Published - ${dateTime.format('lll')}`
+      return dateTime.format('lll')
     }
     return dateTime.fromNow()
   }
