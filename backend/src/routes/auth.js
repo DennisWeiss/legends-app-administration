@@ -74,7 +74,8 @@ router.post("/login", async (req, res, next) => {
     user: {
       _id: user._id,
       username: user.username,
-      rights: user.rights
+      rights: user.rights,
+      permissions: user.permissions
     },
     token: token,
     expiresIn: appConf.tokenExpInSec

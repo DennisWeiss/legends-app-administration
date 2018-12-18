@@ -136,8 +136,16 @@ export class PoiOverviewComponent implements OnInit {
     this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
   }
 
-  isAdmin(user) {
-    return user.rights.some((right) => right === 'admin');
+  openEditPage(poiKey: string, poiType: string, user) {
+    if (this.authService.hasPermission('EDIT')) {
+      this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
+    } else if (this.authService.hasPermission('EDIT_CONTENT')) {
+      this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
+    }
+  }
+
+  hasPermission(perm) {
+    return this.authService.hasPermission(perm);
   }
 
 }
