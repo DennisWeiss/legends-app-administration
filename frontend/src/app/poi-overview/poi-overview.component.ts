@@ -117,11 +117,6 @@ export class PoiOverviewComponent implements OnInit {
     this.router.navigate(['new']);
   }
 
-  editPOI = (poiKey: string, poiType: string) => {
-    console.log('event', event);
-    this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
-  }
-
   removePOI = (ev: Event, poi) => {
     ev.stopPropagation();
     if (window.confirm('Do you really want to delete this POI?')) {
@@ -130,10 +125,6 @@ export class PoiOverviewComponent implements OnInit {
         this.fetchPOIsAndInitTable();
       });
     }
-  }
-
-  editContents = (poiKey: string, poiType: string) => {
-    this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
   }
 
   openEditPage(poiKey: string, poiType: string, user) {
