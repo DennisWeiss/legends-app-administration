@@ -8,6 +8,8 @@ import formatcoords from 'formatcoords'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { take } from 'rxjs/operators';
+import SnackbarService from '../snackbar.service';
 
 
 const mapPOIs = pois => {
@@ -33,7 +35,7 @@ export class PoiOverviewComponent implements OnInit {
   name = 'poi-overview';
 
   poiService: PoiService
-  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit']
+  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit', 'delete'];
   pois
   filteredPois
   faPen = faPen
@@ -70,7 +72,8 @@ export class PoiOverviewComponent implements OnInit {
     public localeService: LocaleService,
     poiService: PoiService,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private snackBarService: SnackbarService) {
     this.poiService = poiService
   }
 
@@ -88,13 +91,16 @@ export class PoiOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.poiService.retrievePOIs()
-      .subscribe(pois => {
-        this.pois = mapPOIs(pois)
-        this.initializeTableDataSource()
-      })
+   this.fetchPOIsAndInitTable();
+    this.$authState = this.authService.authStatusChanged;
+  }
 
-      this.$authState = this.authService.authStatusChanged;
+  fetchPOIsAndInitTable() {
+    this.poiService.retrievePOIs().pipe(take(1))
+    .subscribe(pois => {
+      this.pois = mapPOIs(pois)
+      this.initializeTableDataSource()
+    })
   }
 
   setFilterPredicate = () => {
@@ -112,7 +118,18 @@ export class PoiOverviewComponent implements OnInit {
   }
 
   editPOI = (poiKey: string, poiType: string) => {
+    console.log('event', event);
     this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
+  }
+
+  removePOI = (ev: Event, poi) => {
+    ev.stopPropagation();
+    if (window.confirm('Do you really want to delete this POI?')) {
+      this.poiService.deletePOI(poi.key).subscribe((res) => {
+        this.snackBarService.openSnackBar(res.message, 'OK');
+        this.fetchPOIsAndInitTable();
+      });
+    }
   }
 
   editContents = (poiKey: string, poiType: string) => {

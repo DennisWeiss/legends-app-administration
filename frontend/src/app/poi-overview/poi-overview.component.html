@@ -49,6 +49,15 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let poi">
+        <button class="delete-btn" mat-icon-button (click)="removePOI($event, poi)">
+          <mat-icon color="warn">clear</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
     <ng-container *ngIf="!($authState | async)">

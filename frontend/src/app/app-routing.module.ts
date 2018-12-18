@@ -8,6 +8,7 @@ import { PoiContentComponent } from './poi-edit/poi-content/poi-content.componen
 import { AuthGuard } from './auth/auth.guard';
 import { CanDeactivateGuard } from './can-deactivate.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserManagmentComponent } from './user-managment/user-managment.component';
 
 const routes: Routes = [
   {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'poi-list', component: PoiOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'user-managment', component: UserManagmentComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: 'poi-list', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ]

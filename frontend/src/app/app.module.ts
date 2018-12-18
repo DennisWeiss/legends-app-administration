@@ -40,6 +40,9 @@ import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
+import { UserManagmentComponent } from './user-managment/user-managment.component';
+import { UserOverviewComponent } from './user-managment/user-overview/user-overview.component';
+import { UserConfigComponent } from './user-managment/user-overview/user-config/user-config.component';
 
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 
@@ -65,7 +68,10 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
     StatusBarComponent,
     UploadStatusDialogComponent,
     TranslatePipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UserManagmentComponent,
+    UserOverviewComponent,
+    UserConfigComponent
   ],
   imports: [
     BrowserModule,

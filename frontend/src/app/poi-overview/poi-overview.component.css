@@ -30,6 +30,12 @@ mat-paginator {
   margin-right: 10px;
 }
 
+.delete-btn {
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 0px;
+}
+
 .mat-cell-name-content {
   display: flex;
   align-items: center;
