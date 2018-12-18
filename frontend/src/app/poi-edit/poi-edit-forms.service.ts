@@ -32,7 +32,6 @@ export class PoiEditFormsService {
 
   poiForm = this.fb.group({
     key: [''],
-    key: ['', Validators.required],
     publishImmediately: [true, Validators.required],
     publishingDate: [moment().add(1, 'day').toDate(), Validators.required],
     publishingTime: ['12:00 am', Validators.required],
