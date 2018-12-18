@@ -121,7 +121,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
   onSubmit() {
-    console.log(this.poiForm);
     this.statusChanged.next('submit');
     const poi = this.poiForm.value;
     this.reqPending = true;
@@ -189,10 +188,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       this.reqSub.unsubscribe();
     }
 
-  }
-
-  timeSet(event) {
-    console.log(event)
   }
 
   @HostListener('window:beforeunload')
