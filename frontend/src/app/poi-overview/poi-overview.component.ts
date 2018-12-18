@@ -69,10 +69,10 @@ export class PoiOverviewComponent implements OnInit {
 
   constructor(
     public localeService: LocaleService,
-    poiService: PoiService,
+    private poiService: PoiService,
     private router: Router,
     private authService: AuthService) {
-    this.poiService = poiService
+    this.localeService.localeUpdated.subscribe(moment.locale)
   }
 
   initializeTableDataSource = () => {
