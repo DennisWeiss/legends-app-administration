@@ -22,6 +22,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   name = 'poi-edit';
 
+  invalidErrMsg = 'Field required!';
+
   poiTypes = ['restaurants', 'legends', 'sights'];
   defaultType = 'legends';
 
@@ -33,6 +35,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   type: string  = null;
   id: string = null;
 
+  // component can be in a 'clean' state or editing state
   editMode = false;
 
   // needed to inform child about status change
@@ -41,6 +44,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   reqPending = false;
   responseSuccess = false;
 
+  // references for quick access
   poiForm: FormGroup;
   contentForm: FormGroup;
   videoForm: FormGroup;
@@ -48,6 +52,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   vuforiaArray: FormArray;
   iconForm: FormGroup;
 
+  // subscriptions
   paramSub: Subscription;
   reqSub: Subscription;
 
@@ -77,6 +82,10 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
     this.poiForm.valueChanges.subscribe((val) => {
      // console.log('poi sub', this.poiForm);
+    })
+
+    this.poiForm.statusChanges.subscribe(() => {
+
     })
 
   }
@@ -119,7 +128,23 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     return this.poiForm.controls.type.value === 'legends';
   }
 
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
   onSubmit() {
+
+    if (this.poiForm.invalid) {
+      this.markFormGroupTouched(this.poiForm);
+      return;
+    }
+
     console.log(this.poiForm);
     this.statusChanged.next('submit');
     const poi = this.poiForm.value;

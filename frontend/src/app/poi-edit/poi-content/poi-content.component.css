@@ -1,3 +1,11 @@
 .hint {
   margin-bottom: 20px;
 }
+
+.invalid {
+  color: red !important;
+}
+
+mat-tab [mat-tab-label] {
+  color: red;
+}

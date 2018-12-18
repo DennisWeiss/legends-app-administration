@@ -1,6 +1,9 @@
 <div fxLayoutGap="10px" fxLayout fxLayoutAlign="space-between center">
   <ng-content></ng-content>
   <h2 *ngIf="!poiForm">{{type | uppercase}} - {{id}}</h2>
+
+    <mat-error  *ngIf="contentForm.invalid && contentForm.touched">Content is invalid. Check red fields.</mat-error>
+
   <div>
   <mat-form-field>
     <input matInput #newLang type="text" placeholder="Add new language...">
@@ -11,12 +14,15 @@
 <mat-divider></mat-divider>
 <form [formGroup]="contentForm" (ngSubmit)="onSubmit()">
 <mat-tab-group>
-  <mat-tab *ngFor="let lang of langs" [formGroupName]="lang" [label]="lang">
+  <mat-tab *ngFor="let lang of langs" [formGroupName]="lang" >
+      <ng-template mat-tab-label>
+         <span [class.invalid]="contentForm.get(lang).invalid">{{lang}}</span>
+      </ng-template>
     <mat-accordion  *ngIf="type === 'legends'">
       <mat-expansion-panel formGroupName="explored">
         <mat-expansion-panel-header>
-          <mat-panel-title> {{'EXPLORED' | translate:name}} </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-title [class.invalid]="contentForm.get(lang).controls.explored.invalid"> {{'EXPLORED' | translate:name}} </mat-panel-title>
+          <mat-panel-description >
             {{'EXPLORED_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -32,8 +38,8 @@
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title> Preview</mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-title [class.invalid]="contentForm.get(lang).controls.preview.invalid"> Preview</mat-panel-title>
+          <mat-panel-description >
            {{'PREVIEW_TEXT' | translate:name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -49,7 +55,7 @@
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title> {{'PUZZLES' | translate:name}}  </mat-panel-title>
+          <mat-panel-title [class.invalid]="contentForm.get(lang).controls.puzzle.invalid"> {{'PUZZLES' | translate:name}}  </mat-panel-title>
           <mat-panel-description>
             {{'PUZZLE_TEXT' | translate:name}}
           </mat-panel-description>

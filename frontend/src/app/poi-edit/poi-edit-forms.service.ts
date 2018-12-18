@@ -6,29 +6,30 @@ export class PoiEditFormsService {
 
   constructor(private fb: FormBuilder) {}
 
+  
   langs = ['de', 'en', 'pl'];
 
   contentForm = this.fb.group({
   });
 
   videoForm = this.fb.group({
-    arScene: ['', Validators.required],
-    iconScene: ['', Validators.required]
+    arScene: [''],
+    iconScene: ['']
   });
 
   iconForm = this.fb.group({
-    default: ['', Validators.required],
-    explored: ['', Validators.required]
+    default: [''],
+    explored: ['']
   });
 
   imgForm = this.fb.group({
-    preview: ['', Validators.required]
+    preview: ['']
   });
 
   vuforiaArray = new FormArray([]);
 
   poiForm = this.fb.group({
-    key: ['', Validators.required],
+    key: [''],
     name: this.fb.group({
       en: ['', Validators.required],
       de: ['', Validators.required],

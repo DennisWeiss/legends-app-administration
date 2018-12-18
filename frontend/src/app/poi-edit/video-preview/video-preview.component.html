@@ -18,12 +18,14 @@
     <input hidden type="file" accept="video/*" (change)="handleFileInput($event.target.files)" #imgFileInput multiple/>
   </div>
 
+<div class="video-container">
   <vg-player>
     <video *ngIf="videoUrl" width="320" height="240" [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
     <source [src]="videoUrl" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </vg-player>
+</div>
 
 </div>
 

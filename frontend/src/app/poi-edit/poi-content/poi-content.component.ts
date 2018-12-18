@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from "@angular/core";
 import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -15,7 +15,8 @@ import { HostListener } from '@angular/core';
   selector: "app-poi-content",
   templateUrl: "./poi-content.component.html",
   styleUrls: ["./poi-content.component.css"],
-  providers: [ContentFormService]
+  providers: [ContentFormService],
+  encapsulation: ViewEncapsulation.None
 })
 export class PoiContentComponent implements OnInit, CanComponentDeactivate {
   name = "poi-content";

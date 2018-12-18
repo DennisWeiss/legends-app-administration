@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 @Injectable()
 export class ContentFormService {
@@ -72,10 +72,10 @@ private clearFormGroup(fg) {
 private createRestaurantForm(): FormGroup {
   return this.fb.group({
     info: this.fb.group({
-      heading: [''],
-      index: [0],
-      type: ['info'],
-      url: ['']
+      heading: ['', Validators.required],
+      index: [0, Validators.required],
+      type: ['info', Validators.required],
+      url: ['', Validators.required]
     })
   });
 }
@@ -90,29 +90,29 @@ private createLegendForm(content): FormGroup {
 
   content.puzzle.hints.forEach((hint, index) => {
     hintsForm.push(this.fb.group({
-      index: [index],
-      url: ['']
+      index: [index, Validators.required],
+      url: ['', Validators.required]
     }));
   })
 
   return this.fb.group({
     explored: this.fb.group({
-      heading: [''],
-      index: [1],
-      type: ['info_explored'],
-      url: ['']
+      heading: ['', Validators.required],
+      index: [1, Validators.required],
+      type: ['info_explored', Validators.required],
+      url: ['', Validators.required]
     }),
     preview: this.fb.group({
-      heading: [''],
-      index: [0],
-      type: ['info'],
-      url: ['']
+      heading: ['', Validators.required],
+      index: [0, Validators.required],
+      type: ['info', Validators.required],
+      url: ['', Validators.required]
     }),
     puzzle: this.fb.group({
-      heading: [''],
+      heading: ['', Validators.required],
       hints: hintsForm,
-      index: [2],
-      type: ['puzzle'],
+      index: [2, Validators.required],
+      type: ['puzzle', Validators.required],
       url: ['']
     })
   })

@@ -40,6 +40,7 @@
                 <mat-form-field>
                   <input matInput type="text" [formControlName]="lang.toLowerCase()"
                          [placeholder]="'NAME' | translate:name"/>
+                         <mat-error *ngIf="poiForm.controls.name.get(lang.toLowerCase()).invalid">{{invalidErrMsg}}</mat-error>
                 </mat-form-field>
               </div>
             </mat-tab>
@@ -47,6 +48,7 @@
 
           <mat-form-field *ngIf="isLegend()">
             <input matInput type="number" formControlName="beaconId" [placeholder]="'BEACON_ID' | translate:name"/>
+            <mat-error *ngIf="poiForm.controls.beaconId.invalid">{{invalidErrMsg}}</mat-error>
           </mat-form-field>
 
 
@@ -55,11 +57,13 @@
             <mat-form-field>
               <input matInput min="-90" max="90" type="number" formControlName="lat"
                      [placeholder]="'LATITUDE' | translate:name"/>
+                     <mat-error *ngIf="poiForm.controls.coordinates.get('lat').invalid">{{invalidErrMsg}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <input matInput min="-180" max="180" type="number" formControlName="lng"
                      [placeholder]="'LONGITUDE' | translate:name"/>
+                     <mat-error *ngIf="poiForm.controls.coordinates.get('lng').invalid">{{invalidErrMsg}}</mat-error>
             </mat-form-field>
           </div>
 
@@ -129,6 +133,10 @@
         <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' |
           translate:name}}
         </button>
+        <div fxLayoutAlign="center center">
+          <mat-error *ngIf="poiForm.invalid && poiForm.touched">Form is invalid.</mat-error>
+        </div>
+
         <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}
         </button>
       </mat-card>
