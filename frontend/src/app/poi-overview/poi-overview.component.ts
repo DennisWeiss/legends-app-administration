@@ -8,6 +8,7 @@ import formatcoords from 'formatcoords'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import * as moment from 'moment'
 
 
 const mapPOIs = pois => {
@@ -33,7 +34,7 @@ export class PoiOverviewComponent implements OnInit {
   name = 'poi-overview';
 
   poiService: PoiService
-  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit']
+  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'publishingTimestamp', 'edit']
   pois
   filteredPois
   faPen = faPen
@@ -97,15 +98,25 @@ export class PoiOverviewComponent implements OnInit {
       this.$authState = this.authService.authStatusChanged;
   }
 
-  setFilterPredicate = () => {
-    this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
-      poi.name.en.toLowerCase().includes(filter.toLowerCase())
-  }
+  hasBeenPublished = poi => moment().isAfter(moment.unix(poi.publishingTimestamp))
 
-  onChangeTypeFilter = (type: string) => {
-    this.types[type].checked = !this.types[type].checked
-    this.initializeTableDataSource()
+  formatTimestamp = timestamp => {
+    const dateTime = moment.unix(timestamp)
+    if (moment().isAfter(dateTime)) {
+      // TODO: use i18n
+      return `Published - ${dateTime.format('lll')}`
+    }
+    return dateTime.fromNow()
   }
+    setFilterPredicate = () => {
+      this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
+        poi.name.en.toLowerCase().includes(filter.toLowerCase())
+    }
+
+    onChangeTypeFilter = (type: string) => {
+      this.types[type].checked = !this.types[type].checked
+      this.initializeTableDataSource()
+    }
 
   newPOI = () => {
     this.router.navigate(['new']);

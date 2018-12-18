@@ -40,6 +40,21 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="publishingTimestamp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'PUBLISHING_STATUS' | translate:name}}</th>
+      <td mat-cell *matCellDef="let poi">
+        <div class="publishing-status-cell">
+          <mat-icon class="published-icon" *ngIf="hasBeenPublished(poi)">
+            check_circle_outline
+          </mat-icon>
+          <mat-icon class="not-published-icon" *ngIf="!hasBeenPublished(poi)">
+            schedule
+          </mat-icon>
+          {{formatTimestamp(poi.publishingTimestamp)}}
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let poi">
@@ -61,7 +76,7 @@
       </ng-container>
 
       <ng-container *ngIf="!isAdmin(user)">
-          <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editContents(poi.key, poi.type)"></tr>
+        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editContents(poi.key, poi.type)"></tr>
       </ng-container>
     </ng-container>
 
