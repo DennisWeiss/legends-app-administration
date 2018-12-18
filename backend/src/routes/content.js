@@ -6,9 +6,9 @@ const router = express.Router()
 const updateVersions = require('../utils/updateVersions')
 
 const auth = require('../middlewares/authentication')
-const admin = require('../middlewares/admin')
+const permission = require('../middlewares/authorization')
 
-router.put('/:key', auth, async (req, res, next) => {
+router.put('/:key',auth, permission('EDIT_CONTENT'), async (req, res, next) => {
   const poi = await POI.findOne({ key: req.params.key })
 
   if (!poi) {

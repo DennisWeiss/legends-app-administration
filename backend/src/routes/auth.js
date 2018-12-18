@@ -9,8 +9,10 @@ const jwt = require('jsonwebtoken');
 
 const auth = require('../middlewares/authentication')
 
+const permission = require('../middlewares/authorization');
 
-router.post("/register", async (req, res, next) => {
+
+router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
 
   const minPwLength = appConf.minPwLength;
 

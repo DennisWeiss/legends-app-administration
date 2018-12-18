@@ -12,7 +12,7 @@ const router = express.Router()
 const updateVersions = require('../utils/updateVersions')
 
 const auth = require('../middlewares/authentication')
-const admin = require('../middlewares/admin')
+const permission = require('../middlewares/authorization')
 const filePaths = require('../middlewares/filepaths').middleware;
 
 const multer = require('multer')
@@ -90,7 +90,7 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
   return res.send({message: `POI of type ${poi.type} created successfully`})
 })
 
-router.put('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
+router.put('/', auth, permission('EDIT'), upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
 
   try {
     await POI.validateContent(req.body.media.content, req.body.type)
@@ -108,7 +108,7 @@ router.put('/', auth, upload.fields(formData), validateFiles, filePaths, async (
   res.send({message: `POI of type ${poi.type} updated successfully`})
 })
 
-router.delete('/:key', auth, admin, async (req, res, next) => {
+router.delete('/:key', auth, permission('ADMIN'), async (req, res, next) => {
   const poi = await POI.findOneAndDelete({key: req.params.key})
   if (!poi) {
     return res.status(404).send({message: 'Deletion failed. POI not found!'})
