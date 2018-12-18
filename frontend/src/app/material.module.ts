@@ -21,7 +21,10 @@ import {
   MatProgressBar,
   MatProgressBarModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSlideToggleModule
 } from "@angular/material";
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -49,8 +52,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatProgressBarModule,
     MatDialogModule,
     MatSnackBarModule,
-    DragDropModule
-
+    DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {}

@@ -1,6 +1,7 @@
 export interface POI {
 
   beaconId: number;
+  publishingTimestamp: number;
   coordinates: {
     lat: number;
     lng: number;
@@ -37,6 +38,7 @@ export interface POI {
 export interface Legend {
 
   beaconId: number;
+  publishingTimestamp: number;
   coordinates: {
     lat: number;
     lng: number;
@@ -106,6 +108,7 @@ export interface Restaurant {
 
 
   beaconId: number;
+  publishingTimestamp: number;
   coordinates: {
     lat: number;
     lng: number;
@@ -141,6 +144,7 @@ export interface Restaurant {
 export interface Sight {
 
   beaconId: number;
+  publishingTimestamp: number;
   coordinates: {
     lat: number;
     lng: number;

@@ -3,7 +3,16 @@ import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http'
 import { environment } from '../environments/environment';
 import { Sight, Legend, Restaurant, POI } from './poi-edit/poi.model';
 import { Subject } from 'rxjs';
+import * as moment from 'moment'
+import {getTimestamp} from "./utils/helperfunctions";
 
+
+const mapPOIData = poi => {
+  const {publishImmediately, publishingDate, publishingTime, ...poiData} = poi
+  return publishImmediately ?
+    {publishingTimestamp: moment().unix(), ...poiData} :
+    {publishingTimestamp: getTimestamp(publishingDate, publishingTime), ...poiData}
+}
 
 
 @Injectable({
@@ -45,7 +54,7 @@ export class PoiService {
 
   private createFormData = (poi): FormData => {
     const postData = new FormData();
-    postData.append('poi', JSON.stringify(poi));
+    postData.append('poi', JSON.stringify(mapPOIData(poi)));
     postData.append('icon_default', poi.icons.default);
     postData.append('icon_explored', poi.icons.explored);
     postData.append('image_preview', poi.media.image.preview);

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import * as moment from "moment";
+
 
 @Injectable()
 export class PoiEditFormsService {
 
   constructor(private fb: FormBuilder) {}
 
-  
+
   langs = ['de', 'en', 'pl'];
 
   contentForm = this.fb.group({
@@ -30,6 +32,10 @@ export class PoiEditFormsService {
 
   poiForm = this.fb.group({
     key: [''],
+    key: ['', Validators.required],
+    publishImmediately: [true, Validators.required],
+    publishingDate: [moment().add(1, 'day').toDate(), Validators.required],
+    publishingTime: ['12:00 am', Validators.required],
     name: this.fb.group({
       en: ['', Validators.required],
       de: ['', Validators.required],
@@ -49,7 +55,6 @@ export class PoiEditFormsService {
       vuforiaTargets: this.vuforiaArray
     })
   });
-
 
   update(poi) {
     // use patchValue to avoid conflicts, e.g. caused by mongoose-id from backend

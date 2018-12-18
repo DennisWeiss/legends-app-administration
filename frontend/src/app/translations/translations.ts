@@ -45,7 +45,9 @@ export default {
       "ICON_SCENE": "Icon Scene",
       "VUFORIA_TARGETS": "Vuforia Targets",
       "CLEAR": "Clear",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "SELECT_PUBLISHING_DATE": "Select publishing date",
+      "PUBLISH_IMMEDIATELY": "Publish immediately"
     },
     "poi-content": {
       "EXPLORED": "Explored",
@@ -108,7 +110,9 @@ export default {
       "ICON_SCENE": "Icon-Szene",
       "VUFORIA_TARGETS": "Vuforia Targets",
       "CLEAR": "Zurücksetzen",
-      "SUBMIT": "Abschließen"
+      "SUBMIT": "Abschließen",
+      "SELECT_PUBLISHING_DATE": "Veröffentlichungsdatum auswählen",
+      "PUBLISH_IMMEDIATELY": "Sofort veröffentlichen"
     },
     "poi-content": {
       "EXPLORED": "Erkundet",

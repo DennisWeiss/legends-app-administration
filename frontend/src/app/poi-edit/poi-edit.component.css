@@ -42,6 +42,23 @@ quill-editor {
 
 }
 
+.publish-immediately-slide-toggle {
+  margin: 10px 0 20px 0;
+}
+
+.select-publish-timestamp {
+  height: 50px;
+}
+
+.select-publish-timestamp-flex {
+  display: flex;
+  width: 100%;
+}
+
+.select-publish-timestamp-form-field {
+  margin: 0 10px 0 0;
+}
+
 .request-status {
   position: fixed;
   bottom: 30px;
