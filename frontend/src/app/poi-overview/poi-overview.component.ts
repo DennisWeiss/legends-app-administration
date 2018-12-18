@@ -35,7 +35,14 @@ export class PoiOverviewComponent implements OnInit {
 
   name = 'poi-overview';
 
-  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'publishingTimestamp', 'edit']
+  displayedColumns: string[] = [
+    'name',
+    'coords',
+    'beaconId',
+    'publishingTimestamp',
+    'edit',
+    'delete'
+  ]
   pois
   filteredPois
   faPen = faPen
