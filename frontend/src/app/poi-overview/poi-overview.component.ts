@@ -33,7 +33,6 @@ export class PoiOverviewComponent implements OnInit {
 
   name = 'poi-overview';
 
-  poiService: PoiService
   displayedColumns: string[] = ['name', 'coords', 'beaconId', 'publishingTimestamp', 'edit']
   pois
   filteredPois
