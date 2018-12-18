@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import moment from "moment";
+import * as moment from "moment";
 
 
 @Injectable()

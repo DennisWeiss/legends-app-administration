@@ -3,7 +3,26 @@ import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http'
 import { environment } from '../environments/environment';
 import { Sight, Legend, Restaurant, POI } from './poi-edit/poi.model';
 import { Subject } from 'rxjs';
+import * as moment from 'moment'
 
+
+const timePattern = /([1-9]|0[1-9]|1[0-2]):([0-5][0-9]) (am|pm)/g
+
+const getTimestamp = (date, time) => {
+  const parsedTime = timePattern.exec(time)
+  if (!parsedTime) {
+    throw 'Invalid time string'
+  }
+  const dayTimeSec = parseInt(parsedTime[1], 10) * 3600 + parseInt(parsedTime[2], 10) * 60 + (parsedTime[3] === 'pm' ? 12 * 3600 : 0)
+  return moment(date).startOf('day').unix() + dayTimeSec
+}
+
+const mapPOIData = poi => {
+  const {publishImmediately, publishingDate, publishingTime, ...poiData} = poi
+  return publishImmediately ?
+    {publishingTimestamp: moment().unix(), ...poiData} :
+    {publishingTimestamp: getTimestamp(publishingDate, publishingTime), ...poiData}
+}
 
 
 @Injectable({
@@ -45,7 +64,7 @@ export class PoiService {
 
   private createFormData = (poi): FormData => {
     const postData = new FormData();
-    postData.append('poi', JSON.stringify(poi));
+    postData.append('poi', JSON.stringify(mapPOIData(poi)));
     postData.append('icon_default', poi.icons.default);
     postData.append('icon_explored', poi.icons.explored);
     postData.append('image_preview', poi.media.image.preview);
