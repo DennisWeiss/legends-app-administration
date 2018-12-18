@@ -63,31 +63,33 @@
             </mat-form-field>
           </div>
 
-          <div class="publish-immediately-slide-toggle">
-            <mat-slide-toggle formControlName="publishImmediately">
-              {{'PUBLISH_IMMEDIATELY' | translate:name}}
-            </mat-slide-toggle>
-          </div>
+          <div *ngIf="!hasBeenPublished()">
+            <div class="publish-immediately-slide-toggle">
+              <mat-slide-toggle formControlName="publishImmediately">
+                {{'PUBLISH_IMMEDIATELY' | translate:name}}
+              </mat-slide-toggle>
+            </div>
 
-          <div
-            class="select-publish-timestamp"
-            fxLayout
-            fxLayoutGap="10px">
             <div
-              *ngIf="!poiForm.controls.publishImmediately.value"
-              class="select-publish-timestamp-flex">
-              <mat-form-field class="select-publish-timestamp-form-field">
-                <input matInput [matDatepicker]="dp"
-                       [placeholder]="'SELECT_PUBLISHING_DATE' | translate:name"
-                       formControlName="publishingDate">
-                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp></mat-datepicker>
-              </mat-form-field>
+              class="select-publish-timestamp"
+              fxLayout
+              fxLayoutGap="10px">
+              <div
+                *ngIf="!poiForm.controls.publishImmediately.value"
+                class="select-publish-timestamp-flex">
+                <mat-form-field class="select-publish-timestamp-form-field">
+                  <input matInput [matDatepicker]="dp"
+                         [placeholder]="'SELECT_PUBLISHING_DATE' | translate:name"
+                         formControlName="publishingDate">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                </mat-form-field>
 
-              <mat-form-field class="select-publish-timestamp-form-field">
-                <input matInput [ngxTimepicker]="timepicker" formControlName="publishingTime">
-                <ngx-material-timepicker #timepicker></ngx-material-timepicker>
-              </mat-form-field>
+                <mat-form-field class="select-publish-timestamp-form-field">
+                  <input matInput [ngxTimepicker]="timepicker" formControlName="publishingTime">
+                  <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+                </mat-form-field>
+              </div>
             </div>
           </div>
 

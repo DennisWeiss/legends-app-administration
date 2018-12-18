@@ -12,6 +12,20 @@ import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import {DateAdapter} from "@angular/material";
+import * as moment from 'moment';
+import {getTimestamp} from "../utils/helperfunctions";
+
+
+const mapPOIData = poi => {
+  const {publishingTimestamp, ...poiData} = poi
+  const dateTime = moment.unix(publishingTimestamp)
+  return {
+    publishImmediately: false,
+    publishingDate: dateTime.toDate(),
+    publishingTime: dateTime.format('hh:mm a'),
+    ...poiData
+  };
+}
 
 @Component({
   selector: 'app-poi-edit',
@@ -168,7 +182,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
         .pipe(take(1))
         .subscribe((poi: Sight | Legend | Restaurant) => {
           this.poi = poi;
-          this.formsService.update(this.poi);
+          this.formsService.update(mapPOIData(this.poi));
           this.initPoi = this.poiForm.value;
         });
     } else {
@@ -187,7 +201,11 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     if (this.reqSub) {
       this.reqSub.unsubscribe();
     }
+  }
 
+  hasBeenPublished() {
+    return this.editMode && moment().isAfter(moment.unix(getTimestamp(this.poiForm.controls.publishingDate.value,
+      this.poiForm.controls.publishingTime.value)))
   }
 
   @HostListener('window:beforeunload')

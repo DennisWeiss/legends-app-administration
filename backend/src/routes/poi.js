@@ -74,7 +74,6 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
 
   const body = req.body
 
-
   const poi = new POI(body)
 
   try {
