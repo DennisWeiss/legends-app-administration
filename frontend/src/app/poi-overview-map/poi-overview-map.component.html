@@ -1,3 +1,13 @@
-<p>
-  poi-overview-map works!
-</p>
+<div class="overview-map">
+  <agm-map
+    style='height: 500px'
+    [latitude]="position.lat"
+    [longitude]="position.lng"
+    [zoom]="defaultZoom"
+    mapTypeControl="true"
+    fullscreenControl="true"
+    [mapTypeControlOptions]="mapTypeControlOptions">
+    <agm-marker *ngIf="markerIsSet" [latitude]="coordsForm.controls.lat.value"
+                [longitude]="coordsForm.controls.lng.value"></agm-marker>
+  </agm-map>
+</div>

@@ -1,27 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core'
 import {PoiService} from '../poi.service'
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
 import {LocaleService} from '../locale.service'
 import formatcoords from 'formatcoords'
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-import { take } from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
+import {take} from 'rxjs/operators';
 import SnackbarService from '../snackbar.service';
 import * as moment from 'moment'
 
 
-const mapPOIs = pois => {
-  const poiLst = []
-  Object.keys(pois).forEach(type => {
-    Object.keys(pois[type][type]).forEach(key => {
-      poiLst.push(pois[type][type][key])
-    })
-  })
-  return poiLst
-}
+
 
 const typesListOf = types => Object.keys(types).filter(type => types[type].checked)
 
@@ -31,7 +23,7 @@ const typesListOf = types => Object.keys(types).filter(type => types[type].check
   templateUrl: './poi-overview-table.component.html',
   styleUrls: ['./poi-overview-table.component.css']
 })
-export class PoiOverviewTableComponent implements OnInit {
+export class PoiOverviewTableComponent implements OnInit, OnChanges {
 
   name = 'poi-overview-table';
 
@@ -43,7 +35,7 @@ export class PoiOverviewTableComponent implements OnInit {
     'edit',
     'delete'
   ]
-  pois
+  @Input() pois
   filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
@@ -90,24 +82,23 @@ export class PoiOverviewTableComponent implements OnInit {
     this.filteredPois.sort = this.sort
     this.filteredPois.sortingDataAccessor = (poi, property) => {
       switch (property) {
-        case 'name': return poi.name.en
-        default: return poi[property]
+        case 'name':
+          return poi.name.en
+        default:
+          return poi[property]
       }
     }
     this.setFilterPredicate()
   }
 
   ngOnInit() {
-   this.fetchPOIsAndInitTable();
     this.$authState = this.authService.authStatusChanged;
   }
 
-  fetchPOIsAndInitTable() {
-    this.poiService.retrievePOIs().pipe(take(1))
-    .subscribe(pois => {
-      this.pois = mapPOIs(pois)
+  ngOnChanges() {
+    if (this.pois) {
       this.initializeTableDataSource()
-    })
+    }
   }
 
   hasBeenPublished = poi => moment().isAfter(moment.unix(poi.publishingTimestamp))
@@ -119,15 +110,15 @@ export class PoiOverviewTableComponent implements OnInit {
     }
     return dateTime.fromNow()
   }
-    setFilterPredicate = () => {
-      this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
-        poi.name.en.toLowerCase().includes(filter.toLowerCase())
-    }
+  setFilterPredicate = () => {
+    this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
+      poi.name.en.toLowerCase().includes(filter.toLowerCase())
+  }
 
-    onChangeTypeFilter = (type: string) => {
-      this.types[type].checked = !this.types[type].checked
-      this.initializeTableDataSource()
-    }
+  onChangeTypeFilter = (type: string) => {
+    this.types[type].checked = !this.types[type].checked
+    this.initializeTableDataSource()
+  }
 
   newPOI = () => {
     this.router.navigate(['new']);
