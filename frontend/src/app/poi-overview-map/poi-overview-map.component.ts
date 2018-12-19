@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {environment} from "../../environments/environment";
 
 @Component({
@@ -7,6 +7,8 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./poi-overview-map.component.css']
 })
 export class PoiOverviewMapComponent implements OnInit {
+
+  @Input() pois
 
   position = environment.map.defaultCenter
   defaultZoom = 12
