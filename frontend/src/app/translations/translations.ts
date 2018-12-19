@@ -13,6 +13,10 @@ export default {
       "de": "German"
     },
     "poi-overview": {
+      "TABLE_VIEW": "Table view",
+      "MAP_VIEW": "Map view"
+    },
+    "poi-overview-table": {
       "NEW_POI": "New POI",
       "POI": "POI",
       "LOCATION": "Location",
@@ -78,6 +82,10 @@ export default {
       "de": "Deutsch"
     },
     "poi-overview": {
+      "TABLE_VIEW": "Tabellenansicht",
+      "MAP_VIEW": "Kartenansicht"
+    },
+    "poi-overview-table": {
       "NEW_POI": "Neuer POI",
       "POI": "POI",
       "LOCATION": "Ort",

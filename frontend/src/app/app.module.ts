@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
-import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
+import {PoiOverviewTableComponent} from './poi-overview-table/poi-overview-table.component'
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SignupComponent} from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component';
@@ -44,12 +44,14 @@ import { UserManagmentComponent } from './user-managment/user-managment.componen
 import { UserOverviewComponent } from './user-managment/user-overview/user-overview.component';
 import { UserConfigComponent } from './user-managment/user-overview/user-config/user-config.component';
 
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { PoiOverviewComponent } from './poi-overview/poi-overview.component';
+import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    PoiOverviewComponent,
+    PoiOverviewTableComponent,
     SignupComponent,
     LoginComponent,
     SidenavComponent,
@@ -71,7 +73,9 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
     PageNotFoundComponent,
     UserManagmentComponent,
     UserOverviewComponent,
-    UserConfigComponent
+    UserConfigComponent,
+    PoiOverviewComponent,
+    PoiOverviewMapComponent
   ],
   imports: [
     BrowserModule,

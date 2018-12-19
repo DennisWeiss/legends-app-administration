@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import translate from './translations/translate';
 import { LocaleService } from './locale.service';
+import {updateLocale} from "moment";
 
 @Pipe({
   name: 'translate',
@@ -14,10 +15,14 @@ export class TranslatePipe implements PipeTransform {
 
   constructor(private localeService: LocaleService) {
     this.locale = this.localeService.getLocale();
-    this.localeService.localeUpdated.subscribe((locale) => {
-      this.locale = locale;
-      this.t = translate(this.lastName, this.locale);
-    })
+    this.localeService.localeUpdated.subscribe(this.updateLocale)
+    this.updateLocale(this.locale)
+  }
+
+  updateLocale(locale) {
+    this.locale = locale;
+    this.t = translate(this.lastName, this.locale);
+    console.log(this.t, this.lastName, this.locale)
   }
 
   transform(value: string, name: any): string {

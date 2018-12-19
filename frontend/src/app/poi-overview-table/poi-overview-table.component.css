@@ -1,0 +1,82 @@
+#overview-table {
+  margin: 20px auto 20px auto;
+  padding: 30px;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-paginator {
+  background: #fafafa;
+}
+
+.mat-row {
+  cursor: pointer;
+}
+
+.mat-row:hover {
+  background: #f2f2f2;
+}
+
+.mat-row:hover > td > .edit-btn {
+  color: dodgerblue;
+}
+
+.edit-btn {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 0px;
+}
+
+.delete-btn:hover {
+  background-color: darkgray;
+}
+
+.mat-cell-name-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-cell-name-content > * {
+  margin-right: 10px;
+}
+
+.above-table {
+  display: flex;
+  justify-content: space-between;
+}
+
+.poi-filter {
+  display: flex;
+  align-items: center;
+}
+
+.new-poi-btn {
+  height: 40px;
+  /*margin: 10px 0;*/
+}
+
+.new-poi-btn-container {
+  margin: auto 0;
+}
+
+.publishing-status-cell {
+  display: flex;
+  align-items: center;
+}
+
+.published-icon {
+  color: limegreen;
+  margin-right: 5px;
+}
+
+.not-published-icon {
+  margin-right: 5px;
+}
