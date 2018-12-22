@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -18,13 +18,12 @@ import { HostListener } from '@angular/core';
   providers: [ContentFormService],
   encapsulation: ViewEncapsulation.None
 })
-export class PoiContentComponent implements OnInit, CanComponentDeactivate {
+export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   name = "poi-content";
 
   private _poi;
-  initContent;
 
-  responseSuccess = false;
+  initContent;
 
   parentSubmit = false;
 
@@ -32,16 +31,7 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;
   @Input() parentStatus: Observable<any>;
-  @Input()
-  set poi(val: POI) {
-    // we need to listen to changes in order to dynamically create
-    // contentForm before assigning data to poiForm
-    if (val) {
-      this._poi = val;
-      this.contentFormService.update(this._poi.media.content, this._poi.type);
-      this.contentFormFilled.emit(true);
-    }
-  }
+  @Input() newPoiFetched: Observable<POI>
 
   get poi() {
     return this._poi;
@@ -62,7 +52,11 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
 
   id: string;
 
+
+  // subscriptions
   paramSub: Subscription;
+
+  subs: Subscription[] = [];
 
   constructor(
     private contentFormService: ContentFormService,
@@ -73,6 +67,9 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
   ) {}
 
   ngOnInit() {
+
+    let sub: Subscription;
+
     this.contentForm = this.contentFormService.contentForm;
 
     if (this.type) {
@@ -113,13 +110,24 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
       this.contentFormCreated.emit(this.contentFormService.contentForm);
 
       if (!this.editMode) {
+
         // change structure of content based on current type
-        this.poiForm.controls.type.valueChanges.subscribe(val => {
+        sub = this.poiForm.controls.type.valueChanges.subscribe(val => {
           this.contentFormService.reset();
           this.contentFormService.initContentForm(val);
         });
+        this.subs.push(sub);
       }
-      this.parentStatus.subscribe(val => {
+
+      sub = this.newPoiFetched.subscribe(poi => {
+        this._poi = poi;
+        this.contentFormService.update(this._poi.media.content, this._poi.type);
+        this.contentFormFilled.emit(true);
+      })
+      this.subs.push(sub);
+
+
+      sub = this.parentStatus.subscribe(val => {
         switch (val) {
           case 'reset':
             this.contentFormService.reset();
@@ -134,6 +142,7 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
           }
         }
       });
+      this.subs.push(sub);
     }
   }
 
@@ -175,7 +184,6 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
       .putContents(contentVal, this.id)
       .pipe(take(1))
       .subscribe(result => {
-        this.responseSuccess = true;
         this.router
           .navigate([""])
           .then(() => this.openSnackBar(result.message, "OK"));
@@ -186,6 +194,15 @@ export class PoiContentComponent implements OnInit, CanComponentDeactivate {
     this.snackBar.open(message, action, {
       duration: 5000
     });
+  }
+
+  ngOnDestroy() {
+
+    if (this.paramSub) {
+      this.paramSub.unsubscribe();
+    }
+
+    this.subs.forEach(sub => sub.unsubscribe);
   }
 
   @HostListener('window:beforeunload')

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject, Observable, BehaviorSubject, interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { AuthGroup } from './permission/authorization.types';
+import { AuthGroup, PERMISSIONS, hasChildPerm } from './permission/authorization.types';
 
 
 export interface UserData {
@@ -27,6 +27,8 @@ export class AuthService implements OnDestroy {
   userData: UserData;
   private _authStatusChanged = new BehaviorSubject<User>(null);
   tokenRefreshSub;
+
+  permissions: string [];
 
   get token() {
     return this.userData.token;
@@ -110,7 +112,7 @@ export class AuthService implements OnDestroy {
     }
 
     if (this.userData && this.userData.user.permissions.find(permission => {
-        return permission === authGroup;
+        return permission === authGroup || hasChildPerm(permission, authGroup);
     })) {
           return true;
        }

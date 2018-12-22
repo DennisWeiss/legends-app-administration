@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
         userData => {
           if (this.hasRequiredPermission(route.data['auth'])) {
             resolve(true);
-          } else { // access restricted (TODO: Show in snackbar)
+          } else { // access restricted
               this.router.navigate(['/']);
               this.snackbarService.openSnackBar('Not authorized to access page!', 'OK');
             resolve(false);

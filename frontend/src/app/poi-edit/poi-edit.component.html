@@ -147,11 +147,11 @@
       <mat-card class="mat-elevation-z4">
         <div class="poi-content">
           <app-poi-content
-            [poi]="poi"
             [editMode]="editMode"
             [poiForm]="formsService.poiForm"
             [type]="poiForm.controls.type.value"
             [parentStatus]="statusChanged.asObservable()"
+            [newPoiFetched]="newPoiFetched.asObservable()"
             (contentFormCreated)="onContentFormReceived($event)"
             (contentFormFilled)="initPoi = poiForm.value">
             <mat-card-title>Content</mat-card-title>

@@ -5,13 +5,12 @@ import { Subscription, Subject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { Sight, Legend, Restaurant } from './poi.model';
+import { POI } from './poi.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 import { CanComponentDeactivate } from '../can-deactivate.guard';
 import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
-import {DateAdapter} from "@angular/material";
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
 
@@ -35,10 +34,12 @@ const mapPOIData = poi => {
 })
 export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
+  // name used for i18n
   name = 'poi-edit';
 
   invalidErrMsg = 'Field required!';
 
+  // TODO: Get all types from server -> reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
   defaultType = 'legends';
 
@@ -56,8 +57,9 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   // needed to inform child about status change
   statusChanged = new Subject<string>();
 
-  reqPending = false;
-  responseSuccess = false;
+  newPoiFetched = new Subject<POI>();
+
+  dialogOpened = false;
 
   // references for quick access
   poiForm: FormGroup;
@@ -71,7 +73,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   paramSub: Subscription;
   reqSub: Subscription;
 
-  dialogOpened = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -110,6 +111,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.queryParamMap.get('type');
 
+
+    // TODO: fetch poi with given id
     this.paramSub = this.route.paramMap.subscribe(params => {
       if (params.has('id') && params.has('type')) {
         this.editMode = true;
@@ -126,15 +129,13 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.setupForms();
   }
 
-  openDialog(req): void {
-    this.reqPending = true;
+  openUploadDialog(req): void {
     const dialogRef = this.dialog.open(UploadStatusDialogComponent, {
       width: '300px',
       data: {req}
     });
 
     dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
-      this.reqPending = false;
       this.dialogOpened = false;
     });
   }
@@ -142,6 +143,13 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   isLegend(): boolean {
     return this.poiForm.controls.type.value === 'legends';
   }
+
+
+/**
+ * Marks all children of a formGroup as touched
+ *
+ * @param formGroup formGroup to be marked
+ */
 
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
@@ -161,9 +169,12 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     }
 
     console.log(this.poiForm);
+
+
+    // inform child about submit
     this.statusChanged.next('submit');
+
     const poi = this.poiForm.value;
-    this.reqPending = true;
 
     // cancel existing request
     if ( this.reqSub ) {
@@ -174,7 +185,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.dialogOpened = true;
 
     const req =  this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
-    this.openDialog(req);
+    this.openUploadDialog(req);
   }
 
   /**
@@ -185,9 +196,9 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.statusChanged.next('reset');
 
     this.formsService.reset();
-    if (this.poi) {
+    if (this.poi) { // take intially fetched poi and update form with it
       this.formsService.update(this.poi);
-    } else {
+    } else { // create an empty form
       this.poiForm.setValue(this.initPoi);
     }
 
@@ -197,7 +208,17 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     return Object.keys((this.poiForm.get('name') as FormGroup).controls) as Array<string>;
   }
 
-  onContentFormReceived(contentForm: FormGroup) {
+
+/**
+ * Is called whenever contentForm was initialized
+ *
+ * POI is not fetched in ngOnInit because contentForm is dynamically created and needs to be ready
+ * before getting and assigning the fetched poi as a value.
+ *
+ * @param contentForm child-form containing all content of a POI
+ */
+
+  onContentFormReceived(contentForm: FormGroup): void {
     (this.formsService.poiForm.get('media') as FormGroup).removeControl('content');
     (this.formsService.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
@@ -206,8 +227,9 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       this.poiService
         .getPOI(this.id)
         .pipe(take(1))
-        .subscribe((poi: Sight | Legend | Restaurant) => {
+        .subscribe((poi: POI) => {
           this.poi = poi;
+          this.newPoiFetched.next(poi);
           this.formsService.update(mapPOIData(this.poi));
           this.initPoi = this.poiForm.value;
         });
