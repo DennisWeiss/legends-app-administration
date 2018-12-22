@@ -23,7 +23,7 @@ export class UserPermissionsComponent implements OnInit {
   permCtrl = new FormControl();
   filteredPerms: Observable<string[]>;
   perms: string[] = ['EDIT'];
-  allPerms: string[] = Object.keys(PERMISSIONS);
+  allPerms: string[] = Array.from(PERMISSIONS.keys());
 
   @Input() permissions: string[];
   @Output() permsUpdated = new EventEmitter();
