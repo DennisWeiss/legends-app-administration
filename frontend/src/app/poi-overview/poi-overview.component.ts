@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 import SnackbarService from '../snackbar.service';
+import * as moment from 'moment'
 
 
 const mapPOIs = pois => {
@@ -34,8 +35,14 @@ export class PoiOverviewComponent implements OnInit {
 
   name = 'poi-overview';
 
-  poiService: PoiService
-  displayedColumns: string[] = ['name', 'coords', 'beaconId', 'edit', 'delete'];
+  displayedColumns: string[] = [
+    'name',
+    'coords',
+    'beaconId',
+    'publishingTimestamp',
+    'edit',
+    'delete'
+  ]
   pois
   filteredPois
   faPen = faPen
@@ -70,11 +77,11 @@ export class PoiOverviewComponent implements OnInit {
 
   constructor(
     public localeService: LocaleService,
-    poiService: PoiService,
+    private poiService: PoiService,
     private router: Router,
     private authService: AuthService,
     private snackBarService: SnackbarService) {
-    this.poiService = poiService
+    this.localeService.localeUpdated.subscribe(moment.locale)
   }
 
   initializeTableDataSource = () => {
@@ -103,15 +110,24 @@ export class PoiOverviewComponent implements OnInit {
     })
   }
 
-  setFilterPredicate = () => {
-    this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
-      poi.name.en.toLowerCase().includes(filter.toLowerCase())
-  }
+  hasBeenPublished = poi => moment().isAfter(moment.unix(poi.publishingTimestamp))
 
-  onChangeTypeFilter = (type: string) => {
-    this.types[type].checked = !this.types[type].checked
-    this.initializeTableDataSource()
+  formatTimestamp = timestamp => {
+    const dateTime = moment.unix(timestamp)
+    if (moment().isAfter(dateTime)) {
+      return dateTime.format('lll')
+    }
+    return dateTime.fromNow()
   }
+    setFilterPredicate = () => {
+      this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
+        poi.name.en.toLowerCase().includes(filter.toLowerCase())
+    }
+
+    onChangeTypeFilter = (type: string) => {
+      this.types[type].checked = !this.types[type].checked
+      this.initializeTableDataSource()
+    }
 
   newPOI = () => {
     this.router.navigate(['new']);
