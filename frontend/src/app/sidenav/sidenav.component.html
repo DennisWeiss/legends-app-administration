@@ -1,4 +1,9 @@
 <mat-list>
   <mat-list-item *ngIf="!($authStatus | async)"><a mat-button routerLink="./login" (click)="sidenav.close()" routerLinkActive="mat-accent">Login</a></mat-list-item>
   <mat-list-item *ngIf="$authStatus | async"><a (click)="logout()" mat-button>Logout</a></mat-list-item>
+  <mat-list-item *ngIf="$authStatus | async">
+    <a routerLink="./user-managment" routerLinkActive="mat-accent" (click)="sidenav.close()" mat-button>
+      Manage users
+    </a>
+  </mat-list-item>
 </mat-list>

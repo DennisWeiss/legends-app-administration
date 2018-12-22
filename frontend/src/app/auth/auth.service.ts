@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject, Observable, BehaviorSubject, interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { AuthGroup, PERMISSIONS, hasChildPerm } from './permission/authorization.types';
 
 
 export interface UserData {
@@ -14,7 +15,8 @@ export interface UserData {
 export interface User {
   _id: string;
   username: string;
-  rights: string;
+  rights: string[];
+  permissions: string[];
 }
 
 @Injectable({
@@ -25,6 +27,8 @@ export class AuthService implements OnDestroy {
   userData: UserData;
   private _authStatusChanged = new BehaviorSubject<User>(null);
   tokenRefreshSub;
+
+  permissions: string [];
 
   get token() {
     return this.userData.token;
@@ -95,6 +99,26 @@ export class AuthService implements OnDestroy {
   private getNewToken(): Observable<any> {
     return this.http.post<UserData>(`${environment.backendUrl}auth/verify`, {});
   }
+
+  hasPermission(authGroup: AuthGroup) {
+
+    if (this.userData.user.permissions[0] === 'ADMIN') {
+      return true;
+    }
+
+    // no permission required
+    if (!authGroup) {
+      return true;
+    }
+
+    if (this.userData && this.userData.user.permissions.find(permission => {
+        return permission === authGroup || hasChildPerm(permission, authGroup);
+    })) {
+          return true;
+       }
+      return false;
+  }
+
 
   ngOnDestroy() {
     this.tokenRefreshSub.unsubscribe();

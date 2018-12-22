@@ -6,7 +6,7 @@
     </div>
 
     <div *ngIf="$authState | async as user" class="new-poi-btn-container">
-      <button mat-raised-button class="new-poi-btn" color="primary" (click)="newPOI()">
+      <button *ngIf="hasPermission('EDIT')" mat-raised-button class="new-poi-btn" color="primary" (click)="newPOI()">
         <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
         <span style="padding: 5px">{{'NEW_POI' | translate:name}}</span>
       </button>
@@ -52,7 +52,7 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let poi">
-        <button class="delete-btn" mat-icon-button (click)="removePOI($event, poi)">
+        <button *ngIf="hasPermission('EDIT')" class="delete-btn" mat-icon-button (click)="removePOI($event, poi)">
           <mat-icon color="warn">clear</mat-icon>
         </button>
       </td>
@@ -60,19 +60,9 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-    <ng-container *ngIf="!($authState | async)">
-      <tr mat-row *matRowDef="let poi; columns: displayedColumns"></tr>
-    </ng-container>
-
-    <ng-container *ngIf="$authState | async as user">
-      <ng-container *ngIf="isAdmin(user)">
-        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editPOI(poi.key, poi.type)"></tr>
+      <ng-container *ngIf="$authState | async as user">
+        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="openEditPage(poi.key, poi.type, user)"></tr>
       </ng-container>
-
-      <ng-container *ngIf="!isAdmin(user)">
-          <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editContents(poi.key, poi.type)"></tr>
-      </ng-container>
-    </ng-container>
 
   </table>
 

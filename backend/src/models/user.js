@@ -5,7 +5,7 @@ import appConf from "../../app-conf";
 
 function genAuthToken(expStr, user) {
    return 'Bearer ' + jwt.sign(
-       {_id: user._id, username: user.username, rights: user.rights},
+       {_id: user._id, username: user.username, permissions: user.permissions},
        appConf.jwtPrivateKey,
        {expiresIn: expStr});
 }
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 8
     },
-    rights: {
+    permissions: {
         type: Array,
         default: []
     }

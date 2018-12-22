@@ -11,12 +11,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserManagmentComponent } from './user-managment/user-managment.component';
 
 const routes: Routes = [
-  {path: 'edit/content/:id', component: PoiContentComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
-  {path: 'edit/:id', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
+  { path: 'edit/content/:id',
+    component: PoiContentComponent,
+    data: { auth: 'EDIT_CONTENT' },
+    canActivate: [AuthGuard],
+    canDeactivate: [CanDeactivateGuard]},
+
+  { path: 'edit/:id', component: PoiEditComponent,
+    data: { auth: 'EDIT' },
+    canActivate: [AuthGuard],
+    canDeactivate: [CanDeactivateGuard]},
+
   {path: 'login', component: LoginComponent},
-  {path: 'new', component: PoiEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
+  {path: 'new', component: PoiEditComponent, data: { auth: 'EDIT' }, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'poi-list', component: PoiOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'user-managment', component: UserManagmentComponent, canActivate: [AuthGuard]},
+  {path: 'user-managment', component: UserManagmentComponent, data: { auth: 'ADMIN' }, canActivate: [AuthGuard]},
   {path: '', redirectTo: 'poi-list', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ]
