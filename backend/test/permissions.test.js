@@ -65,7 +65,6 @@ it('should return all direct children', () => {
 it('should return all children', () => {
 
     PERMISSIONS = new Map([
-        ['ADMIN', {children: ['*']}],
         ['EDIT', {children: ['EDIT_CONTENT']}],
         ['EDIT_CONTENT', {children: ['EDIT_SMALL', 'EDIT_ICON']}],
         ['EDIT_SMALL', {children: ['EDIT_EXTRA_SMALL', 'READ']}],
