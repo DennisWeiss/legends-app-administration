@@ -25,6 +25,7 @@ router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
   const user = new User({
     username: req.body.username,
     password: hash,
+    permissions: req.body.permissions
   });
 
   try {
@@ -45,7 +46,8 @@ router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
     message: "User created!",
     user: {
       _id: user._id,
-      username: user.username
+      username: user.username,
+      permissions: user.permissions
     }
   });
 

@@ -1,26 +1,97 @@
-<table mat-table [dataSource]="dataSource">
-
+<table class="edit-table" mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="userName">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let user">
+      <span *ngIf="!user.isEditing">{{ user.username }}</span>
+      <mat-form-field *ngIf="user.isEditing">
+        <input
+          matInput
+          type="text"
+          placeholder="Username"
+          [value]="user.username"
+          (change)="user.username = $event.target.value"
+        />
+      </mat-form-field>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="userRole">
-    <th mat-header-cell *matHeaderCellDef> Role </th>
-    <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+    <th mat-header-cell *matHeaderCellDef>Permissions</th>
+    <td mat-cell *matCellDef="let user">
+      <app-user-permissions
+        *ngIf="user.isEditing"
+        [permissions]="user.permissions"
+        (permsUpdated)="user.permissions = $event"
+      ></app-user-permissions>
+      <mat-chip-list *ngIf="!user.isEditing" #chipList>
+        <mat-chip *ngFor="let perm of user.permissions"> {{ perm }} </mat-chip>
+      </mat-chip-list>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="userPassword">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <mat-form-field *ngIf="user.isEditing">
+        <input
+          matInput
+          type="password"
+          name="pw"
+          (change)="user.password = $event.target.value"
+          placeholder="Enter new password..."
+        />
+      </mat-form-field>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="userEdit">
     <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let user"> <button>Edit</button> </td>
+    <td mat-cell *matCellDef="let user">
+      <button
+        (click)="user.isEditing = true"
+        *ngIf="!user.isEditing"
+        mat-icon-button
+      >
+        <mat-icon>create</mat-icon>
+      </button>
+
+      <button
+        (click)="user.isEditing = false; saveUser(user)"
+        mat-icon-button
+        *ngIf="user.isEditing"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="userDelete">
-    <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let user"> <button>Delete</button> </td>
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <button mat-icon-button (click)="deleteUser(user)">
+        <mat-icon color="warn">clear</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-<tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
 </table>
+
+<mat-card>
+  <form #userForm="ngForm" fxLayout fxLayoutAlign="space-evenly center">
+    <mat-form-field>
+      <input matInput type="text" ngModel name="username" placeholder="Username" />
+    </mat-form-field>
+
+    <app-user-permissions (permsUpdated)="tempPerms=$event" [permissions]="[]"></app-user-permissions>
+
+    <mat-form-field>
+      <input matInput ngModel name="password" type="text" placeholder="Password" />
+    </mat-form-field>
+
+    <button class="create-user-btn" (click)="createUser(userForm.value)" mat-raised-button color="primary">
+      Create user
+    </button>
+  </form>
+</mat-card>

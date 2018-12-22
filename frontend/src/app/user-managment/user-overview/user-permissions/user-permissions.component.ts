@@ -7,6 +7,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { User } from 'src/app/auth/auth.service';
 import { PERMISSIONS } from 'src/app/auth/permission/authorization.types';
 
+
 @Component({
   selector: 'app-user-permissions',
   templateUrl: './user-permissions.component.html',

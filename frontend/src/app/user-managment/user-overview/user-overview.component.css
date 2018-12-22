@@ -1,4 +1,22 @@
-table {
-  width: 80%;
+table, mat-card {
   margin: 0 auto;
 }
+
+.edit-table {
+  width: 80%;
+  margin-top: 30px;
+}
+
+table .create-table {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0;
+}
+
+
+mat-card {
+  width: 80%;
+  margin-top: 20px;
+  padding: 0;
+}
+

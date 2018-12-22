@@ -44,7 +44,8 @@ import { UserManagmentComponent } from './user-managment/user-managment.componen
 import { UserOverviewComponent } from './user-managment/user-overview/user-overview.component';
 import { UserConfigComponent } from './user-managment/user-overview/user-config/user-config.component';
 
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component'
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
     PageNotFoundComponent,
     UserManagmentComponent,
     UserOverviewComponent,
-    UserConfigComponent
+    UserConfigComponent,
+    UserPermissionsComponent
   ],
   imports: [
     BrowserModule,
