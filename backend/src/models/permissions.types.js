@@ -22,7 +22,7 @@ export const PERMISSIONS = new Map([
    */
   
   export const getChildPerms = function(parent) {
-    return getChildPerms(PERMISSIONS, parent);
+    return _getChildPerms(PERMISSIONS, parent);
   }
 
 
