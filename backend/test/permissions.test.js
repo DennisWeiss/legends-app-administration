@@ -64,11 +64,29 @@ it('should return all direct children', () => {
     expect(result.sort()).toEqual(expectedResult.sort());
 })
 
-it('should return all children', () => {
+it('should return all children of permission with one direct child', () => {
 
     PERMISSIONS = new Map([
         ['EDIT', {children: ['EDIT_CONTENT']}],
         ['EDIT_CONTENT', {children: ['EDIT_SMALL', 'EDIT_ICON']}],
+        ['EDIT_SMALL', {children: ['EDIT_EXTRA_SMALL', 'READ']}],
+        ['EDIT_ICON', {children: []}],
+        ['EDIT_EXTRA_SMALL', {children: []}],
+        ['READ', {children: []}]
+      ]
+      );
+
+        const result = _getChildPerms(PERMISSIONS, 'EDIT')  
+        const expectedResult = ['EDIT_CONTENT', 'EDIT_SMALL', 'EDIT_ICON', 'EDIT_EXTRA_SMALL', 'READ'];
+
+        expect(result.sort()).toEqual(expectedResult.sort());
+})
+
+it('should return all children for permission with more than one direct child', () => {
+
+    PERMISSIONS = new Map([
+        ['EDIT', {children: ['EDIT_CONTENT', 'EDIT_SMALL']}],
+        ['EDIT_CONTENT', {children: ['EDIT_ICON']}],
         ['EDIT_SMALL', {children: ['EDIT_EXTRA_SMALL', 'READ']}],
         ['EDIT_ICON', {children: []}],
         ['EDIT_EXTRA_SMALL', {children: []}],

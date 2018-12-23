@@ -11,7 +11,7 @@ module.exports = (requiredPerm) => {
         }
 
         // check if required permission can be found for user
-       if(userPerms.some((userPerm) => (userPerm === requiredPerm) || (getChildPerms(userPerm).length !== 0))) {
+       if(userPerms.some((userPerm) => (userPerm === requiredPerm) || (getChildPerms(userPerm).includes(requiredPerm)))) {
            next();
        } else {
            return res.status(401).send({message: 'Unauhorized access!'});
