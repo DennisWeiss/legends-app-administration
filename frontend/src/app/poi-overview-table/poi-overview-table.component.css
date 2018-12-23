@@ -66,17 +66,3 @@ mat-paginator {
 .new-poi-btn-container {
   margin: auto 0;
 }
-
-.publishing-status-cell {
-  display: flex;
-  align-items: center;
-}
-
-.published-icon {
-  color: limegreen;
-  margin-right: 5px;
-}
-
-.not-published-icon {
-  margin-right: 5px;
-}

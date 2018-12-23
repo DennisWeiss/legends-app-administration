@@ -99,15 +99,6 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     }
   }
 
-  hasBeenPublished = poi => moment().isAfter(moment.unix(poi.publishingTimestamp))
-
-  formatTimestamp = timestamp => {
-    const dateTime = moment.unix(timestamp)
-    if (moment().isAfter(dateTime)) {
-      return dateTime.format('lll')
-    }
-    return dateTime.fromNow()
-  }
   setFilterPredicate = () => {
     this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
       poi.name.en.toLowerCase().includes(filter.toLowerCase())
