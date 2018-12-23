@@ -50,7 +50,6 @@ import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.com
 import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component';
 import { PoiTypeTagComponent } from './poi-type-tag/poi-type-tag.component';
 import { PublishingStatusComponent } from './publishing-status/publishing-status.component'
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component'
 
 @NgModule({
@@ -83,7 +82,7 @@ import { UserPermissionsComponent } from './user-managment/user-overview/user-pe
     PoiOverviewMapComponent,
     PoiOverviewMapInfoWindowComponent,
     PoiTypeTagComponent,
-    PublishingStatusComponent
+    PublishingStatusComponent,
     UserConfigComponent,
     UserPermissionsComponent
   ],
