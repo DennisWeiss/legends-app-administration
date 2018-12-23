@@ -44,6 +44,18 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="userPassword">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let user">
+         <span *ngIf="!user.isEditing">{{user.password}}</span>
+         <mat-form-field *ngIf="user.isEditing">
+          <input matInput type="password" name="pw"
+          (change)="user.password = $event.target.value"
+          placeholder="Enter new password...">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
   <ng-container matColumnDef="userEdit">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
