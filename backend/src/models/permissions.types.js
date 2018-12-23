@@ -8,13 +8,13 @@
 
 
 export const PERMISSIONS = new Map([
-    ['ADMIN', {children: ['*']}],
+    ['ADMIN', {children: []}],
     ['EDIT', {children: ['EDIT_CONTENT']}],
-    ['EDIT_CONTENT', {children: []}]
+    ['EDIT_CONTENT', {children: []}],
+    ['READ_ONLY', {children: []}]
   ]
   );
   
-
 
   /**
    * get all children of permission in a recursive manner
