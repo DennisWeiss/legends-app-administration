@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+const uniqueValidator = require('mongoose-unique-validator');
+ 
 const RestaurantContent = require('./content/restaurant-content');
 const LegendContent = require('./content/legend-content');
 const SightContent = require('./content/sight-content');
@@ -12,9 +14,12 @@ const poiContentModelCallbacks = {
 
 const POISchema = new mongoose.Schema(
   {
-    key: { type: String, required: true, index: { unique: true } },
+    key: { type: String, required: true, unique: true },
     publishingTimestamp: {type: Number, required: true},
-    beaconId: { type: Number, required: true },
+    beaconId: { 
+      type: Number, 
+      required: true
+    },
     coordinates: {
       lat: { type: Number, required: true },
       lng: { type: Number, required: true }
@@ -87,5 +92,12 @@ POISchema.statics.validateContent = async function (content, type) {
 POISchema.methods.generateKey = async function(iteration = 0) {
   return await generateKey(this, iteration);
 }
+
+POISchema.methods.validateBeacon  = async function() {
+  
+}
+
+POISchema.plugin(uniqueValidator);
+
 
 export default mongoose.model('POI', POISchema)
