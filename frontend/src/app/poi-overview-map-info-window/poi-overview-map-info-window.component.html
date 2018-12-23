@@ -11,4 +11,8 @@
     </div>
   </div>
   <app-publishing-status [publishingTimestamp]="poi.publishingTimestamp"></app-publishing-status>
+  <div class="poi-overview-map-info-window-action-buttons">
+    <span><button mat-button color="primary" (click)="editPOI(poi.key, poi.type)">Edit</button></span>
+    <span><button mat-button color="warn">Delete</button></span>
+  </div>
 </div>

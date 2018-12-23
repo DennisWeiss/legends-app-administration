@@ -24,3 +24,9 @@
 .poi-overview-map-info-window-beacon-id {
   font-size: 1.1em;
 }
+
+.poi-overview-map-info-window-action-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
