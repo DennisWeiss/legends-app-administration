@@ -21,6 +21,7 @@
       <app-user-permissions
         *ngIf="user.isEditing"
         [permissions]="user.permissions"
+        [allPerms]="availablePerms"
         (permsUpdated)="user.permissions = $event"
       ></app-user-permissions>
       <mat-chip-list *ngIf="!user.isEditing" #chipList>
@@ -96,7 +97,7 @@
       <input matInput type="text" ngModel name="username" placeholder="Username" />
     </mat-form-field>
 
-    <app-user-permissions (permsUpdated)="tempPerms=$event" [permissions]="[]"></app-user-permissions>
+    <app-user-permissions (permsUpdated)="tempPerms=$event" [allPerms]="availablePerms" [permissions]="[]"></app-user-permissions>
 
     <mat-form-field>
       <input matInput ngModel name="password" type="text" placeholder="Password" />

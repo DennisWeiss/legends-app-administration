@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import appConf from "../../app-conf";
+import { mapPermsToIncludeChildren } from '../mapper/permission.mapper';
 
 
 function genAuthToken(expStr, user) {
@@ -11,7 +12,7 @@ function genAuthToken(expStr, user) {
 }
 
 /**
- * @attribute rights Restricts user to certain actions he can do. They should be only set by an admin.
+ * @attribute permissions Restricts user to certain actions he can do. They should be only set by an admin.
  * 
  */
 

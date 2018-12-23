@@ -13,8 +13,8 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.backendUrl}users`);
+  getUsersAndAvailablePerms(): Observable<{users: User[], permissions: string[]}> {
+    return this.http.get<{users: User[], permissions: string[]}>(`${environment.backendUrl}users`);
   }
 
   saveUser(userObj) {

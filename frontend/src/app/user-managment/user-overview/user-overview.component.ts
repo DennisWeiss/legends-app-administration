@@ -5,8 +5,6 @@ import { take } from 'rxjs/operators';
 import { User, AuthService } from 'src/app/auth/auth.service';
 import SnackbarService from 'src/app/snackbar.service';
 
-
-
 @Component({
   selector: 'app-user-overview',
   templateUrl: './user-overview.component.html',
@@ -18,15 +16,18 @@ export class UserOverviewComponent implements OnInit {
   dataSource;
   columnsToDisplay = ['userName', 'userRole', 'userPassword', 'userEdit', 'userDelete']
 
+  // cache to save permissions while editing
   tempPerms: string[];
+
+  // all permissions that can be assigned to a user (fetched from backend)
+  availablePerms: string[] = [];
 
   constructor(private authService: AuthService, private userService: UserService, private snackBarService: SnackbarService) { }
 
   ngOnInit() {
-
-    this.userService.getUsers().pipe(take(1)).subscribe((users) => {
-      console.log('users', users);
-      this.users = users;
+    this.userService.getUsersAndAvailablePerms().pipe(take(1)).subscribe((data) => {
+      this.users = data.users;
+      this.availablePerms = data.permissions;
       this.initializeTableDataSource();
     });
   }
