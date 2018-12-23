@@ -42,11 +42,6 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
-  typeToColor = {
-    legends: 'blue',
-    sights: 'orange',
-    restaurants: 'green'
-  }
   formatcoords = formatcoords
 
   types = {

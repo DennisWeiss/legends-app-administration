@@ -23,7 +23,8 @@ export default {
       "BEACON_ID": "Beacon ID",
       "legends": "Legend",
       "sights": "Sight",
-      "restaurants": "Restaurant"
+      "restaurants": "Restaurant",
+      "PUBLISHING_STATUS": "Publishing status"
     },
     "poi-type-selection": {
       "legends": "Legends",
@@ -66,6 +67,11 @@ export default {
     "login": {
       "NAME": "Username",
       "PW": "Password"
+    },
+    "poi-type-tag": {
+      "legends": "Legend",
+      "sights": "Sight",
+      "restaurants": "Restaurant"
     }
   },
   "de": {
@@ -92,7 +98,8 @@ export default {
       "BEACON_ID": "Beacon ID",
       "legends": "Sage",
       "sights": "Sehenswürdigkeit",
-      "restaurants": "Restaurant"
+      "restaurants": "Restaurant",
+      "PUBLISHING_STATUS": "Veröffentlichung"
     },
     "poi-type-selection": {
       "legends": "Sagen",
@@ -135,6 +142,11 @@ export default {
     "login": {
       "NAME": "Benutzername",
       "PW": "Passwort"
+    },
+    "poi-type-tag": {
+      "legends": "Sage",
+      "sights": "Sehenswürdigkeit",
+      "restaurants": "Restaurant"
     }
   }
 }

@@ -21,7 +21,7 @@
         <div class="mat-cell-name-content">
           <img src={{poi.icons.default}} height="30" width="30"/>
           <span>{{poi.name[localeService.getLocale()]}}</span>
-          <app-tag [text]="poi.type | translate:name" [color]="typeToColor[poi.type]"></app-tag>
+          <app-poi-type-tag [type]="poi.type"></app-poi-type-tag>
         </div>
       </td>
     </ng-container>

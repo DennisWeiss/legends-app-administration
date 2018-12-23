@@ -8,6 +8,8 @@ import {LocaleService} from "../locale.service";
 })
 export class PoiOverviewMapInfoWindowComponent implements OnInit {
 
+  name = "poi-overview-map-info-window"
+
   @Input() poi
 
   locale

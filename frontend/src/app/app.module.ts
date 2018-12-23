@@ -47,7 +47,8 @@ import { UserConfigComponent } from './user-managment/user-overview/user-config/
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { PoiOverviewComponent } from './poi-overview/poi-overview.component';
 import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.component';
-import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component'
+import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component';
+import { PoiTypeTagComponent } from './poi-type-tag/poi-type-tag.component'
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-windo
     UserConfigComponent,
     PoiOverviewComponent,
     PoiOverviewMapComponent,
-    PoiOverviewMapInfoWindowComponent
+    PoiOverviewMapInfoWindowComponent,
+    PoiTypeTagComponent
   ],
   imports: [
     BrowserModule,
