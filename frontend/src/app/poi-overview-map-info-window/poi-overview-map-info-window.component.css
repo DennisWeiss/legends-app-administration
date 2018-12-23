@@ -1,0 +1,10 @@
+.poi-overview-map-info-window-title {
+  display: flex;
+  align-items: center;
+}
+
+.poi-overview-map-info-window-title-text {
+  margin: 0 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+}

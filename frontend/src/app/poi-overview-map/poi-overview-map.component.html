@@ -9,9 +9,14 @@
       fullscreenControl="true"
       [mapTypeControlOptions]="mapTypeControlOptions">
       <agm-marker *ngFor="let poi of pois"
-        [iconUrl]="poi.icons.default"
-        [latitude]="poi.coordinates.lat"
-        [longitude]="poi.coordinates.lng"></agm-marker>
+                  [title]="poi.name[locale]"
+                  [openInfoWindow]="true"
+                  [latitude]="poi.coordinates.lat"
+                  [longitude]="poi.coordinates.lng">
+        <agm-info-window>
+          <app-poi-overview-map-info-window [poi]="poi"></app-poi-overview-map-info-window>
+        </agm-info-window>
+      </agm-marker>
     </agm-map>
   </mat-card>
 </div>

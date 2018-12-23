@@ -1,7 +1,7 @@
 <div class="poi-overview-wrapper">
   <mat-tab-group>
     <mat-tab label="{{'TABLE_VIEW' | translate:name}}">
-      <app-poi-overview-table [pois]="pois"></app-poi-overview-table>
+      <app-poi-overview-table [pois]="pois" [fetchPOIsAndInitTable]="fetchPOIsAndInitTable"></app-poi-overview-table>
     </mat-tab>
     <mat-tab label="{{'MAP_VIEW' | translate:name}}">
       <app-poi-overview-map [pois]="pois"></app-poi-overview-map>

@@ -35,7 +35,10 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     'edit',
     'delete'
   ]
+
   @Input() pois
+  @Input() fetchPOIsAndInitTable
+
   filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
