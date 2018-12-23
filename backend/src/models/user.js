@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import appConf from "../../app-conf";
-import { mapPermsToIncludeChildren } from '../mapper/permission.mapper';
 
 
 function genAuthToken(expStr, user) {
-   return 'Bearer ' + jwt.sign(
-       {_id: user._id, username: user.username, permissions: user.permissions},
-       appConf.jwtPrivateKey,
+    return 'Bearer ' + jwt.sign(
+        {_id: user._id, username: user.username, permissions: user.permissions},
+        appConf.jwtPrivateKey,
        {expiresIn: expStr});
 }
+
 
 /**
  * @attribute permissions Restricts user to certain actions he can do. They should be only set by an admin.
@@ -44,5 +44,5 @@ userSchema.statics.generateAuthToken = function(expStr, user) {
     return genAuthToken(expStr, user);
  }
 
-
+  
 module.exports = mongoose.model('User', userSchema);

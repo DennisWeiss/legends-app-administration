@@ -49,6 +49,23 @@ const POISchema = new mongoose.Schema(
 )
 
 
+const formatToKey = (name, iteration) => {
+  return name.toUpperCase().trim().replace(/\s+/g,'-') + (iteration ? iteration.toString() : '')
+}
+
+const keyExists = async key => {
+  const POI = require('mongoose').model('POI');
+  return !!(await POI.findOne({key}))
+}
+
+const generateKey = async (poi, iteration = 0) => {
+  const key = formatToKey(poi.name.get('en'), iteration)
+  if (await keyExists(key)) {
+    return generateKey(poi, iteration + 1)
+  }
+  return key
+}
+
 POISchema.methods.addContent = async function (content) {
   // set content dynamically
   const Content = poiContentModelCallbacks[this.type]
@@ -65,6 +82,10 @@ POISchema.statics.validateContent = async function (content, type) {
     const content = new Content(contentObj)
     await content.validate();
   }
+}
+
+POISchema.methods.generateKey = async function(iteration = 0) {
+  return await generateKey(this, iteration);
 }
 
 export default mongoose.model('POI', POISchema)

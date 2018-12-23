@@ -34,6 +34,7 @@ module.exports.middleware = async (req, res, next) => {
     if(req.body.vuforia_targets) {
         // handle special case in which vuforia_targets is a string and not an array
         const urlArr = [].concat(req.body.vuforia_targets);
+        
         targets.push(...urlArr.map(pathStr => parsePathStr(pathStr)));
     }
     body.media.vuforiaTargets  = targets;

@@ -58,18 +58,6 @@ const formData = [
   {name: 'vuforia_targets', maxCount: 30}
 ]
 
-const formatToKey = (name, iteration) => name.toUpperCase().replace(' ', '_') + iteration ? iteration : ''
-
-const keyExists = async key => !!(await POI.findOne({key}))
-
-const generateKey = async (poi, iteration = 0) => {
-  const key = formatToKey(poi.name.get('en'), iteration)
-  if (await keyExists(key)) {
-    return generateKey(poi, iteration + 1)
-  }
-  return key
-}
-
 router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
 
   const body = req.body
@@ -83,7 +71,7 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
   }
 
   winston.info(poi);
-  poi.key = await generateKey(poi)
+  poi.key = await poi.generateKey();
 
   await poi.save()
   await updateVersions(body, res)
