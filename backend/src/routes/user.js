@@ -1,24 +1,28 @@
-import POI from '../models/poi.model'
-import {mapListOfPOIsToDict} from '../mapper/poi.mapper'
-
-import VersionLocationData from '../models/version-location-data'
-import {applyUrlToPoi} from "../utils/helperfunctions"
-
 const winston = require('winston');
 const bcrypt = require('bcrypt');
 
 const express = require('express')
 const router = express.Router()
 
-const auth = require('../middlewares/authentication')
 const User = require('../models/user');
+
+import { PERMISSIONS } from '../models/permissions.types';
+
+/**
+ * Routes for manipulating users.
+ * Are only accessible by admins (authentication + permission, see under startup/routes).
+ */
+
 
 
 router.get('/', async (req, res, next) => {
 
     const users = await User.find({}).select('-password');
 
-    return res.status(200).send(users);
+    return res.status(200).send({
+        users: users,
+        permissions: Array.from(PERMISSIONS.keys())
+    });
 
 })
 

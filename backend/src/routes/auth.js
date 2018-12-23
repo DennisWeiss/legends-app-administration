@@ -11,6 +11,7 @@ const auth = require('../middlewares/authentication')
 
 const permission = require('../middlewares/authorization');
 
+import {mapPermsToIncludeChildren} from '../mapper/permission.mapper';
 
 router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
 
@@ -79,7 +80,7 @@ router.post("/login", async (req, res, next) => {
       _id: user._id,
       username: user.username,
       rights: user.rights,
-      permissions: user.permissions
+      permissions: mapPermsToIncludeChildren(user.permissions)
     },
     token: token,
     expiresIn: appConf.tokenExpInSec
@@ -89,6 +90,8 @@ router.post("/login", async (req, res, next) => {
 router.post('/verify', auth, async (req, res, next) => {
 
   const token = User.generateAuthToken(appConf.tokenExpInSec , req.user);
+
+  req.user.permissions = mapPermsToIncludeChildren(req.user.permissions);
 
   res.status(200).send({
       user: req.user,
