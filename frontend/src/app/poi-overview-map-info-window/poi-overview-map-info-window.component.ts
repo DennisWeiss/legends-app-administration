@@ -11,7 +11,6 @@ export class PoiOverviewMapInfoWindowComponent implements OnInit {
   name = "poi-overview-map-info-window"
 
   @Input() poi
-
   locale
 
   constructor(private localeService: LocaleService) {

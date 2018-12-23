@@ -1,7 +1,13 @@
 <div>
   <div class="poi-overview-map-info-window-title">
-    <img src={{poi.icons.default}} height="30" width="30"/>
+    <img src={{poi.icons.default}} height="24" width="24"/>
     <span class="poi-overview-map-info-window-title-text">{{poi.name[locale]}}</span>
   </div>
-  <app-poi-type-tag [type]="poi.type"></app-poi-type-tag>
+  <div class="poi-overview-map-info-window-poi-type-tag">
+    <app-poi-type-tag [type]="poi.type"></app-poi-type-tag>
+    <div class="poi-overview-map-info-window-beacon-id">
+      <mat-icon>rss_feed</mat-icon>
+      <span class="poi-overview-map-info-window-beacon-id-text">{{poi.beaconId}}</span>
+    </div>
+  </div>
 </div>
