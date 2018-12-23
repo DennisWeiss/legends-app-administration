@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { User } from 'src/app/auth/auth.service';
 import { PERMISSIONS } from 'src/app/auth/permission/authorization.types';
 
 
@@ -23,7 +22,8 @@ export class UserPermissionsComponent implements OnInit {
   permCtrl = new FormControl();
   filteredPerms: Observable<string[]>;
   perms: string[] = ['EDIT'];
-  allPerms: string[] = Array.from(PERMISSIONS.keys());
+
+  @Input() allPerms: string[];
 
   @Input() permissions: string[];
   @Output() permsUpdated = new EventEmitter();
