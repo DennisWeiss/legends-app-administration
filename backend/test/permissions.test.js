@@ -29,7 +29,9 @@ it('should return an empty array', () => {
 
 it('should throw an error indicating that permission does not exist', () => {
     PERMISSIONS = new Map([
-        ['ADMIN', {children: ['a', 'b', 'c', 'd']}]
+        ['ADMIN', {children: ['a', 'b']}],
+        ['a', {children: []}],
+        ['b', {children: []}]
       ])
       
       expect(() => {_getChildPerms(PERMISSIONS, 'EDIT')}).toThrow('not defined!');    
