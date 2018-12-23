@@ -42,6 +42,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
+  
   formatcoords = formatcoords
 
   types = {
@@ -113,10 +114,6 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     this.router.navigate(['new']);
   }
 
-  editPOI = (poiKey: string, poiType: string) => {
-    this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
-  }
-
   removePOI = (ev: Event, poi) => {
     ev.stopPropagation();
     if (window.confirm('Do you really want to delete this POI?')) {
@@ -127,12 +124,16 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     }
   }
 
-  editContents = (poiKey: string, poiType: string) => {
-    this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
+  openEditPage(poiKey: string, poiType: string, user) {
+    if (this.authService.hasPermission('EDIT')) {
+      this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
+    } else if (this.authService.hasPermission('EDIT_CONTENT')) {
+      this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
+    }
   }
 
-  isAdmin(user) {
-    return user.rights.some((right) => right === 'admin');
+  hasPermission(perm) {
+    return this.authService.hasPermission(perm);
   }
 
 }
