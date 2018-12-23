@@ -18,7 +18,27 @@ const POISchema = new mongoose.Schema(
     publishingTimestamp: {type: Number, required: true},
     beaconId: { 
       type: Number, 
-      required: true
+      required: true,
+      validate: {
+        validator: function(v) {
+        return new Promise(function(resolve, reject) {
+          console.log('validate');
+         const Beacon =  mongoose.model('Beacon');
+         Beacon.findOne({beaconId: v})
+         .then((result) => {
+           if(!result) {
+             resolve(false); 
+            } else {
+              resolve(true);
+            }
+         })
+
+        });
+      },
+      message: function(props) {
+        return `Beacon with an ID of '${props.value}' does not exist!`;
+      }
+      }
     },
     coordinates: {
       lat: { type: Number, required: true },
