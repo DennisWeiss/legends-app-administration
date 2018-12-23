@@ -13,13 +13,18 @@ export default {
       "de": "German"
     },
     "poi-overview": {
+      "TABLE_VIEW": "Table view",
+      "MAP_VIEW": "Map view"
+    },
+    "poi-overview-table": {
       "NEW_POI": "New POI",
       "POI": "POI",
       "LOCATION": "Location",
       "BEACON_ID": "Beacon ID",
       "legends": "Legend",
       "sights": "Sight",
-      "restaurants": "Restaurant"
+      "restaurants": "Restaurant",
+      "PUBLISHING_STATUS": "Publishing status"
     },
     "poi-type-selection": {
       "legends": "Legends",
@@ -62,6 +67,11 @@ export default {
     "login": {
       "NAME": "Username",
       "PW": "Password"
+    },
+    "poi-type-tag": {
+      "legends": "Legend",
+      "sights": "Sight",
+      "restaurants": "Restaurant"
     }
   },
   "de": {
@@ -78,13 +88,18 @@ export default {
       "de": "Deutsch"
     },
     "poi-overview": {
+      "TABLE_VIEW": "Tabellenansicht",
+      "MAP_VIEW": "Kartenansicht"
+    },
+    "poi-overview-table": {
       "NEW_POI": "Neuer POI",
       "POI": "POI",
       "LOCATION": "Ort",
       "BEACON_ID": "Beacon ID",
       "legends": "Sage",
       "sights": "Sehenswürdigkeit",
-      "restaurants": "Restaurant"
+      "restaurants": "Restaurant",
+      "PUBLISHING_STATUS": "Veröffentlichung"
     },
     "poi-type-selection": {
       "legends": "Sagen",
@@ -127,6 +142,11 @@ export default {
     "login": {
       "NAME": "Benutzername",
       "PW": "Passwort"
+    },
+    "poi-type-tag": {
+      "legends": "Sage",
+      "sights": "Sehenswürdigkeit",
+      "restaurants": "Restaurant"
     }
   }
 }

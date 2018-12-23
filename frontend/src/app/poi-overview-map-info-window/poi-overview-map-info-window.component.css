@@ -1,0 +1,32 @@
+.poi-overview-map-info-window-title {
+  display: flex;
+  align-items: center;
+}
+
+.poi-overview-map-info-window-title-text {
+  margin: 0 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.poi-overview-map-info-window-poi-type-tag {
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.poi-overview-map-info-window-beacon-id {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.poi-overview-map-info-window-beacon-id {
+  font-size: 1.1em;
+}
+
+.poi-overview-map-info-window-action-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
