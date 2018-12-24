@@ -4,8 +4,6 @@ import * as moment from "moment";
 import { BeaconService } from '../shared/services/beacon.service';
 import { take, map, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Injectable()
 export class PoiEditFormsService {
@@ -88,6 +86,12 @@ export class PoiEditFormsService {
 
 
   validateBeacon(beaconControl: AbstractControl): Observable<any> {
+
+    // user did not interact with control yet -> no need for validation
+    if(beaconControl.untouched || beaconControl.pristine) {
+      return of(null);
+    }
+
     return this.beaconService.getBeacon(beaconControl.value).pipe(
       map((res) => {
         return null;
