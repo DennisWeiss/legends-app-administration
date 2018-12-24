@@ -2,11 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } fro
 import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { PoiService } from "src/app/poi.service";
+import { PoiService } from "src/app/shared/services/poi.service";
 import { take } from "rxjs/operators";
 import { Subscription, Observable } from "rxjs";
 import { POI } from "../poi.model";
-import { CanComponentDeactivate } from "src/app/can-deactivate.guard";
+import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { MatSnackBar } from "@angular/material";
 import { HostListener } from '@angular/core';

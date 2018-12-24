@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {take} from "rxjs/operators";
-import {PoiService} from "../poi.service";
+import {PoiService} from "../shared/services/poi.service";
 
 
 const mapPOIs = pois => {

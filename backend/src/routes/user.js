@@ -14,7 +14,6 @@ import { PERMISSIONS } from '../models/permissions.types';
  */
 
 
-
 router.get('/', async (req, res, next) => {
 
     const users = await User.find({}).select('-password');

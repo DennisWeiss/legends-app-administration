@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http'
-import { environment } from '../environments/environment';
-import { Sight, Legend, Restaurant, POI } from './poi-edit/poi.model';
+import { environment } from '../../../environments/environment';
+import { Sight, Legend, Restaurant, POI } from '../../poi-edit/poi.model';
 import { Subject } from 'rxjs';
 import * as moment from 'moment'
-import {getTimestamp} from "./utils/helperfunctions";
+import {getTimestamp} from "../../utils/helperfunctions";
 
 
 const mapPOIData = poi => {

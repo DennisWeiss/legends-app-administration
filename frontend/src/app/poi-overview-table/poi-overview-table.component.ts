@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core'
-import {PoiService} from '../poi.service'
+import {PoiService} from '../shared/services/poi.service'
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
