@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import translate from './translations/translate';
-import { LocaleService } from './locale.service';
+import translate from '../../translations/translate';
+import { LocaleService } from '../services/locale.service';
 import {updateLocale} from "moment";
 
 @Pipe({

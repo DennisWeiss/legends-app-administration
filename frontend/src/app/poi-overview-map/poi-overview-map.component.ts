@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {environment} from "../../environments/environment";
-import {LocaleService} from "../locale.service";
+import {LocaleService} from "../shared/services/locale.service";
 
 @Component({
   selector: 'app-poi-overview-map',

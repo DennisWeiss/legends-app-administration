@@ -10,7 +10,7 @@ import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.gua
 import { isEqual } from "lodash";
 import { MatSnackBar } from "@angular/material";
 import { HostListener } from '@angular/core';
-import SnackbarService from "src/app/snackbar.service";
+import SnackbarService from "src/app/shared/services/snackbar.service";
 
 @Component({
   selector: "app-poi-content",

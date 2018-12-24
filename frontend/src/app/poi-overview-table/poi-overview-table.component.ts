@@ -3,13 +3,13 @@ import {PoiService} from '../shared/services/poi.service'
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import translate from '../translations/translate'
-import {LocaleService} from '../locale.service'
+import {LocaleService} from '../shared/services/locale.service'
 import formatcoords from 'formatcoords'
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
 import {take} from 'rxjs/operators';
-import SnackbarService from '../snackbar.service';
+import SnackbarService from '../shared/services/snackbar.service';
 import * as moment from 'moment'
 
 
@@ -42,7 +42,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   filteredPois
   faPen = faPen
   faPlusCircle = faPlusCircle
-  
+
   formatcoords = formatcoords
 
   types = {

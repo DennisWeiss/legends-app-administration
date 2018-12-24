@@ -48,7 +48,7 @@
 
           <mat-form-field *ngIf="isLegend()">
             <input matInput type="number" formControlName="beaconId" [placeholder]="'BEACON_ID' | translate:name"/>
-            <mat-error *ngIf="poiForm.controls.beaconId.invalid">{{invalidErrMsg}}</mat-error>
+            <mat-error *ngIf=" poiForm.get('beaconId').errors && poiForm.get('beaconId').errors.beaconNotFound">Beacon-ID does not exist</mat-error>
           </mat-form-field>
 
 

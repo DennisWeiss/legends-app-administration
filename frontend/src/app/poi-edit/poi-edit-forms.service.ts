@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormBuilder, Validators, FormGroup, FormArray, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import * as moment from "moment";
+import { BeaconService } from '../shared/services/beacon.service';
+import { take, map, catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Injectable()
 export class PoiEditFormsService {
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private beaconService: BeaconService) {}
 
 
   langs = ['de', 'en', 'pl'];
@@ -40,7 +45,7 @@ export class PoiEditFormsService {
       de: ['', Validators.required],
       pl: ['', Validators.required]
     }),
-    beaconId: [-1, Validators.required],
+    beaconId: [-1, Validators.required, this.validateBeacon.bind(this)],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
       lat: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
@@ -81,4 +86,15 @@ export class PoiEditFormsService {
     }
   }
 
+
+  validateBeacon(beaconControl: AbstractControl): Observable<any> {
+    return this.beaconService.getBeacon(beaconControl.value).pipe(
+      map((res) => {
+        return null;
+      }),
+      catchError(() => {
+        return of({beaconNotFound: true})
+      })
+    )
+  }
 }

@@ -31,8 +31,8 @@ import {NgxUploaderModule} from 'ngx-uploader';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
-import { ErrorInterceptor } from './error-interceptor';
-import { TranslatePipe } from './translations.pipe';
+import { ErrorInterceptor } from './shared/interceptors/error-interceptor';
+import { TranslatePipe } from './shared/pipes/translations.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AgmCoreModule} from '@agm/core'
 

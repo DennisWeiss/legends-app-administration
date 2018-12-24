@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { UserService } from 'src/app/user.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { take } from 'rxjs/operators';
 import { User, AuthService } from 'src/app/auth/auth.service';
-import SnackbarService from 'src/app/snackbar.service';
+import SnackbarService from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-user-overview',
