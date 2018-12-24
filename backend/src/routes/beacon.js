@@ -56,7 +56,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:beaconId', async (req, res, next) => {
 
-    const beacon = await Beacon.findById(req.params.beaconId);
+    const beacon = await Beacon.findOne({beaconId: req.params.beaconId});
 
     if(!beacon) {
         return res.status(404).send({message: 'Cannot find beacon!'});
