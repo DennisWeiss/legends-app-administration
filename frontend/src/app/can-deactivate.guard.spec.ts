@@ -1,6 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { CanDeactivateGuard } from './can-deactivate.guard';
+import { CanDeactivateGuard } from './shared/guards/can-deactivate.guard';
 
 describe('CanDeactivateGuard', () => {
   beforeEach(() => {

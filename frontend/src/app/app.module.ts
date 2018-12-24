@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
-import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
+import {PoiOverviewTableComponent} from './poi-overview-table/poi-overview-table.component'
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SignupComponent} from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component';
@@ -45,12 +45,17 @@ import { UserOverviewComponent } from './user-managment/user-overview/user-overv
 import { UserConfigComponent } from './user-managment/user-overview/user-config/user-config.component';
 
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { PoiOverviewComponent } from './poi-overview/poi-overview.component';
+import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.component';
+import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component';
+import { PoiTypeTagComponent } from './poi-type-tag/poi-type-tag.component';
+import { PublishingStatusComponent } from './publishing-status/publishing-status.component'
 import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    PoiOverviewComponent,
+    PoiOverviewTableComponent,
     SignupComponent,
     LoginComponent,
     SidenavComponent,
@@ -72,6 +77,12 @@ import { UserPermissionsComponent } from './user-managment/user-overview/user-pe
     PageNotFoundComponent,
     UserManagmentComponent,
     UserOverviewComponent,
+    UserConfigComponent,
+    PoiOverviewComponent,
+    PoiOverviewMapComponent,
+    PoiOverviewMapInfoWindowComponent,
+    PoiTypeTagComponent,
+    PublishingStatusComponent,
     UserConfigComponent,
     UserPermissionsComponent
   ],

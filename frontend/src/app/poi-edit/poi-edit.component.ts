@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Event } from '@angular/router';
-import { PoiService } from '../poi.service';
+import { PoiService } from '../shared/services/poi.service';
 import { Subscription, Subject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
@@ -8,7 +8,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { POI } from './poi.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
-import { CanComponentDeactivate } from '../can-deactivate.guard';
+import { CanComponentDeactivate } from '../shared/guards/can-deactivate.guard';
 import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import * as moment from 'moment';

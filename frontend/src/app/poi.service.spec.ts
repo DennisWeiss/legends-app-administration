@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing'
 
-import {PoiService} from './poi.service'
+import {PoiService} from './shared/services/poi.service'
 
 describe('PoiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}))

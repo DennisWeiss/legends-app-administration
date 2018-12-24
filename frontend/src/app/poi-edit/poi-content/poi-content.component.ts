@@ -2,14 +2,15 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDe
 import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { PoiService } from "src/app/poi.service";
+import { PoiService } from "src/app/shared/services/poi.service";
 import { take } from "rxjs/operators";
 import { Subscription, Observable } from "rxjs";
 import { POI } from "../poi.model";
-import { CanComponentDeactivate } from "src/app/can-deactivate.guard";
+import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { MatSnackBar } from "@angular/material";
 import { HostListener } from '@angular/core';
+import SnackbarService from "src/app/snackbar.service";
 
 @Component({
   selector: "app-poi-content",
@@ -63,7 +64,7 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
     private route: ActivatedRoute,
     private router: Router,
     private poiService: PoiService,
-    public snackBar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -133,13 +134,8 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
             this.contentFormService.reset();
             if (this.editMode) {
               this.contentFormService.update(this.poi.media.content, this.type);
-             // this.contentForm.setValue(this.initContent);
             }
             break;
-          case 'submit': {
-            this.parentSubmit = true;
-            break;
-          }
         }
       });
       this.subs.push(sub);
@@ -186,15 +182,10 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
       .subscribe(result => {
         this.router
           .navigate([""])
-          .then(() => this.openSnackBar(result.message, "OK"));
+          .then(() => this.snackbarService.openSnackBar(result.message, "OK"));
       });
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 5000
-    });
-  }
 
   ngOnDestroy() {
 

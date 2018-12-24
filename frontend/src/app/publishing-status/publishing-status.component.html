@@ -1,0 +1,9 @@
+<div class="publishing-status-cell">
+  <mat-icon class="published-icon" *ngIf="hasBeenPublished(publishingTimestamp)">
+    check_circle_outline
+  </mat-icon>
+  <mat-icon class="not-published-icon" *ngIf="!hasBeenPublished(publishingTimestamp)">
+    schedule
+  </mat-icon>
+  {{formatTimestamp(publishingTimestamp)}}
+</div>

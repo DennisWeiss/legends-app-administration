@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PoiService } from '../poi.service';
+import { PoiService } from '../shared/services/poi.service';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';

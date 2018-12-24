@@ -2,13 +2,14 @@ import {NgModule} from '@angular/core'
 import {Routes, RouterModule} from '@angular/router'
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import {PoiOverviewComponent} from './poi-overview/poi-overview.component'
+import {PoiOverviewTableComponent} from './poi-overview-table/poi-overview-table.component'
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
 import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component';
 import { AuthGuard } from './auth/auth.guard';
-import { CanDeactivateGuard } from './can-deactivate.guard';
+import { CanDeactivateGuard } from './shared/guards/can-deactivate.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserManagmentComponent } from './user-managment/user-managment.component';
+import {PoiOverviewComponent} from "./poi-overview/poi-overview.component";
 
 const routes: Routes = [
   { path: 'edit/content/:id',
