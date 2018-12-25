@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "",
-    "version": "0.1.0",
+    "description": "This is the API Documentation.\n\nTo access secured API endpoints you need an account. They are secured via JSON web token. Use `/auth/login` to get a token. A token is in the format `Bearer <token>` should be in the token field of the response. Copy this value (without `Bearer `) and paste the value in the dialog that opens using the 'Authorize' button.",
+    "version": "0.1.0-alpha",
     "title": "'Sagenhaftes Görlitz' Administration"
   },
   "tags": [
