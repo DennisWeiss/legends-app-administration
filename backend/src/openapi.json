@@ -1,0 +1,580 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "",
+    "version": "0.1.0",
+    "title": "'Sagenhaftes Görlitz' Administration"
+  },
+  "tags": [
+    {
+      "name": "poi",
+      "description": "Everything about POIs (places of interest)"
+    },
+    {
+      "name": "users",
+      "description": "Operations to manage users that can administrate"
+    },
+    {
+      "name": "auth",
+      "description": "Operations for authentication"
+    }
+  ],
+  "paths": {
+    "/poi": {
+      "get": {
+        "summary": "Get all POIs",
+        "tags": [
+          "poi"
+        ],
+        "description": "",
+        "operationId": "getPOIs",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new poi",
+        "tags": [
+          "poi"
+        ],
+        "description": "",
+        "operationId": "addPOI",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "POI object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/POIUpload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "POI created successfully"
+          },
+          "400": {
+            "description": "Invalid content!"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update an existing POI",
+        "tags": [
+          "poi"
+        ],
+        "description": "",
+        "operationId": "updatePOI",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "POI object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/POIUpload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "POI updated successfully"
+          },
+          "400": {
+            "description": "Invalid content!"
+          },
+          "404": {
+            "description": "POI not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/poi/{type}": {
+      "get": {
+        "summary": "Get all POIs of a specific type",
+        "tags": [
+          "poi"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "schema": {
+              "$ref": "#/definitions/POIType"
+            },
+            "required": true,
+            "description": "POI type. `legends`, `sights` or `restaurants`"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/poi/key/{key}": {
+      "get": {
+        "summary": "Get a POI by key",
+        "tags": [
+          "poi"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "key of POI"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/poi/{key}": {
+      "delete": {
+        "summary": "Delete a POI",
+        "tags": [
+          "poi"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "key of POI"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get info of users",
+        "tags": [
+          "users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "summary": "Update existing user",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "404": {
+            "description": "Could not find user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a user",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "Could not find user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": [
+          "auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "POI object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpload"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid content!"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login with username and password",
+        "tags": [
+          "auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Invalid content!"
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "post": {
+        "summary": "Verify login and generate a new token",
+        "tags": [
+          "auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "definitions": {
+    "ApiMessage": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "POIUpload": {
+      "type": "object",
+      "properties": {
+        "publishingTimestamp": {
+          "type": "integer",
+          "example": 1545747528
+        },
+        "beaconId": {
+          "type": "integer",
+          "example": 4
+        },
+        "coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        },
+        "name": {
+          "$ref": "#/definitions/POIName"
+        }
+      }
+    },
+    "POIOverview": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/POITypeSpecificOverview"
+      }
+    },
+    "POITypeSpecificOverview": {
+      "type": "object",
+      "properties": {
+        "legends": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/POI"
+          }
+        },
+        "version": {
+          "type": "string",
+          "example": "vl.1.0"
+        }
+      }
+    },
+    "POI": {
+      "type": "object",
+      "properties": {
+        "coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        },
+        "icons": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            },
+            "explored": {
+              "type": "string"
+            }
+          }
+        },
+        "media": {
+          "$ref": "#/definitions/POIMedia"
+        },
+        "publishingTimestamp": {
+          "type": "integer",
+          "example": 1545747528
+        },
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/definitions/POIName"
+        },
+        "beaconId": {
+          "type": "integer",
+          "example": 8
+        },
+        "type": {
+          "$ref": "#/definitions/POIType"
+        }
+      }
+    },
+    "Coordinates": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "example": 51.15826
+        },
+        "lng": {
+          "type": "number",
+          "example": 14.992726
+        }
+      }
+    },
+    "POIMedia": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "preview": {
+              "type": "string"
+            },
+            "video": {
+              "type": "string",
+              "properties": {
+                "arScene": {
+                  "type": "string"
+                },
+                "iconScene": {
+                  "type": "string"
+                }
+              }
+            },
+            "vuforiaTargets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "content": {
+              "type": "object",
+              "properties": {
+                "explored": {
+                  "$ref": "#/definitions/POIMediaContent"
+                },
+                "preview": {
+                  "$ref": "#/definitions/POIMediaContent"
+                },
+                "puzzle": {
+                  "$ref": "#/definitions/POIMediaHints"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "POIMediaContent": {
+      "type": "object",
+      "properties": {
+        "heading": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "POIMediaHints": {
+      "type": "object",
+      "properties": {
+        "heading": {
+          "type": "string"
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "index": {
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "POIName": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "de": "Der Sturz vom Kirchendach",
+        "en": "Fall from the Church Roof",
+        "pl": "Upadek z dachu kościoła"
+      }
+    },
+    "POIType": {
+      "type": "string",
+      "enum": [
+        "legends",
+        "sights",
+        "restaurants"
+      ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
