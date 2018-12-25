@@ -45,9 +45,34 @@
           "description": "POI object that needs to be added",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/POIUpload"
+                "type": "object",
+                "properties": {
+                  "poi": {
+                    "$ref": "#/definitions/POI"
+                  },
+                  "icon_default": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "icon_explored": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "image_preview": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "video_ar_scene": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "viode_icon_scene": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
@@ -77,9 +102,34 @@
           "description": "POI object that needs to be added",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/POIUpload"
+                "type": "object",
+                "properties": {
+                  "poi": {
+                    "$ref": "#/definitions/POI"
+                  },
+                  "icon_default": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "icon_explored": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "image_preview": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "video_ar_scene": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "viode_icon_scene": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
