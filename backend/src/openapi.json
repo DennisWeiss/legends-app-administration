@@ -41,17 +41,17 @@
         ],
         "description": "",
         "operationId": "addPOI",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "POI object that needs to be added",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/POIUpload"
+        "requestBody": {
+          "description": "POI object that needs to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/POIUpload"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "POI created successfully"
@@ -73,17 +73,17 @@
         ],
         "description": "",
         "operationId": "updatePOI",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "POI object that needs to be added",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/POIUpload"
+        "requestBody": {
+          "description": "POI object that needs to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/POIUpload"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "POI updated successfully"
@@ -266,17 +266,16 @@
           "auth"
         ],
         "description": "",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "POI object that needs to be added",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserUpload"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UserUpload"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "Successful operation"
@@ -284,7 +283,12 @@
           "400": {
             "description": "Invalid content!"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/auth/login": {
@@ -294,25 +298,24 @@
           "auth"
         ],
         "description": "",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Successful operation"
@@ -330,22 +333,16 @@
           "auth"
         ],
         "description": "",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
