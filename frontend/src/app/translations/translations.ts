@@ -72,6 +72,14 @@ export default {
       "legends": "Legend",
       "sights": "Sight",
       "restaurants": "Restaurant"
+    },
+    "sidenav": {
+      "LOGIN": "Login",
+      "LOGOUT": "Logout",
+      "USER_MANAGEMENT": "User Management"
+    },
+    "page-not-found": {
+      "404_MESSAGE": "Oops, we couldn't find what you were looking for."
     }
   },
   "de": {
@@ -147,6 +155,14 @@ export default {
       "legends": "Sage",
       "sights": "Sehenswürdigkeit",
       "restaurants": "Restaurant"
+    },
+    "sidenav": {
+      "LOGIN": "Login",
+      "LOGOUT": "Logout",
+      "USER_MANAGEMENT": "Nutzerverwaltung"
+    },
+    "page-not-found": {
+      "404_MESSAGE": "Die angegebene Seite konnte nicht gefunden werden."
     }
   }
 }
