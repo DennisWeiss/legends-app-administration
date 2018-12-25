@@ -179,6 +179,33 @@
         ]
       }
     },
+    "/poi/content/{key}": {
+      "get": {
+        "summary": "Get content of a POI",
+        "tags": [
+          "poi"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "key of POI"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "POI not found"
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "summary": "Get info of users",
