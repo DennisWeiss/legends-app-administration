@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class SidenavComponent implements OnInit {
 
+  name = 'sidenav'
+
   isAuthenticated = false;
   @Input() sidenav;
 
