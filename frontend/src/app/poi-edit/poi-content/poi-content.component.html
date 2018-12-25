@@ -18,7 +18,7 @@
       <ng-template mat-tab-label>
          <span [class.invalid]="contentForm.get(lang).invalid">{{lang}}</span>
       </ng-template>
-    <mat-accordion  *ngIf="type === 'legends'">
+    <mat-accordion displayMode="flat" multi="true" *ngIf="type === 'legends'">
       <mat-expansion-panel formGroupName="explored">
         <mat-expansion-panel-header>
           <mat-panel-title [class.invalid]="contentForm.get(lang).controls.explored.invalid"> {{'EXPLORED' | translate:name}} </mat-panel-title>
