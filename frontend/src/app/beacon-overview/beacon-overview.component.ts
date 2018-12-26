@@ -16,6 +16,7 @@ export class BeaconOverviewComponent implements OnInit {
   @ViewChild('form') form;
 
   editMode = false;
+  savedBeacon: Beacon;
   beacon: Beacon = {
     name: '',
     beaconId: null,
@@ -40,6 +41,7 @@ export class BeaconOverviewComponent implements OnInit {
   activateEditMode(beacon: Beacon) {
     this.editMode = true;
     this.beacon = beacon;
+    this.savedBeacon = {...beacon};
   }
 
   saveBeacon() {
@@ -67,21 +69,30 @@ export class BeaconOverviewComponent implements OnInit {
 
   cancelEdit() {
     this.editMode = false;
-    this.resetForm();
 
-  }
+    // reset properties
+    this.beacon.name = this.savedBeacon.name;
+    this.beacon.beaconId = this.savedBeacon.beaconId;
+    this.beacon.coordinates = this.savedBeacon.coordinates;
+    
+    // delete reference
+    delete this.beacon;
 
-  resetForm() {
-
-    this.form.resetForm();
-
-    /*this.beacon = {
+    //set default values
+    this.beacon = {
       name: '',
       beaconId: null,
       coordinates: {
         lat: null,
         lng: null
       }
-    }*/
+    }
+
+    // reset state of form (errors, dirty, touched, ...)
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.form.resetForm();
   }
 }
