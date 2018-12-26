@@ -5,6 +5,7 @@ install:
   - cd frontend
   - npm install
   - cd ../backend
+  - npm install node-pre-gyp -g
   - npm install
   - cd ..
 

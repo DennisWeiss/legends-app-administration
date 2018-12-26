@@ -106,7 +106,7 @@ router.delete('/:key', auth, permission('ADMIN'), async (req, res, next) => {
   }
 
   return res.status(200).send({
-    message: `POI of type ${poi.type} successful deleted!`,
+    message: `POI of type ${poi.type} deleted successfully`,
     oldPoi: poi
   })
 })

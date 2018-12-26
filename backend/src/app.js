@@ -7,7 +7,7 @@ import VersionLocationData from './models/version-location-data'
 import {mapVersionLocationData} from './mapper/version-location-data.mapper'
 
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocument from './swagger'
+import swaggerDocument from './openapi'
 
 import winston from 'winston';
 
@@ -37,7 +37,7 @@ app.get('/versions/', async (req, res) => {
   res.send(mapVersionLocationData(versions));
 })
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.listen(appConf.serverPort, function() {
