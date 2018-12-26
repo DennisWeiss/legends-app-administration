@@ -8,7 +8,6 @@ import { Subscription, Observable } from "rxjs";
 import { POI } from "../poi.model";
 import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.guard";
 import { isEqual } from "lodash";
-import { MatSnackBar } from "@angular/material";
 import { HostListener } from '@angular/core';
 import SnackbarService from "src/app/shared/services/snackbar.service";
 
@@ -27,6 +26,9 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
   initContent;
 
   parentSubmit = false;
+
+  // flag for canDeativate-method to leave site without warning
+  readyToDeactivate = false;
 
   @Input() type: string;
   @Input() poiForm: FormGroup;
@@ -107,6 +109,10 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
         }
       });
     } else {
+
+      // parent exists -> prevent child to get a warning when leaving site
+      this.readyToDeactivate = true;
+
       // pass over form to parent-component
       this.contentFormCreated.emit(this.contentFormService.contentForm);
 
@@ -175,6 +181,7 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
   }
 
   onSubmit() {
+    this.readyToDeactivate = true;
     const contentVal = this.contentForm.value;
     this.poiService
       .putContents(contentVal, this.id)
@@ -201,7 +208,7 @@ export class PoiContentComponent implements OnInit, OnDestroy, CanComponentDeact
     // check if initial poi-object and poiForm-value are the same
 
     const formValue = this.contentForm.value;
-    if (isEqual(formValue, this.initContent) || this.hasParent) {
+    if (isEqual(formValue, this.initContent) || this.readyToDeactivate) {
       return true;
     }
 
