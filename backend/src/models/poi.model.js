@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+const winston = require('winston');
+
 const uniqueValidator = require('mongoose-unique-validator');
  
 const RestaurantContent = require('./content/restaurant-content');
@@ -22,8 +24,11 @@ const POISchema = new mongoose.Schema(
       validate: {
         validator: function(v) {
         return new Promise(function(resolve, reject) {
-          console.log('validate');
          const Beacon =  mongoose.model('Beacon');
+        
+         // beaconId of -1 -> no beacon
+         if(v == -1) {resolve(true)} 
+         
          Beacon.findOne({beaconId: v})
          .then((result) => {
            if(!result) {
