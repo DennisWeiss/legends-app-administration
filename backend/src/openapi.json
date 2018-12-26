@@ -178,7 +178,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/LegendsSpecificOverview"
+                }
+              }
+            }
           }
         }
       }
@@ -202,7 +209,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/POI"
+                }
+              }
+            }
           }
         }
       }
@@ -226,7 +240,32 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "oldPoi": {
+                      "$ref": "#/definitions/POI"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "POI not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/ApiMessage"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -478,7 +517,7 @@
         "version": {
           "type": "string",
           "example": "vl.1.0",
-          "description": "Version number of all legends. Increases when a made to a legend is made."
+          "description": "Version number of all legends. Increases when a change to a legend is made."
         }
       }
     },
@@ -494,7 +533,7 @@
         "version": {
           "type": "string",
           "example": "vs.1.0",
-          "description": "Version number of all sights. Increases when a made to a sight is made."
+          "description": "Version number of all sights. Increases when a change to a sight is made."
         }
       }
     },
@@ -510,7 +549,7 @@
         "version": {
           "type": "string",
           "example": "vr.1.0",
-          "description": "Version number of all restaurants. Increases when a made to a restaurant is made."
+          "description": "Version number of all restaurants. Increases when a change to a restaurant is made."
         }
       }
     },
