@@ -5,7 +5,11 @@ export default {
       "SUBMIT": "Submit",
       "RESET": "Reset",
       "RETRY": "Retry",
-      "CANCEL": "Cancel"
+      "CANCEL": "Cancel",
+      "SAVE": "Save",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "ADD": "Add"
     },
     "header": {
       "TITLE": "Legends App Administration",
@@ -76,7 +80,9 @@ export default {
     "sidenav": {
       "LOGIN": "Login",
       "LOGOUT": "Logout",
-      "USER_MANAGEMENT": "User Management"
+      "USER_MANAGEMENT": "User Management",
+      "BEACON_OVERVIEW": "Beacon-Overview",
+      "POI_OVERVIEW": "POI-Overview"
     },
     "page-not-found": {
       "404_MESSAGE": "Oops, we couldn't find what you were looking for."
@@ -88,7 +94,11 @@ export default {
       "SUBMIT": "Absenden",
       "RESET": "Zurücksetzen",
       "RETRY": "Wiederholen",
-      "CANCEL": "Abbrechen"
+      "CANCEL": "Abbrechen",
+      "SAVE": "Speichern",
+      "EDIT": "Editieren",
+      "DELETE": "Löschen",
+      "ADD": "Hinzufügen"
     },
     "header": {
       "TITLE": "Sagenhaftes Görlitz POI Verwaltung",
@@ -159,7 +169,9 @@ export default {
     "sidenav": {
       "LOGIN": "Login",
       "LOGOUT": "Logout",
-      "USER_MANAGEMENT": "Nutzerverwaltung"
+      "USER_MANAGEMENT": "Nutzerverwaltung",
+      "BEACON_OVERVIEW": "Beaconübersicht",
+      "POI_OVERVIEW": "POI-Übersicht"
     },
     "page-not-found": {
       "404_MESSAGE": "Die angegebene Seite konnte nicht gefunden werden."

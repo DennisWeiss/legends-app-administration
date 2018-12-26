@@ -31,14 +31,24 @@
   <mat-card-actions>
     <button type="submit" *ngIf="!editMode" mat-raised-button color="primary"
     (click)="createBeacon(form.value)">
-      <span><mat-icon>create</mat-icon>Create</span>
+      <span fxLayout fxLayoutAlign="space-around center" fxLayoutGap="5px">
+        <mat-icon>add_circle</mat-icon>
+        <span>{{'ADD' | translate:'actions'}}</span>
+      </span>
     </button>
     <button type="submit" *ngIf="editMode" mat-raised-button color="primary"
     (click)="saveBeacon(form.value)">
-      <span >Save</span>
+      <span fxLayout fxLayoutAlign="center center" fxLayoutGap="5px">
+        <mat-icon>save</mat-icon>
+        <span>{{'SAVE' | translate:'actions'}}</span>
+      </span>
     </button>
     <button type="submit" *ngIf="editMode" mat-raised-button color="accent"
-    (click)="cancelEdit()">Cancel</button>
+    (click)="cancelEdit()"><span fxLayout fxLayoutGap="5px" fxLayoutAlign="center center">
+      <mat-icon>cancel</mat-icon>
+      <span>{{'CANCEL' | translate:'actions'}}</span>
+    </span>
+    </button>
 
   </mat-card-actions>
 
