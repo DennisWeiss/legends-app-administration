@@ -581,7 +581,8 @@
           "type": "object",
           "properties": {
             "preview": {
-              "type": "string"
+              "type": "string",
+              "description": "Preview image of that POI"
             },
             "video": {
               "type": "string",
@@ -598,7 +599,8 @@
               "type": "array",
               "items": {
                 "type": "string"
-              }
+              },
+              "description": "This is a set of images used for vuforia to enable scan feature. Only applicable to legends. It contains all pictures/marks that should be scannable in app"
             },
             "content": {
               "type": "object",
@@ -639,12 +641,14 @@
       "type": "object",
       "properties": {
         "heading": {
-          "type": "string"
+          "type": "string",
+          "description": "Heading of hints shown in app"
         },
         "hints": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "description": "Set of HTML pages"
           }
         },
         "index": {
@@ -658,7 +662,8 @@
     "POIName": {
       "type": "object",
       "additionalProperties": {
-        "type": "string"
+        "type": "string",
+        "description": "Maps from an ISO 639-1 code of a language to its POI name in that language"
       },
       "example": {
         "de": "Der Sturz vom Kirchendach",
@@ -681,10 +686,12 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Set of permissions that user has"
         },
         "_id": {
-          "type": "string"
+          "type": "string",
+          "description": "Unique ID of that user"
         },
         "username": {
           "type": "string"
@@ -703,7 +710,8 @@
         "permissions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "description": "Set of permissions that user has"
           }
         }
       }
