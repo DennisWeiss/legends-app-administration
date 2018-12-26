@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, Event } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../shared/services/poi.service';
 import { Subscription, Subject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup,FormArray } from '@angular/forms';
 import { POI } from './poi.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';

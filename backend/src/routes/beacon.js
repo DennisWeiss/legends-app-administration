@@ -4,9 +4,6 @@ const router = express.Router();
 const Beacon = require("../models/beacon");
 const appConf =  require("../../app-conf");
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
 const auth = require('../middlewares/authentication')
 
 const permission = require('../middlewares/authorization');
@@ -27,7 +24,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:beaconId', async (req, res, next) => {
 
-    const result = Beacon.findByIdAndUpdate(req.params.beaconId, req.body, {new: true});
+    const result = await Beacon.findOneAndUpdate({beaconId: req.params.beaconId}, req.body, {new: true});
 
     if(!result) {
         return res.status(404).send({message: 'Update failed: Cannot find Beacon!'});
@@ -39,7 +36,7 @@ router.put('/:beaconId', async (req, res, next) => {
 
 router.delete('/:beaconId', async (req, res, next) => {
 
-    const result = await Beacon.findByIdAndRemove(req.params.beaconId);
+    const result = await Beacon.findOneAndRemove({beaconId: req.params.beaconId});
 
     if(!result) {
         return res.status(404).send({message: 'Cannot delete: Beacon not found!'});
@@ -51,7 +48,7 @@ router.delete('/:beaconId', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     const beacons = await Beacon.find({});
-    return res.status(404).send(beacons);
+    return res.status(200).send(beacons);
 })
 
 router.get('/:beaconId', async (req, res, next) => {

@@ -1,0 +1,11 @@
+.form-field, .form-field {
+  width: 80%;
+}
+
+.form-field-coords > mat-form-field {
+  width: 100%;
+}
+
+input {
+  width: 100%;
+}

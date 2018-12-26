@@ -1,0 +1,56 @@
+<div [style.padding]="'50px'">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="50px">
+  <form fxFlex="1 1 auto" #form="ngForm">
+    <mat-card fxLayout="column" fxLayoutAlign="center center">
+    <mat-form-field class="form-field">
+      <input matInput type="text" #name="ngModel" [(ngModel)]="beacon.name" name="name" placeholder="Name" required>
+      <mat-error *ngIf="name.invalid">Field Requried!</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <input matInput #beaconId="ngModel" type="number" min="0" [(ngModel)]="beacon.beaconId" name="beaconId"
+      placeholder="Beacon-ID" [disabled]="editMode" required oninput="this.value = Math.abs(this.value)">
+      <mat-error *ngIf="beaconId.invalid">Field Requried!</mat-error>
+    </mat-form-field>
+
+    <div fxLayout fxLayoutGap="10px" class="form-field form-field-coords"
+    fxLayoutAlign="space-around">
+      <mat-form-field>
+        <input matInput #lat="ngModel" min="-90" max="90" type="number" [(ngModel)]="beacon.coordinates.lat" name="lat"
+          placeholder="Lattitude" required />
+          <mat-error *ngIf="lat.invalid">Field Requried!</mat-error>
+     </mat-form-field>
+
+    <mat-form-field>
+     <input matInput #lng="ngModel" min="-180" max="180" type="number" [(ngModel)]="beacon.coordinates.lng" name="lng"
+          placeholder="Longitude" required />
+          <mat-error *ngIf="lng.invalid">Field Requried!</mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <mat-card-actions>
+    <button type="submit" *ngIf="!editMode" mat-raised-button color="primary"
+    (click)="createBeacon(form.value)">
+      <span><mat-icon>create</mat-icon>Create</span>
+    </button>
+    <button type="submit" *ngIf="editMode" mat-raised-button color="primary"
+    (click)="saveBeacon(form.value)">
+      <span >Save</span>
+    </button>
+    <button type="submit" *ngIf="editMode" mat-raised-button color="accent"
+    (click)="cancelEdit()">Cancel</button>
+
+  </mat-card-actions>
+
+  </mat-card>
+</form>
+
+  <mat-card class="overview-map-card mat-elevation-z4" fxFlex="3 1 auto">
+    <app-beacon-overview-map
+    [beacons]="fetchedBeacons"
+    [markerCoords]="beacon.coordinates"
+    (coordsChanged)="beacon.coordinates = $event"
+    (beaconEditAction)="activateEditMode($event)"></app-beacon-overview-map>
+  </mat-card>
+</div>
+</div>

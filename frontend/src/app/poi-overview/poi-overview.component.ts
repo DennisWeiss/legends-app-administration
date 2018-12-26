@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {take} from "rxjs/operators";
 import {PoiService} from "../shared/services/poi.service";
+import SnackbarService from '../shared/services/snackbar.service';
+import { Router } from '@angular/router';
 
 
 const mapPOIs = pois => {
@@ -20,11 +22,12 @@ const mapPOIs = pois => {
 })
 export class PoiOverviewComponent implements OnInit {
 
-  name = "poi-overview"
-
+  name = 'poi-overview'
   pois
 
-  constructor(private poiService: PoiService) { }
+  constructor(private poiService: PoiService,
+    private router: Router,
+    private snackBarService: SnackbarService ) { }
 
   ngOnInit() {
     this.fetchPOIsAndInitTable()
@@ -35,6 +38,20 @@ export class PoiOverviewComponent implements OnInit {
       .subscribe(pois => {
         this.pois = mapPOIs(pois)
       })
+  }
+
+  newPOI = () => {
+    this.router.navigate(['new']);
+  }
+
+  removePOI = (ev: Event, poi) => {
+    ev.stopPropagation();
+    if (window.confirm('Do you really want to delete this POI?')) {
+      this.poiService.deletePOI(poi.key).subscribe((res) => {
+        this.snackBarService.openSnackBar(res.message, 'OK');
+        this.fetchPOIsAndInitTable();
+      });
+    }
   }
 
 }

@@ -8,6 +8,16 @@ const beaconSchema = new mongoose.Schema({
         type: Number, 
         required: true,
         unique: true
+    },
+    coordinates: {
+        lat: {
+            type: Number,
+            required: true
+        },
+        lng: {
+            type: Number,
+            required: true
+        }
     }   
     }
 )

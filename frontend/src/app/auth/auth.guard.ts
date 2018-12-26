@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> {
 
+
     // user is already logged in
     if (this.authService.authState) {
 

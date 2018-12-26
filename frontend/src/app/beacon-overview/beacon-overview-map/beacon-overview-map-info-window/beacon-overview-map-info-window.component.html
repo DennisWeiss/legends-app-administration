@@ -1,0 +1,17 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="beacon-title">
+      <span class="beacon-name">{{beacon.name}}</span>
+    </div>
+    <div class="poi-overview-map-info-window-poi-type-tag">
+      <div class="beacon-id" fxLayout fxLayoutAlign="center center">
+        <mat-icon>rss_feed</mat-icon>
+        <span>{{beacon.beaconId}}</span>
+      </div>
+    </div>
+  </div>
+    <div class="poi-overview-map-info-window-action-buttons">
+      <span><button mat-button color="primary" (click)="editBeacon()" >Edit</button></span>
+      <span><button mat-button color="warn" (click)="deleteBeacon()">Delete</button></span>
+    </div>
+  </div>

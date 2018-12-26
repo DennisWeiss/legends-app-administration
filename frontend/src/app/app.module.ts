@@ -50,8 +50,12 @@ import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.com
 import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component';
 import { PoiTypeTagComponent } from './poi-type-tag/poi-type-tag.component';
 import { PublishingStatusComponent } from './publishing-status/publishing-status.component'
-import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component'
+import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component';
+import { BeaconOverviewComponent } from './beacon-overview/beacon-overview.component';
+import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map.component';
+import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
+import 'hammerjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +88,10 @@ import { UserPermissionsComponent } from './user-managment/user-overview/user-pe
     PoiTypeTagComponent,
     PublishingStatusComponent,
     UserConfigComponent,
-    UserPermissionsComponent
+    UserPermissionsComponent,
+    BeaconOverviewComponent,
+    BeaconOverviewMapComponent,
+    BeaconOverviewMapInfoWindowComponent
   ],
   imports: [
     BrowserModule,
