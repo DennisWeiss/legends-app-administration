@@ -30,7 +30,14 @@
         "operationId": "getPOIs",
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/POI"
+                }
+              }
+            }
           }
         }
       },
@@ -437,36 +444,29 @@
       "type": "object",
       "properties": {
         "message": {
-          "type": "string"
-        }
-      }
-    },
-    "POIUpload": {
-      "type": "object",
-      "properties": {
-        "publishingTimestamp": {
-          "type": "integer",
-          "example": 1545747528
-        },
-        "beaconId": {
-          "type": "integer",
-          "example": 4
-        },
-        "coordinates": {
-          "$ref": "#/definitions/Coordinates"
-        },
-        "name": {
-          "$ref": "#/definitions/POIName"
+          "type": "string",
+          "description": "Message describing the error"
         }
       }
     },
     "POIOverview": {
       "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/POITypeSpecificOverview"
+      "properties": {
+        "legends": {
+          "$ref": "#/definitions/LegendsSpecificOverview",
+          "description": "Maps to and object containing all legends and its version number"
+        },
+        "sights": {
+          "$ref": "#/definitions/SightsSpecificOverview",
+          "description": "Maps to and object containing all sights and its version number"
+        },
+        "restaurants": {
+          "$ref": "#/definitions/RestaurantsSpecificOverview",
+          "description": "Maps to and object containing all restaurants and its version number"
+        }
       }
     },
-    "POITypeSpecificOverview": {
+    "LegendsSpecificOverview": {
       "type": "object",
       "properties": {
         "legends": {
@@ -477,7 +477,40 @@
         },
         "version": {
           "type": "string",
-          "example": "vl.1.0"
+          "example": "vl.1.0",
+          "description": "Version number of all legends. Increases when a made to a legend is made."
+        }
+      }
+    },
+    "SightsSpecificOverview": {
+      "type": "object",
+      "properties": {
+        "sights": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/POI"
+          }
+        },
+        "version": {
+          "type": "string",
+          "example": "vs.1.0",
+          "description": "Version number of all sights. Increases when a made to a sight is made."
+        }
+      }
+    },
+    "RestaurantsSpecificOverview": {
+      "type": "object",
+      "properties": {
+        "restaurants": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/POI"
+          }
+        },
+        "version": {
+          "type": "string",
+          "example": "vr.1.0",
+          "description": "Version number of all restaurants. Increases when a made to a restaurant is made."
         }
       }
     },
@@ -485,16 +518,19 @@
       "type": "object",
       "properties": {
         "coordinates": {
-          "$ref": "#/definitions/Coordinates"
+          "$ref": "#/definitions/Coordinates",
+          "description": "Location of the POI"
         },
         "icons": {
           "type": "object",
           "properties": {
             "default": {
-              "type": "string"
+              "type": "string",
+              "description": "Icon shown at default in app"
             },
             "explored": {
-              "type": "string"
+              "type": "string",
+              "description": "Icon shown in app once it has been explored"
             }
           }
         },
@@ -503,20 +539,25 @@
         },
         "publishingTimestamp": {
           "type": "integer",
-          "example": 1545747528
+          "example": 1545747528,
+          "description": "Unix epoch timestamp in seconds denoting when the POI should be published for users"
         },
         "key": {
-          "type": "string"
+          "type": "string",
+          "description": "Unique key of the POI"
         },
         "name": {
-          "$ref": "#/definitions/POIName"
+          "$ref": "#/definitions/POIName",
+          "description": "Name of the POI"
         },
         "beaconId": {
           "type": "integer",
-          "example": 8
+          "example": 8,
+          "description": "Internal Beacon ID"
         },
         "type": {
-          "$ref": "#/definitions/POIType"
+          "$ref": "#/definitions/POIType",
+          "description": "Type denoting whether it is a `legend`, `sight` or `restaurants`"
         }
       }
     },
