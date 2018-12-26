@@ -50,7 +50,7 @@ const POISchema = new mongoose.Schema(
 
 
 const formatToKey = (name, iteration) => {
-  return name.toUpperCase().trim().replace(/\s+/g,'-') + (iteration ? iteration.toString() : '')
+  return name.toLowerCase().trim().replace(/\s+/g,'_') + (iteration ? iteration.toString() : '')
 }
 
 const keyExists = async key => {

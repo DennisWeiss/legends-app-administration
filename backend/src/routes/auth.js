@@ -13,6 +13,7 @@ const permission = require('../middlewares/authorization');
 
 import {mapPermsToIncludeChildren} from '../mapper/permission.mapper';
 
+
 router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
 
   const minPwLength = appConf.minPwLength;
