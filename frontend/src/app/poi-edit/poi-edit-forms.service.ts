@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormBuilder, Validators, FormGroup, FormArray, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import * as moment from "moment";
-
+import { BeaconService } from '../shared/services/beacon.service';
+import { of, Observable, timer } from 'rxjs';
+import { switchMap , mapTo, catchError} from 'rxjs/operators';
 
 @Injectable()
 export class PoiEditFormsService {
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private beaconService: BeaconService) {}
 
 
   langs = ['de', 'en', 'pl'];
@@ -40,7 +43,7 @@ export class PoiEditFormsService {
       de: ['', Validators.required],
       pl: ['', Validators.required]
     }),
-    beaconId: [-1, Validators.required],
+    beaconId: [-1, Validators.required, this.validateBeacon.bind(this)],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({
       lat: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
@@ -81,4 +84,20 @@ export class PoiEditFormsService {
     }
   }
 
+
+  validateBeacon(beaconControl: AbstractControl): Observable<any> {
+
+    // user did not interact with control yet -> no need for validation
+    if(beaconControl.untouched || beaconControl.pristine) {
+      return of(null);
+    }
+
+    return timer(500).pipe(switchMap(()=>{
+      return this.beaconService.getBeacon(beaconControl.value)
+    })
+    ,mapTo(null)
+    ,catchError(err=> of({beaconNotFound: true}))
+    );
+
+  }
 }

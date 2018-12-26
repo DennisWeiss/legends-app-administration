@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input matInput type="number" [matAutocomplete]="auto" [formControl]="beaconForm" name="beaconId" [placeholder]="'BEACON_ID' | translate:name"/>
+  <mat-error *ngIf=" beaconForm.errors && beaconForm.errors.beaconNotFound">Beacon-ID does not exist</mat-error>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let beacon of filteredBeacons | async" [value]="beacon.beaconId">
+      <span>{{beacon.name}}</span> |
+      <span>Beacon-ID: {{beacon.beaconId}}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

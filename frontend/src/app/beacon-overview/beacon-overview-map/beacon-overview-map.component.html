@@ -1,0 +1,27 @@
+<agm-map
+style='height: 500px'
+[latitude]="position.lat"
+[longitude]="position.lng"
+(mapClick)="addOrMoveMarker($event)"
+[zoom]="defaultZoom"
+mapTypeControl="true"
+fullscreenControl="true"
+[mapTypeControlOptions]="mapTypeControlOptions">
+<agm-marker *ngFor="let beacon of beacons"
+            [title]="beacon.name"
+            [openInfoWindow]="true"
+            [latitude]="beacon.coordinates.lat"
+            [longitude]="beacon.coordinates.lng">
+  <agm-info-window >
+    <app-beacon-overview-map-info-window [beacon]="beacon"
+    (editTriggered)="triggerEdit($event)"
+    (deleteTriggered)="deleteBeacon($event)">
+    </app-beacon-overview-map-info-window>
+  </agm-info-window>
+</agm-marker>
+<agm-marker
+[latitude]="markerCoords.lat"
+[longitude]="markerCoords.lng">
+</agm-marker>
+</agm-map>
+

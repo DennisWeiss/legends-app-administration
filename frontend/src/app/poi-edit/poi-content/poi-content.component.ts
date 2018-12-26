@@ -9,7 +9,7 @@ import { POI } from "../poi.model";
 import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { HostListener } from '@angular/core';
-import SnackbarService from "src/app/snackbar.service";
+import SnackbarService from "src/app/shared/services/snackbar.service";
 
 @Component({
   selector: "app-poi-content",

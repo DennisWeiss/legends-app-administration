@@ -71,6 +71,8 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
   }
 
   winston.info(poi);
+
+  // generate unique key consisting of english name for better identification
   poi.key = await poi.generateKey();
 
   await poi.save()
@@ -86,7 +88,8 @@ router.put('/', auth, permission('EDIT'), upload.fields(formData), validateFiles
     return res.status(400).send({message: 'Invalid content!', error: err})
   }
 
-  const poi = await POI.findOneAndUpdate({key: req.body.key}, req.body)
+  // package unique-express-validator needs to have "context: 'query'" set to work properly
+  const poi = await POI.findOneAndUpdate({key: req.body.key}, req.body, {runValidators: true, context: 'query'});
 
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})

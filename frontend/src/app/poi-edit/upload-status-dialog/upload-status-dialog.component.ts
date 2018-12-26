@@ -4,7 +4,7 @@ import { HttpEventType, HttpResponse, HttpErrorResponse, HttpEvent } from '@angu
 import { Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
-import SnackbarService from 'src/app/snackbar.service';
+import SnackbarService from 'src/app/shared/services/snackbar.service';
 
 export interface DialogData {
   animal: string;

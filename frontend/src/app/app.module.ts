@@ -31,8 +31,8 @@ import {NgxUploaderModule} from 'ngx-uploader';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { StatusBarComponent } from './poi-edit/status-bar/status-bar.component';
 import { UploadStatusDialogComponent } from './poi-edit/upload-status-dialog/upload-status-dialog.component';
-import { ErrorInterceptor } from './error-interceptor';
-import { TranslatePipe } from './translations.pipe';
+import { ErrorInterceptor } from './shared/interceptors/error-interceptor';
+import { TranslatePipe } from './shared/pipes/translations.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AgmCoreModule} from '@agm/core'
 
@@ -50,8 +50,13 @@ import { PoiOverviewMapComponent } from './poi-overview-map/poi-overview-map.com
 import { PoiOverviewMapInfoWindowComponent } from './poi-overview-map-info-window/poi-overview-map-info-window.component';
 import { PoiTypeTagComponent } from './poi-type-tag/poi-type-tag.component';
 import { PublishingStatusComponent } from './publishing-status/publishing-status.component'
-import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component'
+import { UserPermissionsComponent } from './user-managment/user-overview/user-permissions/user-permissions.component';
+import { BeaconOverviewComponent } from './beacon-overview/beacon-overview.component';
+import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map.component';
+import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
+import 'hammerjs';
+import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +89,11 @@ import { UserPermissionsComponent } from './user-managment/user-overview/user-pe
     PoiTypeTagComponent,
     PublishingStatusComponent,
     UserConfigComponent,
-    UserPermissionsComponent
+    UserPermissionsComponent,
+    BeaconOverviewComponent,
+    BeaconOverviewMapComponent,
+    BeaconOverviewMapInfoWindowComponent,
+    BeaconFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, Event } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../shared/services/poi.service';
 import { Subscription, Subject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, startWith, map } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup,FormArray } from '@angular/forms';
 import { POI } from './poi.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
@@ -13,6 +13,8 @@ import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
+import { Beacon } from '../shared/models/beacon.model';
+import { BeaconService } from '../shared/services/beacon.service';
 
 
 const mapPOIData = poi => {
@@ -78,7 +80,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     private route: ActivatedRoute,
     private poiService: PoiService,
     public formsService: PoiEditFormsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private beaconService: BeaconService
   ) {
   }
 
@@ -107,6 +110,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
   ngOnInit() {
+
+
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.queryParamMap.get('type');
@@ -267,5 +272,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     // form is dirty
     return window.confirm('There are unsaved changes! Do you really want to leave?');
   }
+
 
 }

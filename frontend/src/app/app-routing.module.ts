@@ -10,6 +10,7 @@ import { CanDeactivateGuard } from './shared/guards/can-deactivate.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserManagmentComponent } from './user-managment/user-managment.component';
 import {PoiOverviewComponent} from "./poi-overview/poi-overview.component";
+import { BeaconOverviewComponent } from './beacon-overview/beacon-overview.component';
 
 const routes: Routes = [
   { path: 'edit/content/:id',
@@ -26,7 +27,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent, data: { auth: 'EDIT' }, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'poi-list', component: PoiOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'beacon-overview', component: BeaconOverviewComponent, canActivate: [AuthGuard]},
   {path: 'user-management', component: UserManagmentComponent, data: { auth: 'ADMIN' }, canActivate: [AuthGuard]},
+
   {path: '', redirectTo: 'poi-list', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ]

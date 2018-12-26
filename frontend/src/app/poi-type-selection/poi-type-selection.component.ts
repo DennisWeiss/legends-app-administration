@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core'
 import translate from '../translations/translate'
-import {LocaleService} from '../locale.service'
+import {LocaleService} from '../shared/services/locale.service'
 
 
 @Component({

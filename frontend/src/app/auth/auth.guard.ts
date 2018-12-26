@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {map, take} from 'rxjs/operators';
 import { AuthGroup } from './permission/authorization.types';
-import SnackbarService from '../snackbar.service';
+import SnackbarService from '../shared/services/snackbar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> {
+
 
     // user is already logged in
     if (this.authService.authState) {
