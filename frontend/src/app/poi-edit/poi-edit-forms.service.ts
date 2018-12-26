@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup, FormArray, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import * as moment from "moment";
 import { BeaconService } from '../shared/services/beacon.service';
-import { take, map, catchError } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { of, Observable, timer } from 'rxjs';
+import { switchMap , mapTo, catchError} from 'rxjs/operators';
 
 @Injectable()
 export class PoiEditFormsService {
@@ -92,13 +92,12 @@ export class PoiEditFormsService {
       return of(null);
     }
 
-    return this.beaconService.getBeacon(beaconControl.value).pipe(
-      map((res) => {
-        return null;
-      }),
-      catchError(() => {
-        return of({beaconNotFound: true})
-      })
-    )
+    return timer(500).pipe(switchMap(()=>{
+      return this.beaconService.getBeacon(beaconControl.value)
+    })
+    ,mapTo(null)
+    ,catchError(err=> of({beaconNotFound: true}))
+    );
+
   }
 }

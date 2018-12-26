@@ -56,6 +56,7 @@ import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-ma
 import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
 import 'hammerjs';
+import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,8 @@ import 'hammerjs';
     UserPermissionsComponent,
     BeaconOverviewComponent,
     BeaconOverviewMapComponent,
-    BeaconOverviewMapInfoWindowComponent
+    BeaconOverviewMapInfoWindowComponent,
+    BeaconFormComponent
   ],
   imports: [
     BrowserModule,
