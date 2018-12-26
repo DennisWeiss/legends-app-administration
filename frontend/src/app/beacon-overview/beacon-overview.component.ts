@@ -3,7 +3,6 @@ import { BeaconService } from '../shared/services/beacon.service';
 import { take } from 'rxjs/operators';
 import { Beacon } from '../shared/models/beacon.model';
 import SnackbarService from '../shared/services/snackbar.service';
-import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -11,11 +10,13 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './beacon-overview.component.html',
   styleUrls: ['./beacon-overview.component.css']
 })
+
 export class BeaconOverviewComponent implements OnInit {
 
   @ViewChild('form') form;
 
   editMode = false;
+
   savedBeacon: Beacon;
   beacon: Beacon = {
     name: '',
@@ -27,6 +28,8 @@ export class BeaconOverviewComponent implements OnInit {
   };
 
   fetchedBeacons: Beacon[] = [];
+
+  requiredErrStr = 'Field required!';
 
   constructor(private beaconService: BeaconService, private snackbarService: SnackbarService) { }
 
@@ -74,7 +77,7 @@ export class BeaconOverviewComponent implements OnInit {
     this.beacon.name = this.savedBeacon.name;
     this.beacon.beaconId = this.savedBeacon.beaconId;
     this.beacon.coordinates = this.savedBeacon.coordinates;
-    
+
     // delete reference
     delete this.beacon;
 
