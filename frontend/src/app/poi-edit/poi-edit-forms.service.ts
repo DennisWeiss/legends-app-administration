@@ -88,7 +88,7 @@ export class PoiEditFormsService {
   validateBeacon(beaconControl: AbstractControl): Observable<any> {
 
     // user did not interact with control yet -> no need for validation
-    if(beaconControl.untouched || beaconControl.pristine) {
+    if(beaconControl.pristine) {
       return of(null);
     }
 
