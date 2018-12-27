@@ -1,17 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import appConf from '../app-conf'
-
 import VersionLocationData from './models/version-location-data'
-
 import {mapVersionLocationData} from './mapper/version-location-data.mapper'
-
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './openapi'
-
 import winston from 'winston';
-
 import cors from 'cors';
+import https from 'https'
+import fs from 'fs'
 
 
 const app = express()
@@ -39,7 +36,25 @@ app.get('/versions/', async (req, res) => {
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+const startHttpServer = () => {
+  app.listen(appConf.serverPort, () => winston.log('info', `Server running on ${appConf.serverPort}`))
+}
 
-app.listen(appConf.serverPort, function() {
-  winston.log('info', `Server running on ${appConf.serverPort}`);
-});
+const startHttpsServer = (privateKeyFilename, certFilename) => {
+  const server = https.createServer({
+    key: fs.readFileSync(privateKeyFilename),
+    cert: fs.readFileSync(certFilename)
+  }, app)
+  server.listen(appConf.serverPort, () => winston.log('info', `Server running on ${appConf.serverPort}`))
+}
+
+if (process.argv.length >= 3 && process.argv[2] === 'https') {
+  startHttpsServer('privatekey.pem', 'certificate.pem')
+} else {
+  startHttpServer()
+}
+
+
+
+
+
