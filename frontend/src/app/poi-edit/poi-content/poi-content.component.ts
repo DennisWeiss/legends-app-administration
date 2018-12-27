@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy } from "@angular/core";
-import { FormGroup, FormArray, FormBuilder, FormControl } from "@angular/forms";
+import { FormGroup, FormArray } from "@angular/forms";
 import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PoiService } from "src/app/shared/services/poi.service";

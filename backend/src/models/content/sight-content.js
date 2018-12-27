@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const sightContentSchema = new mongoose.Schema({
+    name: String,
     info: {
         heading: {
            type: String,

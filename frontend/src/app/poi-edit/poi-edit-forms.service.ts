@@ -38,11 +38,6 @@ export class PoiEditFormsService {
     publishImmediately: [true, Validators.required],
     publishingDate: [moment().add(1, 'day').toDate(), Validators.required],
     publishingTime: ['12:00 am', Validators.required],
-    name: this.fb.group({
-      en: ['', Validators.required],
-      de: ['', Validators.required],
-      pl: ['', Validators.required]
-    }),
     beaconId: [-1, Validators.required, this.validateBeacon.bind(this)],
     type: ['', Validators.required], // select deactivated when editing
     coordinates: this.fb.group({

@@ -9,3 +9,16 @@
 mat-tab [mat-tab-label] {
   color: red;
 }
+
+
+.name-form-field {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 60%;
+}
+
+.name-input {
+text-align: center;
+
+}
+

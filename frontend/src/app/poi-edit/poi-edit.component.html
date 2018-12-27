@@ -34,18 +34,6 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-tab-group formGroupName="name">
-            <mat-tab *ngFor="let lang of langs" [label]="lang">
-              <div class="poi-title">
-                <mat-form-field>
-                  <input matInput type="text" [formControlName]="lang.toLowerCase()"
-                         [placeholder]="'NAME' | translate:name"/>
-                         <mat-error *ngIf="poiForm.controls.name.get(lang.toLowerCase()).invalid">{{invalidErrMsg}}</mat-error>
-                </mat-form-field>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-
           <div *ngIf="isLegend()">
             <app-beacon-form [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
           </div>

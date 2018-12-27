@@ -103,8 +103,10 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
      // console.log('poi sub', this.poiForm);
     })
 
-    this.poiForm.statusChanges.subscribe(() => {
 
+    this.poiForm.controls.type.valueChanges.subscribe((val) => {
+        this.poiForm.controls.beaconId.reset();
+        this.poiForm.controls.beaconId.setValue(-1);
     })
 
   }

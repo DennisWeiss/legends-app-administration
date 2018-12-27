@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const legendContentSchema = new mongoose.Schema({
+  name: String,
   explored: {
     heading: { type: String, required: true },
     index: {type: Number, required: true },

@@ -67,10 +67,6 @@ const POISchema = new mongoose.Schema(
       },
       vuforiaTargets: [String]
     },
-    name: {
-      type: Map,
-      of: String
-    },
     type: { type: String, required: true }
   },
   {
@@ -89,7 +85,7 @@ const keyExists = async key => {
 }
 
 const generateKey = async (poi, iteration = 0) => {
-  const key = formatToKey(poi.name.get('en'), iteration)
+  const key = formatToKey(poi.media.content.get('en').name, iteration)
   if (await keyExists(key)) {
     return generateKey(poi, iteration + 1)
   }
