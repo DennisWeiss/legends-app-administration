@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'new', component: PoiEditComponent, data: { auth: 'EDIT' }, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard]},
   {path: 'poi-list', component: PoiOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'beacon-overview', component: BeaconOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'beacon-overview', component: BeaconOverviewComponent,  data: { auth: 'EDIT_BEACON' }, canActivate: [AuthGuard]},
   {path: 'user-management', component: UserManagmentComponent, data: { auth: 'ADMIN' }, canActivate: [AuthGuard]},
 
   {path: '', redirectTo: 'poi-list', pathMatch: 'full'},

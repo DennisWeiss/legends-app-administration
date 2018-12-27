@@ -1,24 +1,29 @@
 <mat-nav-list>
-  <a mat-list-item *ngIf="$authStatus | async" routerLink="user-management" (click)="sidenav.close()" routerLinkActive="mat-accent">
-    <mat-icon>group</mat-icon>
-    <div class="nav-menu-item">{{'USER_MANAGEMENT' | translate:name}}</div>
-  </a>
-  <a mat-list-item *ngIf="$authStatus | async" routerLink="beacon-overview" (click)="sidenav.close()" routerLinkActive="mat-accent">
+  <ng-container *ngIf="$authStatus | async ">
+    <a mat-list-item *ngIf="hasPermission('ADMIN')" routerLink="user-management" (click)="sidenav.close()" routerLinkActive="mat-accent">
+      <mat-icon>group</mat-icon>
+      <div class="nav-menu-item">{{'USER_MANAGEMENT' | translate:name}}</div>
+    </a>
+  <a mat-list-item *ngIf="hasPermission('EDIT_BEACON')" routerLink="beacon-overview" (click)="sidenav.close()" routerLinkActive="mat-accent">
     <mat-icon>rss_feed</mat-icon>
     <div class="nav-menu-item">{{'BEACON_OVERVIEW' | translate:name}}</div>
   </a>
-  <a mat-list-item *ngIf="$authStatus | async" routerLink="poi-list" (click)="sidenav.close()" routerLinkActive="mat-accent">
+  <a mat-list-item routerLink="poi-list" (click)="sidenav.close()" routerLinkActive="mat-accent">
     <mat-icon>list</mat-icon>
     <div class="nav-menu-item">{{'POI_OVERVIEW' | translate:name}}</div>
   </a>
+
+  <a mat-list-item (click)="logout()" routerLinkActive="mat-accent">
+    <mat-icon>close</mat-icon>
+    <div class="nav-menu-item">{{'LOGOUT' | translate:name}}</div>
+  </a>
+</ng-container>
+
   <a mat-list-item *ngIf="!($authStatus | async)" routerLink="login" (click)="sidenav.close()" routerLinkActive="mat-accent">
     <mat-icon>person</mat-icon>
     <div class="nav-menu-item">{{'LOGIN' | translate:name}}</div>
   </a>
-  <a mat-list-item *ngIf="$authStatus | async" (click)="logout()" routerLinkActive="mat-accent">
-    <mat-icon>close</mat-icon>
-    <div class="nav-menu-item">{{'LOGOUT' | translate:name}}</div>
-  </a>
+
 </mat-nav-list>
 
 <!--<mat-list>-->

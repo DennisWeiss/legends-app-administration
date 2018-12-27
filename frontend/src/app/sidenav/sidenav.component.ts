@@ -31,4 +31,8 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  hasPermission(perm) {
+    return this.authService.hasPermission(perm);
+  }
+
 }

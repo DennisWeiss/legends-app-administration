@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import appConf from "../../app-conf";
 
 
+const uniqueValidator = require('mongoose-unique-validator');
+
 function genAuthToken(expStr, user) {
     return 'Bearer ' + jwt.sign(
         {_id: user._id, username: user.username, permissions: user.permissions},
@@ -44,5 +46,7 @@ userSchema.statics.generateAuthToken = function(expStr, user) {
     return genAuthToken(expStr, user);
  }
 
+
+userSchema.plugin(uniqueValidator);
   
 module.exports = mongoose.model('User', userSchema);

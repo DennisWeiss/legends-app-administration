@@ -55,6 +55,6 @@ export class AuthGuard implements CanActivate {
         if (authGroup) {
             return this.authService.hasPermission(authGroup);
         } else {
-            return this.authService.hasPermission(null); }
+            return this.authService.hasPermission(null); } // no permissions required
         }
 }

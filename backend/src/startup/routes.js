@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.use("/poi/content", contentRoutes);
   app.use("/poi", poiRoutes);
   app.use("/users", auth, permission('ADMIN'), userRoutes);
-  app.use("/beacon", beaconRoutes);
+  app.use("/beacon", auth, permission('EDIT_BEACON'), beaconRoutes);
 
   const errorMiddleware = require('../middlewares/error');
   app.use(errorMiddleware);

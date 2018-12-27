@@ -9,9 +9,10 @@
 
 export const PERMISSIONS = new Map([
     ['ADMIN', {children: []}],
-    ['EDIT', {children: ['EDIT_CONTENT']}],
+    ['EDIT', {children: ['EDIT_CONTENT', 'EDIT_BEACON']}],
     ['EDIT_CONTENT', {children: []}],
-    ['READ_ONLY', {children: []}]
+    ['READ_ONLY', {children: []}],
+    ['EDIT_BEACON', {children: []}]
   ]
   );
   
