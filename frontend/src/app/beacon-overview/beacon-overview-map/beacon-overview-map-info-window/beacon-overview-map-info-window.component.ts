@@ -16,6 +16,8 @@ export class BeaconOverviewMapInfoWindowComponent implements OnInit {
   @Output() editTriggered = new EventEmitter<any>();
   @Output() deleteTriggered  = new EventEmitter<any>();
 
+  editMode = false;
+
   constructor(private beaconService: BeaconService, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class BeaconOverviewMapInfoWindowComponent implements OnInit {
 
   editBeacon() {
     this.editTriggered.emit(this.beacon);
+    this.editMode = true;
   }
 
   deleteBeacon() {

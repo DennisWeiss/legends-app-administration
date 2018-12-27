@@ -68,7 +68,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
       <ng-container *ngIf="$authState | async as user">
-        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="openEditPage(poi.key, poi.type, user)"></tr>
+        <tr mat-row *matRowDef="let poi; columns: displayedColumns" (click)="editPoiAction.emit(poi)"></tr>
       </ng-container>
 
   </table>

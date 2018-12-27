@@ -12,7 +12,7 @@ fullscreenControl="true"
             [openInfoWindow]="true"
             [latitude]="beacon.coordinates.lat"
             [longitude]="beacon.coordinates.lng">
-  <agm-info-window >
+  <agm-info-window>
     <app-beacon-overview-map-info-window [beacon]="beacon"
     (editTriggered)="triggerEdit($event)"
     (deleteTriggered)="deleteBeacon($event)">

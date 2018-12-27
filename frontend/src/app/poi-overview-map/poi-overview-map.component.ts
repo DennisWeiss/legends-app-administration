@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {LocaleService} from "../shared/services/locale.service";
 
@@ -10,6 +10,9 @@ import {LocaleService} from "../shared/services/locale.service";
 export class PoiOverviewMapComponent implements OnInit {
 
   @Input() pois
+
+  @Output() editPoiAction = new EventEmitter<any>();
+  @Output() deletePoiAction = new EventEmitter<any>();
 
   position = environment.map.defaultCenter
   defaultZoom = 12

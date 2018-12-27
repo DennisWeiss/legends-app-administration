@@ -3,6 +3,7 @@ import {take} from "rxjs/operators";
 import {PoiService} from "../shared/services/poi.service";
 import SnackbarService from '../shared/services/snackbar.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 
 const mapPOIs = pois => {
@@ -27,13 +28,14 @@ export class PoiOverviewComponent implements OnInit {
 
   constructor(private poiService: PoiService,
     private router: Router,
-    private snackBarService: SnackbarService ) { }
+    private snackBarService: SnackbarService,
+    private authService: AuthService ) { }
 
   ngOnInit() {
-    this.fetchPOIsAndInitTable()
+    this.fetchPOIs()
   }
 
-  fetchPOIsAndInitTable() {
+  fetchPOIs() {
     this.poiService.retrievePOIs().pipe(take(1))
       .subscribe(pois => {
         this.pois = mapPOIs(pois)
@@ -44,13 +46,20 @@ export class PoiOverviewComponent implements OnInit {
     this.router.navigate(['new']);
   }
 
-  removePOI = (ev: Event, poi) => {
-    ev.stopPropagation();
+  removePOI = (poi) => {
     if (window.confirm('Do you really want to delete this POI?')) {
       this.poiService.deletePOI(poi.key).subscribe((res) => {
         this.snackBarService.openSnackBar(res.message, 'OK');
-        this.fetchPOIsAndInitTable();
+        this.fetchPOIs();
       });
+    }
+  }
+
+  openEditPage(poiKey: string, poiType: string) {
+    if (this.authService.hasPermission('EDIT')) {
+      this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
+    } else if (this.authService.hasPermission('EDIT_CONTENT')) {
+      this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
     }
   }
 

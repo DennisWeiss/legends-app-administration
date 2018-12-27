@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core'
+import {Component, Input, OnChanges, OnInit, ViewChild, EventEmitter, Output} from '@angular/core'
 import {PoiService} from '../shared/services/poi.service'
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material'
 import {faPen, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +37,9 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   ]
 
   @Input() pois
-  @Input() fetchPOIsAndInitTable
+
+  @Output() editPoiAction = new EventEmitter<any>();
+  @Output() deletePoiAction = new EventEmitter<any>();
 
   filteredPois
   faPen = faPen
@@ -119,16 +121,11 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     if (window.confirm('Do you really want to delete this POI?')) {
       this.poiService.deletePOI(poi.key).subscribe((res) => {
         this.snackBarService.openSnackBar(res.message, 'OK');
-        this.fetchPOIsAndInitTable();
-      });
-    }
-  }
 
-  openEditPage(poiKey: string, poiType: string, user) {
-    if (this.authService.hasPermission('EDIT')) {
-      this.router.navigate(['edit', poiKey], {queryParams: {type: poiType}});
-    } else if (this.authService.hasPermission('EDIT_CONTENT')) {
-      this.router.navigate(['edit/content', poiKey], {queryParams: {type: poiType}});
+        const index = this.pois.findIndex((p) => p.key === poi.key );
+        this.pois.splice(index, 1);
+        this.initializeTableDataSource();
+      });
     }
   }
 

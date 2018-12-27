@@ -2,7 +2,7 @@ import {_getChildPerms, PERMISSIONS } from "../models/permissions.types";
 
 /**
  * map permissions to include all child-permissions
- * Reason: We avoid using redundant code on the code on the frontend, no need to check child-perms there
+ * Reason: We avoid using redundant code on the frontend, no need to check child-perms there
  */
 
 export const mapPermsToIncludeChildren = function (userPerms) {

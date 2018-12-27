@@ -14,7 +14,10 @@
                   [latitude]="poi.coordinates.lat"
                   [longitude]="poi.coordinates.lng">
         <agm-info-window>
-          <app-poi-overview-map-info-window [poi]="poi"></app-poi-overview-map-info-window>
+          <app-poi-overview-map-info-window [poi]="poi"
+          (editAction)="editPoiAction.emit($event)"
+          (deleteAction)="deletePoiAction.emit($event)">
+        </app-poi-overview-map-info-window>
         </agm-info-window>
       </agm-marker>
     </agm-map>

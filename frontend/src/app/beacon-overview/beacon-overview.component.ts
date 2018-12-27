@@ -81,8 +81,13 @@ export class BeaconOverviewComponent implements OnInit {
     // delete reference
     delete this.beacon;
 
-    //set default values
-    this.beacon = {
+    this.resetForm();
+  }
+
+  resetForm() {
+
+     //set default values
+     this.beacon = {
       name: '',
       beaconId: null,
       coordinates: {
@@ -91,11 +96,8 @@ export class BeaconOverviewComponent implements OnInit {
       }
     }
 
-    // reset state of form (errors, dirty, touched, ...)
-    this.resetForm();
-  }
 
-  resetForm() {
+   // reset state of form (errors, dirty, touched, ...)
     this.form.resetForm();
   }
 }
