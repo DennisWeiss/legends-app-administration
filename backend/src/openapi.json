@@ -294,7 +294,29 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "explored": {
+                        "$ref": "#/definitions/POIMediaContent"
+                      },
+                      "preview": {
+                        "$ref": "#/definitions/POIMediaContent"
+                      },
+                      "puzzle": {
+                        "$ref": "#/definitions/POIMediaHints"
+                      }
+                    }
+                  },
+                  "description": "Maps from and ISO 639-1 language code to the content in that language"
+                }
+              }
+            }
           },
           "404": {
             "description": "POI not found"
@@ -310,7 +332,31 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "$ref": "#/definitions/User"
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "ADMIN",
+                          "EDIT",
+                          "EDIT_CONTENT",
+                          "READ_ONLY"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
