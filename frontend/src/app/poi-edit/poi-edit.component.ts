@@ -99,25 +99,18 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.vuforiaArray = this.formsService.vuforiaArray;
     this.imgForm = this.formsService.imgForm;
 
-    this.poiForm.valueChanges.subscribe((val) => {
-     // console.log('poi sub', this.poiForm);
-    })
-
-
     this.poiForm.controls.type.valueChanges.subscribe((val) => {
+      if(!this.editMode) { // prevent change of beaconId when initally assigning it while editing
         this.poiForm.controls.beaconId.reset();
         this.poiForm.controls.beaconId.setValue(-1);
+      }
     })
-
   }
 
   ngOnInit() {
 
-
-
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.queryParamMap.get('type');
-
 
     // TODO: fetch poi with given id
     this.paramSub = this.route.paramMap.subscribe(params => {
@@ -176,7 +169,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     }
 
     console.log(this.poiForm);
-
 
     // inform child about submit
     this.statusChanged.next('submit');
