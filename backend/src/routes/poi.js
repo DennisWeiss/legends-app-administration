@@ -72,9 +72,12 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
 
   winston.info(poi);
 
+  try {
   // generate unique key consisting of english name for better identification
   poi.key = await poi.generateKey();
-
+  } catch(err) {
+    return res.status(400).send({message: err.message, error: err});
+  }
   await poi.save()
   await updateVersions(body, res)
   return res.send({message: `POI of type ${poi.type} created successfully`})

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const restaurantContentSchema = new mongoose.Schema({
+    name: String,
     info: {
         heading: {
            type: String,

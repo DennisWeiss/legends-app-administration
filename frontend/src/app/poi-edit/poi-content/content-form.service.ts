@@ -71,6 +71,7 @@ private clearFormGroup(fg) {
 
 private createRestaurantForm(): FormGroup {
   return this.fb.group({
+    name: ['', Validators.required],
     info: this.fb.group({
       heading: ['', Validators.required],
       index: [0, Validators.required],
@@ -96,6 +97,7 @@ private createLegendForm(content): FormGroup {
   })
 
   return this.fb.group({
+    name: ['', Validators.required],
     explored: this.fb.group({
       heading: ['', Validators.required],
       index: [1, Validators.required],

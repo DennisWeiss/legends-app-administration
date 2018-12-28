@@ -66,7 +66,8 @@ export default {
       "PUZZLE_TEXT": "Add a puzzle with some hints.",
       "INFO_TEXT": "Füge einen Info-Text hinzu.",
       "SUBMIT": "Submit",
-      "CLEAR": "Clear"
+      "CLEAR": "Clear",
+      "NAME": "Title"
     },
     "login": {
       "NAME": "Username",
@@ -155,7 +156,8 @@ export default {
       "INFO_TEXT": "Füge einen Info-Text hinzu.",
       "PUZZLES": "Rätsel",
       "SUBMIT": "Abschließen",
-      "CLEAR": "Zurücksetzen"
+      "CLEAR": "Zurücksetzen",
+      "NAME": "Titel"
     },
     "login": {
       "NAME": "Benutzername",
