@@ -8,7 +8,9 @@ export class ContentFormService {
 
   langs = ['de', 'en', 'pl'];
 
-  type;
+  type: string;
+
+  initialContentObj = {puzzle: {hints: [1, 2]}};
 
   poiCallbacks = {
     'restaurants': this.createRestaurantForm.bind(this),
@@ -46,7 +48,7 @@ initContentForm(type): void {
 
   this.langs.forEach((lang) => {
     this.contentForm.removeControl(lang);
-    this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
+    this.contentForm.addControl(lang, formFactory(this.initialContentObj));
   })
   this.contentForm.markAsPristine();
 }
@@ -122,7 +124,7 @@ private createLegendForm(content): FormGroup {
 
 addLang(lang, type) {
   const formFactory = this.poiCallbacks[type];
-  this.contentForm.addControl(lang, formFactory({puzzle: {hints: [1, 2]}}));
+  this.contentForm.addControl(lang, formFactory(this.initialContentObj));
 }
 
 removeLang(lang) {

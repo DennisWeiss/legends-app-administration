@@ -2,6 +2,8 @@
   <h2 *ngIf="!poiForm">{{type | uppercase}} - {{id}}</h2>
   <ng-content></ng-content>
 
+  <mat-error  *ngIf="contentForm.invalid && contentForm.touched">Content is invalid. Check red fields.</mat-error>
+
   <div>
   <mat-form-field>
     <input matInput #newLang type="text" placeholder="Add new language...">

@@ -43,6 +43,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   // TODO: Get all types from server -> reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
+
   defaultType = 'legends';
 
   // original object from backend, has additional props like mongoose-id
@@ -81,7 +82,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     private poiService: PoiService,
     public formsService: PoiEditFormsService,
     private dialog: MatDialog,
-    private beaconService: BeaconService
   ) {
   }
 
@@ -164,6 +164,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   onSubmit() {
 
     if (this.poiForm.invalid) {
+      // trigger all error-messages for inputs
       this.markFormGroupTouched(this.poiForm);
       return;
     }
@@ -218,10 +219,12 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
  */
 
   onContentFormReceived(contentForm: FormGroup): void {
+
+    //connect contentForm with poiForm
     (this.formsService.poiForm.get('media') as FormGroup).removeControl('content');
     (this.formsService.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
-    if (this.editMode) {
+    if (this.editMode) { // fetch poi
       this.editMode = true;
       this.poiService
         .getPOI(this.id)
@@ -254,6 +257,12 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     return this.editMode && moment().isAfter(moment.unix(getTimestamp(this.poiForm.controls.publishingDate.value,
       this.poiForm.controls.publishingTime.value)))
   }
+
+
+/**
+ * method of canDeactivate-guard that displays a warning when trying to leave the page
+ * with unsaved changes
+ */
 
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
