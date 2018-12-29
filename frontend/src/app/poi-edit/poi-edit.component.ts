@@ -13,8 +13,6 @@ import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
-import { Beacon } from '../shared/models/beacon.model';
-import { BeaconService } from '../shared/services/beacon.service';
 
 
 const mapPOIData = poi => {
@@ -57,9 +55,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   // component can be in a 'clean' state or editing state
   editMode = false;
 
-  // needed to inform child about status change
-  statusChanged = new Subject<string>();
 
+  resetAction = new Subject<void>();
   newPoiFetched = new Subject<POI>();
 
   dialogOpened = false;
@@ -127,7 +124,39 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     }
 
     this.setupForms();
+
+
+    if (this.editMode) { // fetch poi
+      this.poiService
+        .getPOI(this.id)
+        .pipe(take(1))
+        .subscribe((poi: POI) => {
+          this.poi = poi;
+          this.newPoiFetched.next(poi);
+        });
+
+    } else {
+      // save object with no values for dirty-check
+      this.initPoi = this.poiForm.value;
+    }
+
   }
+
+  onContentFormReady(contentForm: FormGroup): void {
+
+    //connect contentForm with poiForm
+    (this.poiForm.get('media') as FormGroup).removeControl('content');
+    (this.poiForm.get('media')as FormGroup).addControl('content', contentForm);
+
+    if(this.editMode) {
+      //assign value to form
+      this.formsService.update(mapPOIData(this.poi));
+    }
+
+    //save form in inital state
+    this.initPoi = this.poiForm.value;
+  }
+
 
   openUploadDialog(req): void {
     const dialogRef = this.dialog.open(UploadStatusDialogComponent, {
@@ -162,17 +191,13 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
   onSubmit() {
+    console.log(this.poiForm);
 
     if (this.poiForm.invalid) {
       // trigger all error-messages for inputs
       this.markFormGroupTouched(this.poiForm);
       return;
     }
-
-    console.log(this.poiForm);
-
-    // inform child about submit
-    this.statusChanged.next('submit');
 
     const poi = this.poiForm.value;
 
@@ -193,7 +218,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
    */
   resetForms() {
     // inform child about reset
-    this.statusChanged.next('reset');
+    this.resetAction.next();
 
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
@@ -206,39 +231,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   get langs() {
     return Object.keys((this.poiForm.get('name') as FormGroup).controls) as Array<string>;
-  }
-
-
-/**
- * Is called whenever contentForm was initialized
- *
- * POI is not fetched in ngOnInit because contentForm is dynamically created and needs to be ready
- * before getting and assigning the fetched poi as a value.
- *
- * @param contentForm child-form containing all content of a POI
- */
-
-  onContentFormReceived(contentForm: FormGroup): void {
-
-    //connect contentForm with poiForm
-    (this.formsService.poiForm.get('media') as FormGroup).removeControl('content');
-    (this.formsService.poiForm.get('media')as FormGroup).addControl('content', contentForm);
-
-    if (this.editMode) { // fetch poi
-      this.editMode = true;
-      this.poiService
-        .getPOI(this.id)
-        .pipe(take(1))
-        .subscribe((poi: POI) => {
-          this.poi = poi;
-          this.newPoiFetched.next(poi);
-          this.formsService.update(mapPOIData(this.poi));
-          this.initPoi = this.poiForm.value;
-        });
-    } else {
-      // save object with no values for dirty-check
-      this.initPoi = this.poiForm.value;
-    }
   }
 
   updateCoords(coords) {
