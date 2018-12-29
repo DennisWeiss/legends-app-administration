@@ -4,10 +4,6 @@ const router = express.Router();
 const Beacon = require("../models/beacon");
 const appConf =  require("../../app-conf");
 
-const auth = require('../middlewares/authentication')
-
-const permission = require('../middlewares/authorization');
-
 
 router.post('/', async (req, res, next) => {
 

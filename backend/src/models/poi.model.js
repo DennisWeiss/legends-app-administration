@@ -14,6 +14,25 @@ const poiContentModelCallbacks = {
   legends: LegendContent
 }
 
+const beaconValidator = function(v) {
+  return new Promise(function(resolve, reject) {
+   const Beacon =  mongoose.model('Beacon');
+  
+   // beaconId of -1 -> no beacon
+   if(v == -1) {resolve(true)} 
+   
+   Beacon.findOne({beaconId: v})
+   .then((result) => {
+     if(!result) {
+       resolve(false); 
+      } else {
+        resolve(true);
+      }
+   })
+
+  });
+}
+
 const POISchema = new mongoose.Schema(
   {
     key: { type: String, required: true, unique: true },
@@ -22,24 +41,7 @@ const POISchema = new mongoose.Schema(
       type: Number, 
       required: true,
       validate: {
-        validator: function(v) {
-        return new Promise(function(resolve, reject) {
-         const Beacon =  mongoose.model('Beacon');
-        
-         // beaconId of -1 -> no beacon
-         if(v == -1) {resolve(true)} 
-         
-         Beacon.findOne({beaconId: v})
-         .then((result) => {
-           if(!result) {
-             resolve(false); 
-            } else {
-              resolve(true);
-            }
-         })
-
-        });
-      },
+        validator: beaconValidator,
       message: function(props) {
         return `Beacon with an ID of '${props.value}' does not exist!`;
       }
@@ -100,6 +102,12 @@ const generateKey = async (poi, iteration = 0) => {
 POISchema.methods.addContent = async function (content) {
   // set content dynamically
   const Content = poiContentModelCallbacks[this.type]
+
+  // no model in callbacks found for given type
+  if(!Content) {
+    throw new Error('POI-type does not exist!');
+  }
+
   for (let [lang, contentObj] of Object.entries(content)) {
     const content = new Content(contentObj)
     await content.validate();
@@ -109,6 +117,12 @@ POISchema.methods.addContent = async function (content) {
 
 POISchema.statics.validateContent = async function (content, type) {
   const Content = poiContentModelCallbacks[type]
+
+   // no model in callbacks found for given type
+   if(!Content) {
+    throw new Error('POI-type does not exist!');
+  }
+
   for (let [lang, contentObj] of Object.entries(content)) {
     const content = new Content(contentObj)
     await content.validate();
@@ -119,9 +133,6 @@ POISchema.methods.generateKey = async function(iteration = 0) {
   return await generateKey(this, iteration);
 }
 
-POISchema.methods.validateBeacon  = async function() {
-  
-}
 
 POISchema.plugin(uniqueValidator);
 
