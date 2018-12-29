@@ -86,15 +86,12 @@ const keyExists = async key => {
   return !!(await POI.findOne({key}))
 }
 
-const generateKey = async (poi, iteration = 0) => {
+const generateKey = async (key, iteration = 0) => {
 
-  if (!poi.media || !poi.media.content || !poi.media.content.get('en') || !poi.media.content.get('en').name) {
-    throw new Error('Creation of key failed! English name cannot be found on POI-object.');
-  }
+  key = formatToKey(key, iteration)
 
-  const key = formatToKey(poi.media.content.get('en').name, iteration)
   if (await keyExists(key)) {
-    return generateKey(poi, iteration + 1)
+    return await generateKey(key, iteration + 1)
   }
   return key
 }
@@ -130,7 +127,12 @@ POISchema.statics.validateContent = async function (content, type) {
 }
 
 POISchema.methods.generateKey = async function(iteration = 0) {
-  return await generateKey(this, iteration);
+
+  if (!this.media || !this.media.content || !this.media.content.get('en') || !this.media.content.get('en').name) {
+    winston.warn('lol');
+    throw new Error('Creation of key failed! English name cannot be found on POI-object.');
+  }
+  return await generateKey(this.media.content.get('en').name, iteration);
 }
 
 
