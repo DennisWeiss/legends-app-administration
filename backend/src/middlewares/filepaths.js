@@ -5,6 +5,8 @@ const getFilePath = function (prop, files) {
 
 const parsePathStr = function(pathStr = '') {
     //cut off path to host
+    if(!pathStr) {return '' ;}
+
     return pathStr.split('/').pop();
 }
 
