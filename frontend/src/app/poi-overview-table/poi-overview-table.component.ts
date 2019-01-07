@@ -64,6 +64,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
 
   $authState: Observable<any>;
   isAuth = false;
+  locale: string
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
@@ -74,7 +75,11 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     private router: Router,
     private authService: AuthService,
     private snackBarService: SnackbarService) {
-    this.localeService.localeUpdated.subscribe(moment.locale)
+    this.locale = this.localeService.getLocale()
+    this.localeService.localeUpdated.subscribe(locale => {
+      moment.locale(locale)
+      this.locale = locale
+    })
   }
 
   initializeTableDataSource = () => {
@@ -103,8 +108,9 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   }
 
   setFilterPredicate = () => {
-    this.filteredPois.filterPredicate = (poi, filter: string) => poi.name && poi.name.en &&
-      poi.name.en.toLowerCase().includes(filter.toLowerCase())
+    this.filteredPois.filterPredicate = (poi, filter: string) => poi.media && poi.media.content &&
+      poi.media.content[this.locale] && poi.media.content[this.locale].name &&
+      poi.media.content[this.locale].name.toLowerCase().includes(filter.toLowerCase())
   }
 
   onChangeTypeFilter = (type: string) => {
