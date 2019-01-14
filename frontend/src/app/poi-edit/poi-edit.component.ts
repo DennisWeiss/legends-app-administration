@@ -222,7 +222,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
-      this.formsService.update(this.poi);
+      this.formsService.update(mapPOIData(this.poi));
     } else { // create an empty form
       this.poiForm.setValue(this.initPoi);
     }
