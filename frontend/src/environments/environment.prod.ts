@@ -7,5 +7,6 @@ export const environment = {
       lng: 14.99
     },
     defaultZoom: 12
-  }
+  },
+  defaultLangs: ['de', 'en']
 }

@@ -46,6 +46,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   // original object from backend, has additional props like mongoose-id
   poi = null;
+
   // initial value received from the actual form, used for dirty-check
   initPoi = null;
 
@@ -220,6 +221,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     // inform child about reset
     this.resetAction.next();
 
+    //reset form to default values (see poi-edit-forms.service.ts)
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
       this.formsService.update(this.poi);

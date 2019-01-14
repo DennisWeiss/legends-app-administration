@@ -169,6 +169,12 @@ export class PoiContentComponent
     }
   }
 
+  deleteLang(lang) {
+    if(lang !== "" ) {
+      this.contentFormService.removeLang(lang);
+    }
+  }
+
   content(lang) {
     return (this.contentForm.get(lang) as FormGroup).controls;
   }

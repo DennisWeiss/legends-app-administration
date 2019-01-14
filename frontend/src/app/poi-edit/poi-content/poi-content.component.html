@@ -20,11 +20,12 @@
          <span [class.invalid]="contentForm.get(lang).invalid">{{lang}}</span>
       </ng-template>
 
-    <div fxLayout fxLayoutAlign="center">
+    <div fxLayout fxLayoutAlign="space-around center">
       <mat-form-field class="name-form-field">
           <input class="name-input" matInput type="text" formControlName="name"
                  [placeholder]="'NAME' | translate:name"/>
       </mat-form-field>
+      <button (click)="deleteLang(lang)" mat-button color="accent">Delete language</button>
     </div>
 
     <mat-accordion displayMode="flat" multi="true" *ngIf="type === 'legends'">

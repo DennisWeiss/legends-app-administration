@@ -1,5 +1,12 @@
 import {EventEmitter, Injectable} from '@angular/core'
 
+
+/**
+ * Holds currently selected language
+ * Informs other components about languarge-update
+ * Saves current language in localStorage, which is restored later after reopening browser
+ */
+
 @Injectable({
   providedIn: 'root'
 })

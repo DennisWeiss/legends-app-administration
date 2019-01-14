@@ -7,6 +7,11 @@ import * as moment from 'moment'
 import {getTimestamp} from "../../utils/helperfunctions";
 
 
+/**
+ *  Mapper to include publishingTimestamp in POI-objekt
+ * @param poi
+ */
+
 const mapPOIData = poi => {
   const {publishImmediately, publishingDate, publishingTime, ...poiData} = poi
   return publishImmediately ?
@@ -14,6 +19,11 @@ const mapPOIData = poi => {
     {publishingTimestamp: getTimestamp(publishingDate, publishingTime), ...poiData}
 }
 
+/**
+ *
+ *
+ *
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +66,15 @@ export class PoiService {
 
   putContents = (contents, key) => this.http.put<any>(`${environment.backendUrl}poi/content/${key}`, contents);
 
+
+  /**
+   * Create form-data which is sent as enctype 'multipart/formdata'
+   *
+   */
+
   private createFormData = (poi): FormData => {
     const postData = new FormData();
+
     postData.append('poi', JSON.stringify(mapPOIData(poi)));
     postData.append('icon_default', poi.icons.default);
     postData.append('icon_explored', poi.icons.explored);

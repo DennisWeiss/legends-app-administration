@@ -10,6 +10,10 @@ interface Response {
   beacon: Beacon
 }
 
+/**
+ * Make requests to fetch, create, alterate or save beacons.
+ */
+
 @Injectable({
   providedIn: 'root'
 })

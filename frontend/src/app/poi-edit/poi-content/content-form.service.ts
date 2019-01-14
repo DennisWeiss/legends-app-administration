@@ -6,7 +6,7 @@ export class ContentFormService {
 
   constructor(private fb: FormBuilder) { }
 
-  langs = ['de', 'en', 'pl'];
+  langs = ['de', 'en'];
 
   type: string;
 
@@ -128,6 +128,10 @@ addLang(lang, type) {
 }
 
 removeLang(lang) {
+  if(this.langs.includes(lang)) {
+    return;
+  }
+
   this.contentForm.removeControl(lang);
 }
 
