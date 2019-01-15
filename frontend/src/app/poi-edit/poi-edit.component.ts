@@ -39,7 +39,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   invalidErrMsg = 'Field required!';
 
-  // TODO: Get all types from server -> reduce redundancy
+  // TODO: Get all types from server => reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
 
   defaultType = 'legends';
@@ -224,7 +224,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     //reset form to default values (see poi-edit-forms.service.ts)
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
-      this.formsService.update(this.poi);
+      this.formsService.update(mapPOIData(this.poi));
     } else { // create an empty form
       this.poiForm.setValue(this.initPoi);
     }

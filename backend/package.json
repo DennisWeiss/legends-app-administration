@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "dependencies": {
-    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
+    "bcrypt": "https://github.com/kelektiv/node.bcrypt.js.git#master",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.16.4",
