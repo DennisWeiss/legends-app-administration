@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator')
 
 const beaconSchema = new mongoose.Schema({
     name: String,
-    beaconId:  {
-        type: Number, 
+    beaconId: {
+        type: Number,
         required: true,
         unique: true
     },
@@ -18,11 +18,10 @@ const beaconSchema = new mongoose.Schema({
             type: Number,
             required: true
         }
-    }   
     }
-)
+})
 
-beaconSchema.plugin(uniqueValidator);
+beaconSchema.plugin(uniqueValidator)
 
 
-module.exports = mongoose.model('Beacon', beaconSchema);
+module.exports = mongoose.model('Beacon', beaconSchema)

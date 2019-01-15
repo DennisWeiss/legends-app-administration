@@ -35,6 +35,10 @@ router.get('/:key', async (req, res, next) => {
     res.status(404).send({ message: 'POI not found!' });
   }
 
+  if (req.query.htmlContent === 'true') {
+    poi.withHtmlContent()
+  }
+
   return res.status(200).send(poi.media.content);
 })
 
