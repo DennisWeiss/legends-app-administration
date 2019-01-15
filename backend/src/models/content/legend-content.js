@@ -40,13 +40,31 @@ legendContentSchema.methods.withSavedHtmlContent = function (key, lang) {
     this[field].url = fieldFilename
   })
 
-  console.log(this)
-
   this.puzzle.hints = this.puzzle.hints.map(hint => {
     const hintFilename = `${generateNewFilename(`${key}_hint_${lang}.html`)}.html`
     fs.writeFileSync(`files/${hintFilename}`, hint)
     return hintFilename
   })
+}
+
+legendContentSchema.methods.withHtmlContent = function () {
+  const fields = ['explored', 'preview']
+  fields.forEach(field => {
+    try {
+      this[field].url = fs.readFileSync(`files/${this[field].url}`)
+    } catch (err) {
+      this[field].url = ''
+    }
+  })
+
+  this.puzzle.hints = this.puzzle.hints.map(hint => {
+    try {
+      return fs.readFileSync(`files/${hint}`)
+    } catch (err) {
+      return ''
+    }
+  })
+
 }
 
 module.exports = mongoose.model('LegendContent', legendContentSchema);

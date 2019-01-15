@@ -108,11 +108,24 @@ POISchema.methods.addContent = async function (content, key) {
 
   for (let [lang, contentObj] of Object.entries(content)) {
     const content = new Content(contentObj)
-    console.log(content)
-    content.withSavedHtmlContent(key, lang)
-    console.log(content)
     await content.validate();
     this.media.content.set(lang, content);
+  }
+}
+
+POISchema.methods.withHtmlContent = function () {
+  // set content dynamically
+  const Content = poiContentModelCallbacks[this.type]
+
+  // no model in callbacks found for given type
+  if(!Content) {
+    throw new Error('POI-type does not exist!');
+  }
+
+  for (let [lang, contentObj] of this.media.content.entries()) {
+    const content = new Content(contentObj)
+    content.withHtmlContent()
+    this.media.content.set(lang, content)
   }
 }
 
