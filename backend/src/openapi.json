@@ -686,19 +686,19 @@
                 "type": "string"
               },
               "description": "This is a set of images used for vuforia to enable scan feature. Only applicable to legends. It contains all pictures/marks that should be scannable in app"
-            },
-            "content": {
-              "type": "object",
-              "properties": {
-                "explored": {
-                  "$ref": "#/definitions/POIMediaContent"
-                },
-                "preview": {
-                  "$ref": "#/definitions/POIMediaContent"
-                },
-                "puzzle": {
-                  "$ref": "#/definitions/POIMediaHints"
-                }
+            }
+          },
+          "content": {
+            "type": "object",
+            "properties": {
+              "explored": {
+                "$ref": "#/definitions/POIMediaContent"
+              },
+              "preview": {
+                "$ref": "#/definitions/POIMediaContent"
+              },
+              "puzzle": {
+                "$ref": "#/definitions/POIMediaHints"
               }
             }
           }

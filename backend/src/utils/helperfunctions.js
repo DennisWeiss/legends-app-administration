@@ -15,6 +15,15 @@ const applyUrlToPoi = (poi, req) => {
       obj[i] = url + obj[i]
     }
   })
+  if (poi.type === 'legends') {
+    const contentFields = ['explored', 'preview']
+    poi.media.content.forEach(content => {
+      contentFields.forEach(field => {
+        content[field].url = url + content[field].url
+      })
+      content.puzzle.hints = content.puzzle.hints.map(hint => url + hint)
+    })
+  }
 }
 
 export {applyUrlToPoi}
