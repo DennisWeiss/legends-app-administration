@@ -5,7 +5,7 @@ const User = require("../models/user");
 const POI = require("../models/poi.model");
 const appConf =  require("../../app-conf");
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const auth = require('../middlewares/authentication')

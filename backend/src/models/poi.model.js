@@ -88,13 +88,12 @@ const keyExists = async key => {
 }
 
 const generateKey = async (key, iteration = 0) => {
+  const formattedKey = formatToKey(key, iteration)
 
-  key = formatToKey(key, iteration)
-
-  if (await keyExists(key)) {
+  if (await keyExists(formattedKey)) {
     return await generateKey(key, iteration + 1)
   }
-  return key
+  return formattedKey
 }
 
 POISchema.methods.addContent = async function (content, key) {
@@ -108,8 +107,10 @@ POISchema.methods.addContent = async function (content, key) {
 
   for (let [lang, contentObj] of Object.entries(content)) {
     const content = new Content(contentObj)
-    await content.validate();
-    this.media.content.set(lang, content);
+    console.log('content', content)
+    content.withSavedHtmlContent(key, lang)
+    await content.validate()
+    this.media.content.set(lang, content)
   }
 }
 
