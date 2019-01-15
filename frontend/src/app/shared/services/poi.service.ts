@@ -41,10 +41,10 @@ export class PoiService {
    * TODO: Create model for POI
    */
 
-  getPOI = (key: string) => this.http.get<POI>(`${environment.backendUrl}poi/key/${key}`)
+  getPOI = (key: string) => this.http.get<POI>(`${environment.backendUrl}poi/key/${key}?htmlContent=true`)
 
   postPOI = (poi: POI) => {
-    const req = new HttpRequest('POST', `${environment.backendUrl}poi`, this.createFormData(poi), {
+    const req = new HttpRequest('POST', `${environment.backendUrl}poi?htmlContent=true`, this.createFormData(poi), {
       reportProgress: true
     });
     return this.http.request(req);

@@ -2,9 +2,9 @@ import POI from '../models/poi.model'
 import {mapListOfPOIsToDict} from '../mapper/poi.mapper'
 
 import VersionLocationData from '../models/version-location-data'
-import {applyUrlToPoi} from "../utils/helperfunctions"
+import {applyUrlToPoi} from '../utils/helperfunctions'
 
-const winston = require('winston');
+const winston = require('winston')
 
 const express = require('express')
 const router = express.Router()
@@ -13,20 +13,21 @@ const updateVersions = require('../utils/updateVersions')
 
 const auth = require('../middlewares/authentication')
 const permission = require('../middlewares/authorization')
-const filePaths = require('../middlewares/filepaths').middleware;
+const filePaths = require('../middlewares/filepaths').middleware
 
 const multer = require('multer')
+import fs from 'fs'
 
-const mimetypes = require('../middlewares/file-validation').mimetypes;
-const validateFiles = require('../middlewares/file-validation').validate;
+const mimetypes = require('../middlewares/file-validation').mimetypes
+const validateFiles = require('../middlewares/file-validation').validate
 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const isValid = mimetypes.includes(file.mimetype);
-    let error = new Error("Invalid MIME type!");
+    const isValid = mimetypes.includes(file.mimetype)
+    let error = new Error('Invalid MIME type!')
     if (isValid) {
-    error = null;
+      error = null
     }
     cb(error, 'files')
   },
@@ -39,11 +40,11 @@ const storage = multer.diskStorage({
       .join('-')
 
     //handling filenames with additional points in between
-    const fileNameArr = name.split('.');
-    const ext = fileNameArr.pop();
-    const fileName = fileNameArr.join(''); 
+    const fileNameArr = name.split('.')
+    const ext = fileNameArr.pop()
+    const fileName = fileNameArr.join('')
 
-    cb(null, fileName + '-' + Date.now() + '.' + ext);
+    cb(null, fileName + '-' + Date.now() + '.' + ext)
   }
 })
 
@@ -58,6 +59,7 @@ const formData = [
   {name: 'vuforia_targets', maxCount: 30}
 ]
 
+
 router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
   const body = req.body
 
@@ -66,17 +68,17 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
   try {
     // generate unique key consisting of english name for better identification
     poi.key = await poi.generateKey()
-  } catch(err) {
-    return res.status(400).send({message: err.message, error: err});
+  } catch (err) {
+    return res.status(400).send({message: err.message, error: err})
   }
 
   try {
     await poi.addContent(body.media.content, poi.key)
-  } catch(err) {
+  } catch (err) {
     return res.status(400).send({message: 'Invalid content', error: err})
   }
 
-  winston.info(poi);
+  winston.info(poi)
   await poi.save()
   await updateVersions(body, res)
   return res.send({message: `POI of type ${poi.type} created successfully`})
@@ -91,7 +93,7 @@ router.put('/', auth, permission('EDIT'), upload.fields(formData), validateFiles
   }
 
   // package unique-express-validator needs to have "context: 'query'" set to work properly
-  const poi = await POI.findOneAndUpdate({key: req.body.key}, req.body, {runValidators: true, context: 'query'});
+  const poi = await POI.findOneAndUpdate({key: req.body.key}, req.body, {runValidators: true, context: 'query'})
 
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})
@@ -114,22 +116,24 @@ router.delete('/:key', auth, permission('ADMIN'), async (req, res, next) => {
 })
 
 router.get('/', async (req, res) => {
-  const poi = await POI.find({})
-  poi.forEach(poiObj => applyUrlToPoi(poiObj, req))
+  const pois = await POI.find({})
+  pois.forEach(poiObj => req.query.htmlContent === 'true' ? poiObj.withHtmlContent() : applyUrlToPoi(poiObj, req))
+
   const versions = await VersionLocationData.find({})
-  res.send(mapListOfPOIsToDict(poi, versions))
+  res.send(mapListOfPOIsToDict(pois, versions))
 })
 
 router.get('/:type', async (req, res) => {
-  const poi = await POI.find({type: req.params.type})
-  poi.forEach(poiObj => applyUrlToPoi(poiObj, req))
+  const pois = await POI.find({type: req.params.type})
+  pois.forEach(poiObj => req.query.htmlContent === 'true' ? poiObj.withHtmlContent() : applyUrlToPoi(poiObj, req))
   const versions = await VersionLocationData.find({})
-  res.send(mapListOfPOIsToDict(poi, versions))
+  res.send(mapListOfPOIsToDict(pois, versions))
 })
 
 router.get('/key/:key', async (req, res) => {
   const poi = await POI.findOne({key: req.params.key})
-  applyUrlToPoi(poi, req)
+  req.query.htmlContent === 'true' ? poi.withHtmlContent() : applyUrlToPoi(poi, req)
+
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})
   }
