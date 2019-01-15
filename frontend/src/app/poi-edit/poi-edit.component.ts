@@ -39,7 +39,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   invalidErrMsg = 'Field required!';
 
-  // TODO: Get all types from server -> reduce redundancy
+  // TODO: Get all types from server => reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
 
   defaultType = 'legends';
