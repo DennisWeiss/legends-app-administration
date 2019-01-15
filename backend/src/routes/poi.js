@@ -59,25 +59,24 @@ const formData = [
 ]
 
 router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async (req, res, next) => {
-
   const body = req.body
 
   const poi = new POI(body)
 
   try {
-    await poi.addContent(body.media.content)
-  } catch (err) {
-    return res.status(400).send({message: 'Invalid content!', error: err})
-  }
-
-  winston.info(poi);
-
-  try {
-  // generate unique key consisting of english name for better identification
-  poi.key = await poi.generateKey();
+    // generate unique key consisting of english name for better identification
+    poi.key = await poi.generateKey()
   } catch(err) {
     return res.status(400).send({message: err.message, error: err});
   }
+
+  try {
+    await poi.addContent(body.media.content, poi.key)
+  } catch(err) {
+    return res.status(400).send({message: 'Invalid content', error: err})
+  }
+
+  winston.info(poi);
   await poi.save()
   await updateVersions(body, res)
   return res.send({message: `POI of type ${poi.type} created successfully`})

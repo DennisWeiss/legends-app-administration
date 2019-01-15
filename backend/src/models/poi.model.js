@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import fs from 'fs'
 
 const winston = require('winston');
 
@@ -96,7 +97,36 @@ const generateKey = async (key, iteration = 0) => {
   return key
 }
 
-POISchema.methods.addContent = async function (content) {
+const formatFilename = (filename, iteration) => filename + (iteration === 0 ? '' : iteration)
+
+const generateNewFilename = (filename, iteration = 0) => {
+  const formattedFilename = formatFilename(filename, iteration)
+  if (fs.existsSync(`files/${formattedFilename}`)) {
+    return generateNewFilename(filename, iteration + 1)
+  }
+  return formattedFilename
+}
+
+const getContentAndSaveHtmlFiles = (contentObj, key, lang) => {
+  const fields = ['explored', 'preview']
+
+  fields.forEach(field => {
+    const fieldContent = contentObj[field].url
+    const fieldFilename = `${generateNewFilename(`${key}_${field}_${lang}`)}.html`
+    fs.writeFile(`files/${fieldFilename}`, fieldContent)
+    contentObj[field].url = fieldFilename
+  })
+
+  contentObj.puzzle.hints = contentObj.puzzle.hints.map(hint => {
+    const hintFilename = `${generateNewFilename(`${key}_hint_${lang}.html`)}.html`
+    fs.writeFile(`files/${hintFilename}`, hint)
+    return hintFilename
+  })
+
+  return contentObj
+}
+
+POISchema.methods.addContent = async function (content, key) {
   // set content dynamically
   const Content = poiContentModelCallbacks[this.type]
 
@@ -106,7 +136,7 @@ POISchema.methods.addContent = async function (content) {
   }
 
   for (let [lang, contentObj] of Object.entries(content)) {
-    const content = new Content(contentObj)
+    const content = new Content(getContentAndSaveHtmlFiles(contentObj, key, lang))
     await content.validate();
     this.media.content.set(lang, content);
   }
