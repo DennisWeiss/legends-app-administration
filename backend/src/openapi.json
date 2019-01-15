@@ -447,7 +447,7 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation"
+            "description": "User successfully created"
           },
           "400": {
             "description": "Invalid content!"
@@ -487,10 +487,10 @@
         },
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful login"
           },
           "401": {
-            "description": "Invalid content!"
+            "description": "Invalid username or password"
           }
         }
       }
