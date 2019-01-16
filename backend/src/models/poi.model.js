@@ -107,7 +107,6 @@ POISchema.methods.addContent = async function (content, key) {
 
   for (let [lang, contentObj] of Object.entries(content)) {
     const content = new Content(contentObj)
-    console.log('content', content)
     content.withSavedHtmlContent(key, lang)
     await content.validate()
     this.media.content.set(lang, content)

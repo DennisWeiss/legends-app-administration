@@ -15,15 +15,20 @@ const applyUrlToPoi = (poi, req) => {
       obj[i] = url + obj[i]
     }
   })
-  if (poi.type === 'legends') {
-    const contentFields = ['explored', 'preview']
-    poi.media.content.forEach(content => {
-      contentFields.forEach(field => {
+}
+
+const applyUrlToContentOfPoi = (poi, req) => {
+  const url = getUrl(req)
+  for (let [lang, content] of poi.media.content.entries()) {
+    if (poi.type === 'legends') {
+      ['explored', 'preview'].forEach(field => {
         content[field].url = url + content[field].url
       })
       content.puzzle.hints = content.puzzle.hints.map(hint => url + hint)
-    })
+    } else {
+      content.info.url = url + content.info.url
+    }
   }
 }
 
-export {applyUrlToPoi}
+export {applyUrlToPoi, applyUrlToContentOfPoi}
