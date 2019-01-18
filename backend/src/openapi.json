@@ -665,10 +665,6 @@
           "type": "string",
           "description": "Unique key of the POI"
         },
-        "name": {
-          "$ref": "#/definitions/POIName",
-          "description": "Name of the POI"
-        },
         "beaconId": {
           "type": "integer",
           "example": 8,
