@@ -2,7 +2,7 @@ import POI from '../models/poi.model'
 import {mapListOfPOIsToDict} from '../mapper/poi.mapper'
 
 import VersionLocationData from '../models/version-location-data'
-import {applyUrlToPoi} from '../utils/helperfunctions'
+import {applyUrlToContentOfPoi, applyUrlToPoi} from '../utils/helperfunctions'
 
 const winston = require('winston')
 
@@ -92,8 +92,20 @@ router.put('/', auth, permission('EDIT'), upload.fields(formData), validateFiles
     return res.status(400).send({message: 'Invalid content!', error: err})
   }
 
+  const poi = new POI(req.body)
+
+  try {
+    await poi.addContent(req.body.media.content, poi.key)
+  } catch (err) {
+    console.error(err)
+    return res.status(400).send({message: 'Invalid content', error: err})
+  }
+
+  const poiObj = poi.toObject()
+  delete poiObj._id
+
   // package unique-express-validator needs to have "context: 'query'" set to work properly
-  const poi = await POI.findOneAndUpdate({key: req.body.key}, req.body, {runValidators: true, context: 'query'})
+  await POI.findOneAndUpdate({key: req.body.key}, poiObj, {runValidators: true, context: 'query', upsert: true})
 
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})
@@ -117,7 +129,14 @@ router.delete('/:key', auth, permission('ADMIN'), async (req, res, next) => {
 
 router.get('/', async (req, res) => {
   const pois = await POI.find({})
-  pois.forEach(poiObj => req.query.htmlContent === 'true' ? poiObj.withHtmlContent() : applyUrlToPoi(poiObj, req))
+  pois.forEach(poi => {
+    if (req.query.htmlContent === 'true') {
+      poi.withHtmlContent()
+    } else {
+      applyUrlToContentOfPoi(poi, req)
+    }
+    applyUrlToPoi(poi, req)
+  })
 
   const versions = await VersionLocationData.find({})
   res.send(mapListOfPOIsToDict(pois, versions))
@@ -125,14 +144,26 @@ router.get('/', async (req, res) => {
 
 router.get('/:type', async (req, res) => {
   const pois = await POI.find({type: req.params.type})
-  pois.forEach(poiObj => req.query.htmlContent === 'true' ? poiObj.withHtmlContent() : applyUrlToPoi(poiObj, req))
+  pois.forEach(poi => {
+    if (req.query.htmlContent === 'true') {
+      poi.withHtmlContent()
+    } else {
+      applyUrlToContentOfPoi(poi, req)
+    }
+    applyUrlToPoi(poi, req)
+  })
   const versions = await VersionLocationData.find({})
   res.send(mapListOfPOIsToDict(pois, versions))
 })
 
 router.get('/key/:key', async (req, res) => {
   const poi = await POI.findOne({key: req.params.key})
-  req.query.htmlContent === 'true' ? poi.withHtmlContent() : applyUrlToPoi(poi, req)
+  if (req.query.htmlContent === 'true') {
+    poi.withHtmlContent()
+  } else {
+    applyUrlToContentOfPoi(poi, req)
+  }
+  applyUrlToPoi(poi, req)
 
   if (!poi) {
     return res.status(404).send({message: 'POI not found!'})

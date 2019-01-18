@@ -28,6 +28,14 @@
         ],
         "description": "",
         "operationId": "getPOIs",
+        "parameters": [{
+          "in": "query",
+          "name": "htmlContent",
+          "schema": {
+            "type": "boolean"
+          },
+          "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
+        }],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -174,6 +182,13 @@
             },
             "required": true,
             "description": "POI type. `legends`, `sights` or `restaurants`"
+          }, {
+            "in": "query",
+            "name": "htmlContent",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
           }
         ],
         "responses": {
@@ -205,6 +220,13 @@
             },
             "required": true,
             "description": "key of POI"
+          }, {
+            "in": "query",
+            "name": "htmlContent",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
           }
         ],
         "responses": {
@@ -290,6 +312,13 @@
             },
             "required": true,
             "description": "key of POI"
+          }, {
+            "in": "query",
+            "name": "htmlContent",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
           }
         ],
         "responses": {

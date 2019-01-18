@@ -35,13 +35,13 @@ legendContentSchema.methods.withSavedHtmlContent = function (key, lang) {
   const fields = ['explored', 'preview']
   fields.forEach(field => {
     const fieldContent = this[field].url
-    const fieldFilename = `${generateNewFilename(`${key}_${field}_${lang}`)}.html`
+    const fieldFilename = `${key}_${field}_${lang}.html`
     fs.writeFileSync(`files/${fieldFilename}`, fieldContent)
     this[field].url = fieldFilename
   })
 
   this.puzzle.hints = this.puzzle.hints.map(hint => {
-    const hintFilename = `${generateNewFilename(`${key}_hint_${lang}.html`)}.html`
+    const hintFilename = `${key}_hint_${lang}.html`
     fs.writeFileSync(`files/${hintFilename}`, hint)
     return hintFilename
   })

@@ -27,8 +27,8 @@ const restaurantContentSchema = new mongoose.Schema({
 
 restaurantContentSchema.methods.withSavedHtmlContent = function (key, lang) {
   const infoContent = this.info.url
-  const infoFilename = `${generateNewFilename(`${key}_${field}_${lang}`)}.html`
-  fs.writeFile(`files/${infoFilename}`, infoContent)
+  const infoFilename = `${key}_info_${lang}.html`
+  fs.writeFileSync(`files/${infoFilename}`, infoContent)
   this.info.url = infoFilename
 }
 
