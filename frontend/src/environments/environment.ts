@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: "http://localhost:3000/",
+  backendUrl: "https://gr-esports.de:3000/",
   map: {
     defaultCenter: {
       lat: 51.15,

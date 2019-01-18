@@ -34,8 +34,6 @@ export class PoiContentComponent
 
   initContent;
 
-  parentSubmit = false;
-
   // flag for canDeativate-method to leave site without warning
   readyToDeactivate = false;
 

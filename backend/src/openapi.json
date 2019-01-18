@@ -28,14 +28,16 @@
         ],
         "description": "",
         "operationId": "getPOIs",
-        "parameters": [{
-          "in": "query",
-          "name": "htmlContent",
-          "schema": {
-            "type": "boolean"
-          },
-          "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
-        }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "htmlContent",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether JSON result should contain HTML content in it or just links to HTML files"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -182,7 +184,8 @@
             },
             "required": true,
             "description": "POI type. `legends`, `sights` or `restaurants`"
-          }, {
+          },
+          {
             "in": "query",
             "name": "htmlContent",
             "schema": {
@@ -220,7 +223,8 @@
             },
             "required": true,
             "description": "key of POI"
-          }, {
+          },
+          {
             "in": "query",
             "name": "htmlContent",
             "schema": {
@@ -312,7 +316,8 @@
             },
             "required": true,
             "description": "key of POI"
-          }, {
+          },
+          {
             "in": "query",
             "name": "htmlContent",
             "schema": {
@@ -697,41 +702,78 @@
             "preview": {
               "type": "string",
               "description": "Preview image of that POI"
+            }
+          }
+        },
+        "video": {
+          "type": "object",
+          "properties": {
+            "arScene": {
+              "type": "string"
             },
-            "video": {
-              "type": "string",
-              "properties": {
-                "arScene": {
-                  "type": "string"
-                },
-                "iconScene": {
-                  "type": "string"
-                }
+            "iconScene": {
+              "type": "string"
+            }
+          }
+        },
+        "vuforiaTargets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "This is a set of images used for vuforia to enable scan feature. Only applicable to legends. It contains all pictures/marks that should be scannable in app"
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/POIMediaContentObj"
+          },
+          "example": {
+            "de": {
+              "name": "Test Sehenswürdigkeit",
+              "info": {
+                "heading": "Info",
+                "index": 0,
+                "type": "info",
+                "url": "https://gr-esports.de:3000/test_sight_info_de.html"
               }
             },
-            "vuforiaTargets": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "This is a set of images used for vuforia to enable scan feature. Only applicable to legends. It contains all pictures/marks that should be scannable in app"
-            }
-          },
-          "content": {
-            "type": "object",
-            "properties": {
-              "explored": {
-                "$ref": "#/definitions/POIMediaContent"
-              },
-              "preview": {
-                "$ref": "#/definitions/POIMediaContent"
-              },
-              "puzzle": {
-                "$ref": "#/definitions/POIMediaHints"
+            "en": {
+              "name": "Test Sight",
+              "info": {
+                "heading": "Information",
+                "index": 0,
+                "type": "info",
+                "url": "https://gr-esports.de:3000/test_sight_info_en.html"
+              }
+            },
+            "pl": {
+              "name": "blah",
+              "info": {
+                "heading": "asdfdasf",
+                "index": 0,
+                "type": "info",
+                "url": "https://gr-esports.de:3000/test_sight_info_pl.html"
               }
             }
           }
         }
+      }
+    },
+    "POIMediaContentObj": {
+      "name": {
+        "type": "string",
+        "example": "Fall from the Church Roof",
+        "description": "Name of the POI"
+      },
+      "explored": {
+        "$ref": "#/definitions/POIMediaContent"
+      },
+      "preview": {
+        "$ref": "#/definitions/POIMediaContent"
+      },
+      "puzzle": {
+        "$ref": "#/definitions/POIMediaHints"
       }
     },
     "POIMediaContent": {
