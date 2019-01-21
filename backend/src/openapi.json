@@ -358,6 +358,53 @@
         }
       }
     },
+    "/versions": {
+      "get": {
+        "summary": "Get versions info",
+        "tags": [
+          "poi"
+        ],
+        "description": "",
+        "operationId": "getVersions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "locationData": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "$ref": "#/definitions/Version"
+                      }
+                    }
+                  },
+                  "example": {
+                    "locationData": {
+                      "legends": {
+                        "url": "legends",
+                        "version": "vl.1.24"
+                      },
+                      "sights": {
+                        "url": "sights",
+                        "version": "vs.1.1"
+                      },
+                      "restaurants": {
+                        "url": "restaurants",
+                        "version": "vr.1.4"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "summary": "Get info of users",
@@ -559,6 +606,17 @@
     }
   },
   "definitions": {
+    "Version": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "$ref": "#/definitions/POIType"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
     "ApiMessage": {
       "type": "object",
       "properties": {
