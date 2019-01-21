@@ -18,6 +18,7 @@ import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.gua
 import { isEqual } from "lodash";
 import { HostListener } from "@angular/core";
 import SnackbarService from "src/app/shared/services/snackbar.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: "app-poi-content",

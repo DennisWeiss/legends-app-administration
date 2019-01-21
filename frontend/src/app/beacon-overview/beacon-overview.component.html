@@ -1,66 +1,69 @@
 <div [style.padding]="'50px'">
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="50px">
-  <form fxFlex="1 1 auto" #form="ngForm">
-    <mat-card fxLayout="column" fxLayoutAlign="center center">
-    <mat-form-field class="form-field">
-      <input matInput type="text" #name="ngModel" [(ngModel)]="beacon.name" name="name" placeholder="Name" required>
-      <mat-error *ngIf="name.invalid">{{requiredErrStr}}</mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <input matInput #beaconId="ngModel" type="number" min="0" [(ngModel)]="beacon.beaconId" name="beaconId"
-      placeholder="Beacon-ID" [disabled]="editMode" required oninput="this.value = Math.abs(this.value)">
-      <mat-error *ngIf="beaconId.invalid">{{requiredErrStr}}</mat-error>
-    </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="50px">
+    <form fxFlex="1 1 auto" #form="ngForm">
+      <mat-card fxLayout="column" fxLayoutAlign="center center">
+        <mat-form-field class="form-field">
+          <input matInput type="text" #name="ngModel" [(ngModel)]="beacon.name" name="name" placeholder="Name" required>
+          <mat-error *ngIf="name.invalid">{{requiredErrStr}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <input matInput #beaconId="ngModel" type="number" min="0" [(ngModel)]="beacon.beaconId" name="beaconId"
+                 placeholder="Beacon-ID" [disabled]="editMode" required oninput="this.value = Math.abs(this.value)">
+          <mat-error *ngIf="beaconId.invalid">{{requiredErrStr}}</mat-error>
+        </mat-form-field>
 
-    <div fxLayout fxLayoutGap="10px" class="form-field form-field-coords"
-    fxLayoutAlign="space-around">
-      <mat-form-field>
-        <input matInput #lat="ngModel" min="-90" max="90" type="number" [(ngModel)]="beacon.coordinates.lat" name="lat"
-          placeholder="Lattitude" required />
-          <mat-error *ngIf="lat.invalid">{{requiredErrStr}}</mat-error>
-     </mat-form-field>
+        <div fxLayout fxLayoutGap="10px" class="form-field form-field-coords"
+             fxLayoutAlign="space-around">
+          <mat-form-field>
+            <input matInput #lat="ngModel" min="-90" max="90" type="number" [(ngModel)]="beacon.coordinates.lat"
+                   name="lat"
+                   placeholder="Lattitude" required/>
+            <mat-error *ngIf="lat.invalid">{{requiredErrStr}}</mat-error>
+          </mat-form-field>
 
-    <mat-form-field>
-     <input matInput #lng="ngModel" min="-180" max="180" type="number" [(ngModel)]="beacon.coordinates.lng" name="lng"
-          placeholder="Longitude" required />
-          <mat-error *ngIf="lng.invalid">{{requiredErrStr}}</mat-error>
-    </mat-form-field>
-  </div>
+          <mat-form-field>
+            <input matInput #lng="ngModel" min="-180" max="180" type="number" [(ngModel)]="beacon.coordinates.lng"
+                   name="lng"
+                   placeholder="Longitude" required/>
+            <mat-error *ngIf="lng.invalid">{{requiredErrStr}}</mat-error>
+          </mat-form-field>
+        </div>
 
 
-  <mat-card-actions>
-    <button type="submit" *ngIf="!editMode" mat-raised-button color="primary"
-    (click)="createBeacon(form.value)">
+        <mat-card-actions>
+          <button type="submit" *ngIf="!editMode" mat-raised-button color="primary"
+                  (click)="createBeacon(form.value)">
       <span fxLayout fxLayoutAlign="space-around center" fxLayoutGap="5px">
         <mat-icon>add_circle</mat-icon>
         <span>{{'ADD' | translate:'actions'}}</span>
       </span>
-    </button>
-    <button type="submit" *ngIf="editMode" mat-raised-button color="primary"
-    (click)="saveBeacon(form.value)">
+          </button>
+          <button type="submit" *ngIf="editMode" mat-raised-button color="primary"
+                  (click)="saveBeacon(form.value)">
       <span fxLayout fxLayoutAlign="center center" fxLayoutGap="5px">
         <mat-icon>save</mat-icon>
         <span>{{'SAVE' | translate:'actions'}}</span>
       </span>
-    </button>
-    <button type="submit" *ngIf="editMode" mat-raised-button color="accent"
-    (click)="cancelEdit()"><span fxLayout fxLayoutGap="5px" fxLayoutAlign="center center">
+          </button>
+          <button type="submit" *ngIf="editMode" mat-raised-button color="accent"
+                  (click)="cancelEdit()"><span fxLayout fxLayoutGap="5px" fxLayoutAlign="center center">
       <mat-icon>cancel</mat-icon>
       <span>{{'CANCEL' | translate:'actions'}}</span>
     </span>
-    </button>
+          </button>
 
-  </mat-card-actions>
+        </mat-card-actions>
 
-  </mat-card>
-</form>
+      </mat-card>
+    </form>
 
-  <mat-card class="overview-map-card mat-elevation-z4" fxFlex="3 1 auto">
-    <app-beacon-overview-map
-    [beacons]="fetchedBeacons"
-    [markerCoords]="beacon.coordinates"
-    (coordsChanged)="beacon.coordinates = $event"
-    (beaconEditAction)="activateEditMode($event)"></app-beacon-overview-map>
-  </mat-card>
-</div>
+    <mat-card class="overview-map-card mat-elevation-z4" fxFlex="3 1 auto">
+      <app-beacon-overview-map
+        class="overview-map"
+        [beacons]="fetchedBeacons"
+        [markerCoords]="beacon.coordinates"
+        (coordsChanged)="beacon.coordinates = $event"
+        (beaconEditAction)="activateEditMode($event)"></app-beacon-overview-map>
+    </mat-card>
+  </div>
 </div>
