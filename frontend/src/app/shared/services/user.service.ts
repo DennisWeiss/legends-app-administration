@@ -5,6 +5,11 @@ import { User } from '../../auth/auth.service';
 import { Observable } from 'rxjs';
 
 
+/**
+ * Requests to fetch, create and update Point of Interests.
+ *
+ */
+
 @Injectable({
   providedIn: 'root'
 })

@@ -56,7 +56,9 @@ export class PoiContentComponent
   // called after contentForm received values and updated.
   @Output() contentFormReady: EventEmitter<any> = new EventEmitter();
 
+  //obj consisting of content in all langs that was initially fetched
   contents;
+
   contentForm: FormGroup;
 
   id: string;
@@ -87,10 +89,11 @@ export class PoiContentComponent
     }
 
     if (!this.editMode) {
-      // contentForm is initialised
+      // contentForm is fully initialised
       this.contentFormReady.emit(this.contentFormService.contentForm);
     }
 
+    //TO-DO: Fetch Content with given id
     this.paramSub = this.route.paramMap.subscribe(params => {
       if (params.has("id") && params.has("type")) {
         this.id = params.get("id");
@@ -106,7 +109,7 @@ export class PoiContentComponent
       // parent exists -> prevent child to get a warning when leaving site
       this.readyToDeactivate = true;
 
-      if (!this.editMode) {
+      if (!this.editMode) { // type cannot change in edit-mode
         // change structure of content based on current type
         sub = this.poiForm.controls.type.valueChanges.subscribe(val => {
           this.contentFormService.reset();
@@ -115,14 +118,17 @@ export class PoiContentComponent
         this.subs.push(sub);
       }
 
+      // parent-component received poi
       sub = this.newPoiFetched.subscribe(poi => {
         this._poi = poi;
         this.contentFormService.update(this._poi.media.content, this._poi.type);
 
+        // content-form fully initialised
         this.contentFormReady.emit(this.contentFormService.contentForm);
       });
       this.subs.push(sub);
 
+      //parent-component was reset
       sub = this.parentReset.subscribe(() => {
         this.contentFormService.reset();
         if (this.editMode) {
@@ -132,6 +138,10 @@ export class PoiContentComponent
       this.subs.push(sub);
     }
   }
+
+/**
+ * Is only called if there is no parent-component
+ */
 
   fetchContent() {
     this.id = this.route.snapshot.paramMap.get("id");

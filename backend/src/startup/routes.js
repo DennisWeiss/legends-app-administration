@@ -15,6 +15,7 @@ module.exports = function(app) {
   app.use("/users", auth, permission('ADMIN'), userRoutes);
   app.use("/beacon", auth, permission('EDIT_BEACON'), beaconRoutes);
 
+  
   const errorMiddleware = require('../middlewares/error');
   app.use(errorMiddleware);
 };

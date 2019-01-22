@@ -3,6 +3,13 @@ import translate from '../../translations/translate';
 import { LocaleService } from '../services/locale.service';
 import {updateLocale} from "moment";
 
+
+/**
+ * Is used to translate text in templates.
+ * Implemented as an impure pipe: Holds current state of selected language.
+ * If language is changed, pipe is updated as well and updates text in templates.
+ */
+
 @Pipe({
   name: 'translate',
   pure: false

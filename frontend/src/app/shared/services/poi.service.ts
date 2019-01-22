@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http'
 import { environment } from '../../../environments/environment';
-import { Sight, Legend, Restaurant, POI } from '../../poi-edit/poi.model';
+import { POI } from '../../poi-edit/poi.model';
 import { Subject } from 'rxjs';
 import * as moment from 'moment'
 import {getTimestamp} from "../../utils/helperfunctions";
@@ -20,7 +20,7 @@ const mapPOIData = poi => {
 }
 
 /**
- *
+ * Requests to create, edit, fetch or delete POIs
  *
  *
  */
@@ -50,7 +50,7 @@ export class PoiService {
     return this.http.request(req);
   };
 
-  putPOI = (poi: Restaurant | Legend | Sight) => {
+  putPOI = (poi: POI) => {
     const req = new HttpRequest('PUT', `${environment.backendUrl}poi`, this.createFormData(poi), {
       reportProgress: true
     });

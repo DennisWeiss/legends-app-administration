@@ -66,7 +66,7 @@ export class PoiEditFormsService {
   }
 
   reset() {
-    
+
     this.clearFormArray(this.vuforiaArray);
     const type = this.poiForm.controls.type.value;
     this.poiForm.reset();
@@ -87,7 +87,7 @@ export class PoiEditFormsService {
     if(beaconControl.pristine) {
       return of(null);
     }
-
+    
     return timer(500).pipe(switchMap(()=>{
       return this.beaconService.getBeacon(beaconControl.value)
     })

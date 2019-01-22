@@ -1,6 +1,12 @@
 const jwt = require("jsonwebtoken");
 const appConf = require("../../app-conf");
 
+/**
+ * middleware that checks if response contains valid jwt-token
+ * adds information that was included in the token to the request 
+ */
+
+
 module.exports = (req, res, next) => {
 
 const errMsg = { message: "Authentication failed, please login again!" };

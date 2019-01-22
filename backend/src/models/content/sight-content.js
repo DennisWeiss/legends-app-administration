@@ -1,4 +1,4 @@
-import {generateNewFilename} from '../../helper/helper-functions'
+import { generateNewFilename } from '../../helper/helper-functions'
 import fs from 'fs'
 
 const mongoose = require('mongoose');

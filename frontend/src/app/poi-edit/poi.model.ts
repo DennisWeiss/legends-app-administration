@@ -26,52 +26,12 @@ export interface POI {
     };
     vuforiaTargets: Array<string>;
   };
-  name: {
-    de: string;
-    en: string;
-    pl: string;
-  };
   type: string;
 
-}
-
-export interface Legend {
-
-  beaconId: number;
-  publishingTimestamp: number;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  explored: boolean;
-  icons: {
-    default: string;
-    explored: string;
-  };
-  id: number;
-  key: string;
-  media: {
-    content: {
-      [key: string]: LegendContent;
-    }
-    image: {
-      preview: string;
-    };
-    video: {
-      arScene: string;
-      iconScene: string;
-    };
-    vuforiaTargets: Array<string>;
-  };
-  name: {
-    de: string;
-    en: string;
-    pl: string;
-  };
-  type: string;
 }
 
 export interface LegendContent {
+  name: string;
   explored: ContentObject;
   preview: ContentObject;
   puzzle: {
@@ -84,6 +44,7 @@ export interface LegendContent {
 }
 
 export interface RestSightContent {
+  name: string;
   info: {
     heading: string,
     index: 0,
@@ -104,75 +65,3 @@ export interface ContentObject {
   url: string;
 }
 
-export interface Restaurant {
-
-
-  beaconId: number;
-  publishingTimestamp: number;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  explored: boolean;
-  icons: {
-    default: string;
-    explored: string;
-  };
-  id: number;
-  key: string;
-  media: {
-    content: {
-      [key: string]: RestSightContent;
-    }
-    image: {
-      preview: string;
-    };
-    video: {
-      arScene: string;
-      iconScene: string;
-    };
-    vuforiaTargets: Array<string>;
-  };
-  name: {
-    de: string;
-    en: string;
-    pl: string;
-  };
-  type: string;
-}
-
-export interface Sight {
-
-  beaconId: number;
-  publishingTimestamp: number;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  explored: boolean;
-  icons: {
-    default: string;
-    explored: string;
-  };
-  id: number;
-  key: string;
-  media: {
-    content: {
-      [key: string]: RestSightContent;
-    }
-    image: {
-      preview: string;
-    };
-    video: {
-      arScene: string;
-      iconScene: string;
-    };
-    vuforiaTargets: Array<string>;
-  };
-  name: {
-    de: string;
-    en: string;
-    pl: string;
-  };
-  type: string;
-}

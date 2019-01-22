@@ -13,6 +13,12 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import SnackbarService from '../services/snackbar.service';
 
+
+/**
+ * Intercepts all responses. If there is an error-response,
+ * error is displayed in a snackbar showing message and statuscode
+ */
+
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 

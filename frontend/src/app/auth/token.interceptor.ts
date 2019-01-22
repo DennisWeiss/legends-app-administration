@@ -3,6 +3,11 @@ import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http'
 import { AuthService } from './auth.service';
 
 
+
+/**
+ * Append token to Header saved in localStorage to every request.
+ */
+
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 

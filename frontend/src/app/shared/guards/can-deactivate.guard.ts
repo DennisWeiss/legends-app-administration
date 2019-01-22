@@ -7,6 +7,13 @@ export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
  }
 
+
+ /**
+  * Check whether component is allowed to activate.
+  * canDeactivate-interface needs to be implemented by component using this guard.
+  * This guards need to be set in app-routing.module.ts for every comp that should use it.
+  */
+
 @Injectable({
   providedIn: 'root'
 })

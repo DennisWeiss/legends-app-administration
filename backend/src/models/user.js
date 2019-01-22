@@ -2,8 +2,13 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import appConf from "../../app-conf";
 
-
 const uniqueValidator = require('mongoose-unique-validator');
+
+/**
+ * 
+ * @param {*} expStr time until expiration, e.g. "1h"
+ * @param {*} user user-object that consists of permissions, username and _id
+ */
 
 function genAuthToken(expStr, user) {
     return 'Bearer ' + jwt.sign(
@@ -29,7 +34,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: 8
+        minLength: 8 // !!! Does not validate length of original password (see register-route) !!!
     },
     permissions: {
         type: Array,

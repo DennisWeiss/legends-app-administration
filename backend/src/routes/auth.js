@@ -36,7 +36,6 @@ router.post("/register", auth, permission('ADMIN'), async (req, res, next) => {
   } catch (err) {
 
     if(err.name === 'ValidationError') {
-      console.log(err.errors);
       return res.status(400).send({message: err.message, error: err});
     } else if (err.code === 11000) { // duplicate key
       return res.status(400)

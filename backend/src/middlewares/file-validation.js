@@ -1,4 +1,8 @@
 
+/**
+ * middleware that validates all data-fields
+ */
+
 const fs = require('fs')
 const { promisify } = require('util')
 
@@ -50,6 +54,7 @@ module.exports.validate = async (req, res, next) => {
 
     let isValid = true;
     const files = req.files;
+    let errMsg= '';
 
     const images = [files['icon_default'], files['icon_explored'], files['image_preview']]
     .filter((file) => {

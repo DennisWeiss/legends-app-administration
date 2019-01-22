@@ -10,7 +10,7 @@ export default class SnackbarService {
 
 constructor(public snackBar: MatSnackBar) {}
 
-openSnackBar(message: string, action: string) {
+openSnackBar(message: string, action: string): void {
 
   this.snackBar.open(message, action, {
     duration: 5000,

@@ -9,6 +9,11 @@ const RestaurantContent = require('./content/restaurant-content');
 const LegendContent = require('./content/legend-content');
 const SightContent = require('./content/sight-content');
 
+/**
+ * !!! ADD ALL NEW CONTENT-TYPE-MODELS HERE !!!
+ * 
+ */
+
 const poiContentModelCallbacks = {
   restaurants: RestaurantContent,
   sights: SightContent,
@@ -146,7 +151,6 @@ POISchema.statics.validateContent = async function (content, type) {
 POISchema.methods.generateKey = async function(iteration = 0) {
 
   if (!this.media || !this.media.content || !this.media.content.get('en') || !this.media.content.get('en').name) {
-    winston.warn('lol');
     throw new Error('Creation of key failed! English name cannot be found on POI-object.');
   }
   return await generateKey(this.media.content.get('en').name, iteration);

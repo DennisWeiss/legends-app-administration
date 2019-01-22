@@ -10,6 +10,11 @@ const parsePathStr = function(pathStr = '') {
     return pathStr.split('/').pop();
 }
 
+/**
+ * middleware that assigns fileName to url-field
+ * 
+ */
+
 module.exports.middleware = async (req, res, next) => {
     // since mime-type is multipart/formData, poi-object was stringified and needs to be parsed
     const body = JSON.parse(req.body.poi);
@@ -17,6 +22,7 @@ module.exports.middleware = async (req, res, next) => {
     // if formdata contains strings (in this case url), multer puts them into the body
 
     const files = req.files;
+
 
     body.icons.default = files['icon_default'] ? getFilePath('icon_default', files) : parsePathStr(body.icons.default);
     body.icons.explored = files['icon_explored'] ? getFilePath('icon_explored', files) : parsePathStr(body.icons.explored);
@@ -34,7 +40,7 @@ module.exports.middleware = async (req, res, next) => {
     // existing urls are already added in vuforia_targets
     // not reading from parsed poi since array also includes {}
     if(req.body.vuforia_targets) {
-        // handle special case in which vuforia_targets is a string and not an array
+        // handle special case for one image in which vuforia_targets is a string and not an array
         const urlArr = [].concat(req.body.vuforia_targets);
         
         targets.push(...urlArr.map(pathStr => parsePathStr(pathStr)));
