@@ -13,7 +13,14 @@ import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
+import axios from 'axios'
 
+
+const withHtmlContent = poi => new Promise(resolve => {
+  const poiWithHtmlContent = {...poi}
+  const promises = []
+
+})
 
 const mapPOIData = poi => {
   const {publishingTimestamp, ...poiData} = poi
@@ -150,8 +157,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     (this.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
     if(this.editMode) {
-      //assign value to form
-      this.formsService.update(mapPOIData(this.poi));
+      withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
     }
 
     //save form in inital state
@@ -224,7 +230,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     //reset form to default values (see poi-edit-forms.service.ts)
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
-      this.formsService.update(mapPOIData(this.poi));
+      withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
     } else { // create an empty form
       this.poiForm.setValue(this.initPoi);
     }
