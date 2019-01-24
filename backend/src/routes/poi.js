@@ -75,10 +75,9 @@ router.post('/', auth, upload.fields(formData), validateFiles, filePaths, async 
   try {
     await poi.addContent(body.media.content, poi.key)
   } catch (err) {
-    return res.status(400).send({message: 'Invalid content', error: err})
+    return res.status(400).send({message: err.message, error: err})
   }
 
-  winston.info(poi)
   await poi.save()
   await updateVersions(body, res)
   return res.send({message: `POI of type ${poi.type} created successfully`})
@@ -98,7 +97,7 @@ router.put('/', auth, permission('EDIT'), upload.fields(formData), validateFiles
     await poi.addContent(req.body.media.content, poi.key)
   } catch (err) {
     console.error(err)
-    return res.status(400).send({message: 'Invalid content', error: err})
+    return res.status(400).send({message: err.message, error: err})
   }
 
   const poiObj = poi.toObject()

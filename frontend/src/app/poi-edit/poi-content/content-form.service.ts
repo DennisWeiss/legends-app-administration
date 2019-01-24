@@ -97,7 +97,7 @@ private createLegendForm(content): FormGroup {
   content.puzzle.hints.forEach((hint, index) => {
     hintsForm.push(this.fb.group({
       index: [index, Validators.required],
-      url: ['', Validators.required]
+      url: [hint.url, Validators.required]
     }));
   })
 
@@ -120,7 +120,6 @@ private createLegendForm(content): FormGroup {
       hints: hintsForm,
       index: [2, Validators.required],
       type: ['puzzle', Validators.required],
-      url: ['']
     })
   })
 }

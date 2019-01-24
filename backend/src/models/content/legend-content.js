@@ -1,6 +1,4 @@
-import {generateNewFilename} from '../../helper/helper-functions'
 import fs from 'fs'
-
 
 const mongoose = require('mongoose')
 
@@ -41,9 +39,10 @@ legendContentSchema.methods.withSavedHtmlContent = function (key, lang) {
   })
 
   this.puzzle.hints = this.puzzle.hints.map(hint => {
-    const hintFilename = `${key}_hint_${lang}.html`
-    fs.writeFileSync(`files/${hintFilename}`, hint)
-    return hintFilename
+    const hintFilename = `${key}_hint_${lang}_${hint.index}.html`
+    fs.writeFileSync(`files/${hintFilename}`, hint.url)
+    hint.url = hintFilename;
+    return hint;
   })
 }
 
@@ -59,10 +58,12 @@ legendContentSchema.methods.withHtmlContent = function () {
 
   this.puzzle.hints = this.puzzle.hints.map(hint => {
     try {
-      return fs.readFileSync(`files/${hint}`)
+      hint.url = fs.readFileSync(`files/${hint.url}`)
     } catch (err) {
-      return ''
+      //throw new Error(`Could not read hint from file for '${this.name}'`)
+      hint.url = '';
     }
+    return hint;
   })
 
 }

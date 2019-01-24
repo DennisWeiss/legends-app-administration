@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import fs from 'fs'
 
 const winston = require('winston');
 
@@ -101,7 +100,7 @@ const generateKey = async (key, iteration = 0) => {
   return formattedKey
 }
 
-POISchema.methods.addContent = async function (content, key) {
+POISchema.methods.addContent = async function (contents, key) {
   // set content dynamically
   const Content = poiContentModelCallbacks[this.type]
 
@@ -110,10 +109,14 @@ POISchema.methods.addContent = async function (content, key) {
     throw new Error('POI-type does not exist!');
   }
 
-  for (let [lang, contentObj] of Object.entries(content)) {
+  for (let [lang, contentObj] of Object.entries(contents)) {
     const content = new Content(contentObj)
     content.withSavedHtmlContent(key, lang)
+    try {
     await content.validate()
+    } catch(err) {
+      return new Error("Invalid content!");
+    }
     this.media.content.set(lang, content)
   }
 }

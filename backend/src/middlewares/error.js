@@ -1,3 +1,9 @@
+/**
+ * middleware that handles specific errors
+ * 
+ */
+
+
 module.exports = (err, req, res, next) => {
 
     if(err.name === "ValidationError") {
