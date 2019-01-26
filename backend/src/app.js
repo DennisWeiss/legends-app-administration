@@ -14,8 +14,8 @@ import fs from 'fs'
 const app = express()
 const router = express.Router()
 
-app.use(bodyParser.json({limit: '100mb'}))
-app.use(bodyParser.urlencoded({extended: true, limit: '100mb'}))
+app.use(bodyParser.json({limit: '1000mb'}))
+app.use(bodyParser.urlencoded({extended: true, limit: '1000mb'}))
 app.use(cors())
 
 app.use(express.static('files'));
