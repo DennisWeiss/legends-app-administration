@@ -62,9 +62,9 @@ export class PoiService {
     return this.http.delete<{message: string}>(`${environment.backendUrl}poi/${key}`);
   }
 
-  getContents = (key: string) => this.http.get<any>(`${environment.backendUrl}poi/content/${key}`);
+  getContents = (key: string) => this.http.get<any>(`${environment.backendUrl}poi/content/${key}?htmlContent=true`);
 
-  putContents = (contents, key) => this.http.put<any>(`${environment.backendUrl}poi/content/${key}`, contents);
+  putContents = (contents, key) => this.http.put<any>(`${environment.backendUrl}poi/content/${key}?htmlContent=true`, contents);
 
 
   /**
