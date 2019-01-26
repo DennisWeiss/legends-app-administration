@@ -25,7 +25,7 @@
           <input class="name-input" matInput type="text" formControlName="name"
                  [placeholder]="'NAME' | translate:name"/>
       </mat-form-field>
-      <button (click)="deleteLang(lang)" mat-button color="accent">Delete language</button>
+      <button *ngIf="!defaultLangs.includes(lang)" (click)="deleteLang(lang)" mat-button color="accent">Delete language</button>
     </div>
 
     <mat-accordion displayMode="flat" multi="true" *ngIf="type === 'legends'">
@@ -84,7 +84,6 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-
     <mat-accordion *ngIf="type !== 'legends'">
       <mat-expansion-panel formGroupName="info">
         <mat-expansion-panel-header>
@@ -103,10 +102,11 @@
 
   </mat-tab>
 </mat-tab-group>
-
-<div *ngIf="!hasParent" class="poi-content-buttons-bottom">
+<mat-card class="actions">
+<div fxLayout fxLayoutAlign="space-between" *ngIf="!hasParent" class="poi-content-buttons-bottom">
     <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' | translate:name}}</button>
     <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}</button>
 </div>
+</mat-card>
 
 </form>

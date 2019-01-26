@@ -19,6 +19,7 @@ import { isEqual } from "lodash";
 import { HostListener } from "@angular/core";
 import SnackbarService from "src/app/shared/services/snackbar.service";
 import {HttpClient} from "@angular/common/http";
+import { environment } from "src/environments/environment.prod";
 
 @Component({
   selector: "app-poi-content",
@@ -64,6 +65,9 @@ export class PoiContentComponent
 
   // subscriptions
   paramSub: Subscription;
+
+  
+  defaultLangs = environment.defaultLangs;
 
   subs: Subscription[] = [];
 

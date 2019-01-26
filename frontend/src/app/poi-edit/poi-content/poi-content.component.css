@@ -16,3 +16,6 @@ mat-tab [mat-tab-label] {
   margin-bottom: 30px;
 }
 
+.actions {
+  margin-top: 20px;
+ }

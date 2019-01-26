@@ -15,6 +15,10 @@ export class ContentFormService {
 
   initialContentObj = {puzzle: {hints: [1, 2]}};
 
+/**
+ * add new factories here!
+ */
+
   poiCallbacks = {
     'restaurants': this.createRestaurantForm.bind(this),
     'sights':  this.createSightForm.bind(this),
