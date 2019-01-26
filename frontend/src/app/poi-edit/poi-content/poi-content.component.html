@@ -102,8 +102,8 @@
 
   </mat-tab>
 </mat-tab-group>
-<mat-card class="actions">
-<div fxLayout fxLayoutAlign="space-between" *ngIf="!hasParent" class="poi-content-buttons-bottom">
+<mat-card class="actions" *ngIf="!hasParent">
+<div fxLayout fxLayoutAlign="space-between" class="poi-content-buttons-bottom">
     <button class="clear-btn" type="button" (click)="resetForms()" mat-button color="accent">{{'CLEAR' | translate:name}}</button>
     <button class="submit-btn" type="submit" mat-raised-button color="primary">{{'SUBMIT' | translate:name}}</button>
 </div>
