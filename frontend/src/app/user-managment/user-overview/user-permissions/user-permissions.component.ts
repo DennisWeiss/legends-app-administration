@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { startWith, map } from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { PERMISSIONS } from 'src/app/auth/permission/authorization.types';
+
 
 
 @Component({
