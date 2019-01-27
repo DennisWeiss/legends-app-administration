@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {PoiOverviewTableComponent} from './poi-overview-table/poi-overview-table.component'
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {SignupComponent} from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {HeaderComponent} from './header/header.component'
@@ -60,7 +59,6 @@ import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.componen
   declarations: [
     AppComponent,
     PoiOverviewTableComponent,
-    SignupComponent,
     LoginComponent,
     SidenavComponent,
     HeaderComponent,

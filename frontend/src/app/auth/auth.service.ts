@@ -83,10 +83,12 @@ export class AuthService implements OnDestroy {
 
   private setupTokenRefresh(exp): void {
 
+    // make sure old subscription is resolved
     if (this.tokenRefreshSub) {
       this.tokenRefreshSub.unsubscribe();
     }
 
+    // refresh after 1/4 of the expiration time
     const refreshTime = (exp * 1000) / 4;
 
     this.tokenRefreshSub = interval(refreshTime).subscribe(x => {
@@ -96,11 +98,11 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  private getNewToken(): Observable<any> {
+  private getNewToken(): Observable<UserData> {
     return this.http.post<UserData>(`${environment.backendUrl}auth/verify`, {});
   }
 
-  hasPermission(authGroup: AuthGroup) {
+  hasPermission(authGroup) {
 
     if (this.userData.user.permissions[0] === 'ADMIN') {
       return true;

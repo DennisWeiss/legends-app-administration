@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core'
 import {Routes, RouterModule} from '@angular/router'
-import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import {PoiOverviewTableComponent} from './poi-overview-table/poi-overview-table.component'
 import { PoiEditComponent } from './poi-edit/poi-edit.component';
 import { PoiContentComponent } from './poi-edit/poi-content/poi-content.component';
 import { AuthGuard } from './auth/auth.guard';
