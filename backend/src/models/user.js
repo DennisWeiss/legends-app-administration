@@ -17,12 +17,9 @@ function genAuthToken(expStr, user) {
        {expiresIn: expStr});
 }
 
-
 /**
  * @attribute permissions Restricts user to certain actions he can do. They should be only set by an admin.
- * 
  */
-
 
 const userSchema = new mongoose.Schema({
     

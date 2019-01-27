@@ -1,4 +1,4 @@
-<form [formGroup]="poiForm" (ngSubmit)="onSubmit()" class="container">
+<form [formGroup]="poiForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" class="container">
   <div
     fxLayout
     fxLayoutGap="20px"

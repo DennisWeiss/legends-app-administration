@@ -91,6 +91,7 @@ private createRestaurantForm(): FormGroup {
 }
 
 private createSightForm(): FormGroup {
+  // has exactly the same structure
   return this.createRestaurantForm();
 }
 
@@ -124,6 +125,7 @@ private createLegendForm(content): FormGroup {
       hints: hintsForm,
       index: [2, Validators.required],
       type: ['puzzle', Validators.required],
+      url: ['', Validators.required]
     })
   })
 }

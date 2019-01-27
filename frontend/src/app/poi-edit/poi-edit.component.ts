@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PoiService } from '../shared/services/poi.service';
 import { Subscription, Subject, Observable } from 'rxjs';
-import { take, startWith, map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup,FormArray } from '@angular/forms';
 import { POI } from './poi.model';
@@ -13,7 +13,7 @@ import {isEqual} from 'lodash';
 import { HostListener } from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
-import axios from 'axios'
+import { TranslatePipe } from '../shared/pipes/translations.pipe';
 
 
 const withHtmlContent = poi => new Promise(resolve => {
@@ -87,6 +87,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     private poiService: PoiService,
     public formsService: PoiEditFormsService,
     private dialog: MatDialog,
+    private transPipe: TranslatePipe
   ) {
   }
 
@@ -139,6 +140,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
         .getPOI(this.id)
         .pipe(take(1))
         .subscribe((poi: POI) => {
+          console.log('poi', poi);
           this.poi = poi;
           this.newPoiFetched.next(poi);
         });
@@ -157,7 +159,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     (this.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
     if(this.editMode) {
-      withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
+     // withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
+     this.formsService.update(mapPOIData(this.poi));
     }
 
     //save form in inital state

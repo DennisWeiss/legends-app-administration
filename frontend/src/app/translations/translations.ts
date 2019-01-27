@@ -67,7 +67,8 @@ export default {
       "INFO_TEXT": "Füge einen Info-Text hinzu.",
       "SUBMIT": "Submit",
       "CLEAR": "Clear",
-      "NAME": "Title"
+      "NAME": "Title",
+      "HINTS": "Hints"
     },
     "login": {
       "NAME": "Username",
@@ -157,7 +158,8 @@ export default {
       "PUZZLES": "Rätsel",
       "SUBMIT": "Abschließen",
       "CLEAR": "Zurücksetzen",
-      "NAME": "Titel"
+      "NAME": "Titel",
+      "HINTS": "Hinweise"
     },
     "login": {
       "NAME": "Benutzername",

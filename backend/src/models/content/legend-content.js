@@ -25,12 +25,20 @@ const legendContentSchema = new mongoose.Schema({
     ],
     heading: { type: String, required: true },
     index: {type: Number, required: true },
-    type: { type: String, required: true }
+    type: { type: String, required: true },
+    url: { type: String, required: true }
   }
 })
 
+/**
+ * Save content in html-files and assign filename to url-attributes
+ * 
+ * @param key unique key of a poi
+ * @param lang content's language
+ */
+
 legendContentSchema.methods.withSavedHtmlContent = function (key, lang) {
-  const fields = ['explored', 'preview']
+  const fields = ['explored', 'preview', 'puzzle']
   fields.forEach(field => {
     const fieldContent = this[field].url
     const fieldFilename = `${key}_${field}_${lang}.html`
@@ -46,8 +54,12 @@ legendContentSchema.methods.withSavedHtmlContent = function (key, lang) {
   })
 }
 
+/**
+ * Load content from files and assign to url-attribute.
+ */
+
 legendContentSchema.methods.withHtmlContent = function () {
-  const fields = ['explored', 'preview']
+  const fields = ['explored', 'preview', 'puzzle']
   fields.forEach(field => {
     try {
       this[field].url = fs.readFileSync(`files/${this[field].url}`)

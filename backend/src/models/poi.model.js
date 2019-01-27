@@ -1,7 +1,5 @@
 import mongoose from 'mongoose'
 
-const winston = require('winston');
-
 const uniqueValidator = require('mongoose-unique-validator');
  
 const RestaurantContent = require('./content/restaurant-content');
@@ -10,7 +8,6 @@ const SightContent = require('./content/sight-content');
 
 /**
  * !!! ADD ALL NEW CONTENT-TYPE-MODELS HERE !!!
- * 
  */
 
 const poiContentModelCallbacks = {
@@ -18,6 +15,7 @@ const poiContentModelCallbacks = {
   sights: SightContent,
   legends: LegendContent
 }
+
 
 const beaconValidator = function(v) {
   return new Promise(function(resolve, reject) {
@@ -34,7 +32,6 @@ const beaconValidator = function(v) {
         resolve(true);
       }
    })
-
   });
 }
 
@@ -151,6 +148,10 @@ POISchema.statics.validateContent = async function (content, type) {
   }
 }
 
+/**
+ * generate key out of english name in this.media.content
+ */
+
 POISchema.methods.generateKey = async function(iteration = 0) {
 
   if (!this.media || !this.media.content || !this.media.content.get('en') || !this.media.content.get('en').name) {
@@ -161,6 +162,5 @@ POISchema.methods.generateKey = async function(iteration = 0) {
 
 
 POISchema.plugin(uniqueValidator);
-
 
 export default mongoose.model('POI', POISchema)

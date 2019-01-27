@@ -19,3 +19,8 @@ mat-tab [mat-tab-label] {
 .actions {
   margin-top: 20px;
  }
+
+
+.hints-heading {
+margin-top: 50px;
+}

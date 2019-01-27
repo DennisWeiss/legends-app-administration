@@ -72,7 +72,9 @@
         </mat-expansion-panel-header>
         <mat-form-field>
             <input matInput type="text" formControlName="heading" placeholder="Heading">
-          </mat-form-field>
+        </mat-form-field>
+        <quill-editor [formControl] ="content(lang).puzzle.controls.url" ></quill-editor>
+        <h3 class="hints-heading" [class.invalid]="contentForm.get(lang).controls.puzzle.get('hints').invalid">{{'HINTS' | translate:name}}</h3>
         <div formArrayName="hints">
          <div fxLayout fxLayoutAlign="center center" *ngFor="let hint of hints(lang).controls; let i = index" class="hint">
           <quill-editor [formControl]="hint.controls.url" ></quill-editor>

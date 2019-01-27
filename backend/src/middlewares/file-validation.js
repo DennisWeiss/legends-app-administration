@@ -24,6 +24,7 @@ const imgMimeTypes = [
     'image/gif'
 ]
 
+// expose all allowed mime-types (used for broad-validation, see config of multer in routes/poi)
 module.exports.mimetypes = [...videoMimeTypes, ...imgMimeTypes];
     
 
