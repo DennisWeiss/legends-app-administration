@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {map, take} from 'rxjs/operators';
 import { AuthGroup } from './permission/authorization.types';
-import SnackbarService from '../shared/services/snackbar.service';
+import {SnackbarService} from '../shared/services/snackbar.service';
 
 
 @Injectable({

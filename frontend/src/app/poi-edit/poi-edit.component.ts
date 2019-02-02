@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
 import { FormGroup,FormArray } from '@angular/forms';
 import { POI } from './poi.model';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
 import { CanComponentDeactivate } from '../shared/guards/can-deactivate.guard';
 import {isEqual} from 'lodash';
@@ -68,6 +68,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   newPoiFetched = new Subject<POI>();
 
   dialogOpened = false;
+  reqPending = false;
 
   // references for quick access
   poiForm: FormGroup;

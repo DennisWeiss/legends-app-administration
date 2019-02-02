@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {take} from "rxjs/operators";
 import {PoiService} from "../shared/services/poi.service";
-import SnackbarService from '../shared/services/snackbar.service';
+import { SnackbarService}  from '../shared/services/snackbar.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/*import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PoiEditComponent } from './poi-edit.component';
 import { PoiMapComponent } from './poi-map/poi-map.component';
@@ -29,3 +29,4 @@ import { UploadStatusDialogComponent } from './upload-status-dialog/upload-statu
   ]
 })
 export class PoiEditModule { }
+*/

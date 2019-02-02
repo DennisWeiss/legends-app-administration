@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ContentFormService {
 
   constructor(private fb: FormBuilder) { }

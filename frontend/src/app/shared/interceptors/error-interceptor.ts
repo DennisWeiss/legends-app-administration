@@ -11,7 +11,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import SnackbarService from '../services/snackbar.service';
+import {SnackbarService} from '../services/snackbar.service';
 
 
 /**

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BeaconService } from 'src/app/shared/services/beacon.service';
 import { take } from 'rxjs/operators';
-import SnackbarService from 'src/app/shared/services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Beacon } from 'src/app/shared/models/beacon.model';
 
 @Component({

@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
 import {take} from 'rxjs/operators';
-import SnackbarService from '../shared/services/snackbar.service';
+import {SnackbarService} from '../shared/services/snackbar.service';
 import * as moment from 'moment'
 
 

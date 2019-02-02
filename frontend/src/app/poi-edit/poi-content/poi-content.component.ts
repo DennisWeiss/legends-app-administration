@@ -1,14 +1,13 @@
 import {
-  Component,
   OnInit,
   Input,
   Output,
   EventEmitter,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
+  Component
 } from "@angular/core";
 import { FormGroup, FormArray } from "@angular/forms";
-import { ContentFormService } from "./content-form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PoiService } from "src/app/shared/services/poi.service";
 import { take } from "rxjs/operators";
@@ -17,9 +16,9 @@ import { POI } from "../poi.model";
 import { CanComponentDeactivate } from "src/app/shared/guards/can-deactivate.guard";
 import { isEqual } from "lodash";
 import { HostListener } from "@angular/core";
-import SnackbarService from "src/app/shared/services/snackbar.service";
-import {HttpClient} from "@angular/common/http";
-import { environment } from "src/environments/environment.prod";
+import { environment } from "src/environments/environment";
+import { ContentFormService } from "./content-form.service";
+import { SnackbarService } from "src/app/shared/services/snackbar.service";
 
 @Component({
   selector: "app-poi-content",
@@ -66,17 +65,17 @@ export class PoiContentComponent
   // subscriptions
   paramSub: Subscription;
 
-  
+
   defaultLangs = environment.defaultLangs;
 
   subs: Subscription[] = [];
 
   constructor(
+    private snackbarService: SnackbarService,
     private contentFormService: ContentFormService,
     private route: ActivatedRoute,
     private router: Router,
-    private poiService: PoiService,
-    private snackbarService: SnackbarService
+    private poiService: PoiService
   ) {}
 
   ngOnInit() {

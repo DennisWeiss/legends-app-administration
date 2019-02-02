@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BeaconService } from '../shared/services/beacon.service';
 import { take } from 'rxjs/operators';
 import { Beacon } from '../shared/models/beacon.model';
-import SnackbarService from '../shared/services/snackbar.service';
+import {SnackbarService} from '../shared/services/snackbar.service';
 
 
 @Component({

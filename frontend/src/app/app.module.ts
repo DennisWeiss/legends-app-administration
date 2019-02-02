@@ -55,6 +55,7 @@ import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-ma
 import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
 import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
+import { SnackbarService } from './shared/services/snackbar.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +127,8 @@ import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.componen
       useClass: ErrorInterceptor,
       multi: true
     },
-    TranslatePipe
+    TranslatePipe,
+    SnackbarService
   ],
   bootstrap: [AppComponent],
   entryComponents: [UploadStatusDialogComponent]
