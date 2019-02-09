@@ -77,7 +77,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private snackBarService: SnackbarService) {
     this.updateLocale(this.localeService.getLocale())
-    this.localeService.localeUpdated.subscribe(this.updateLocale)
+    this.localeService.localeUpdated.subscribe(this.updateLocale.bind(this))
   }
 
   updateLocale(locale) {
