@@ -92,7 +92,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     this.filteredPois.sortingDataAccessor = (poi, property) => {
       switch (property) {
         case 'name':
-          return poi.name.en
+          return poi.media.content.en.name
         default:
           return poi[property]
       }
