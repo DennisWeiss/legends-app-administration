@@ -20,8 +20,10 @@ fullscreenControl="true"
   </agm-info-window>
 </agm-marker>
 <agm-marker
-[latitude]="markerCoords.lat"
-[longitude]="markerCoords.lng">
+  [iconUrl]="{url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', scaledSize: {width: 45, height: 45}}"
+  [latitude]="markerCoords.lat"
+  [longitude]="markerCoords.lng"
+  zIndex="2">
 </agm-marker>
 </agm-map>
 

@@ -25,6 +25,10 @@ export class BeaconOverviewMapComponent implements OnInit {
 
   mapTypeControlOptions = {};
 
+  newBeaconMarkerLabel = {
+    color: 'green'
+  }
+
   constructor(private localeService: LocaleService) {
     this.locale = localeService.getLocale()
     localeService.localeUpdated
