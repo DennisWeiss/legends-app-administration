@@ -76,11 +76,13 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     private router: Router,
     private authService: AuthService,
     private snackBarService: SnackbarService) {
-    this.locale = this.localeService.getLocale()
-    this.localeService.localeUpdated.subscribe(locale => {
-      moment.locale(locale)
-      this.locale = locale
-    })
+    this.updateLocale(this.localeService.getLocale())
+    this.localeService.localeUpdated.subscribe(this.updateLocale)
+  }
+
+  updateLocale(locale) {
+    moment.locale(locale)
+    this.locale = locale
   }
 
   initializeTableDataSource = () => {
