@@ -81,6 +81,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   paramSub: Subscription;
   reqSub: Subscription;
 
+  loading = false
 
   constructor(
     private route: ActivatedRoute,
@@ -136,11 +137,12 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
 
     if (this.editMode) { // fetch poi
+      this.loading = true
       this.poiService
         .getPOI(this.id)
         .pipe(take(1))
         .subscribe((poi: POI) => {
-          console.log('poi', poi);
+          this.loading = false
           this.poi = poi;
           this.newPoiFetched.next(poi);
         });

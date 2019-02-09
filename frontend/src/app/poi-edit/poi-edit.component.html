@@ -1,4 +1,8 @@
-<form [formGroup]="poiForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" class="container">
+<form *ngIf="!loading"
+      [formGroup]="poiForm"
+      (keydown.enter)="$event.preventDefault()"
+      (ngSubmit)="onSubmit()"
+      class="container">
   <div
     fxLayout
     fxLayoutGap="20px"
@@ -160,5 +164,13 @@
     </div>
   </div>
 </form>
+
+<mat-progress-spinner
+  class="poi-edit-loading-indicator"
+  *ngIf="loading"
+  color="primary"
+  mode="indeterminate"
+  diameter="70">
+</mat-progress-spinner>
 
 

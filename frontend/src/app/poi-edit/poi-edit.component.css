@@ -75,3 +75,10 @@ quill-editor {
 .mat-tab-label {
   min-width: 80px !important;
 }
+
+.poi-edit-loading-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, 50%);
+}
