@@ -28,6 +28,7 @@ export class PoiContentEmbedComponent implements OnInit {
 
   parentSubmit = false;
 
+  @Input() loading: boolean
   @Input() type: string;
   @Input() poiForm: FormGroup;
   @Input() editMode: boolean;

@@ -44,6 +44,7 @@ export class PoiContentComponent
   @Input() editMode: boolean;
   @Input() parentReset: Observable<void>;
   @Input() newPoiFetched: Observable<POI>;
+  @Input() loading: boolean
 
   get poi() {
     return this._poi;

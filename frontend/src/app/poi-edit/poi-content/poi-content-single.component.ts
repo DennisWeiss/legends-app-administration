@@ -37,6 +37,8 @@ export class PoiContentSingleComponent implements OnInit, CanComponentDeactivate
   // subscriptions
   paramSub: Subscription;
 
+  @Input() loading: boolean
+
   constructor(
     private contentFormService: ContentFormService,
     private route: ActivatedRoute,

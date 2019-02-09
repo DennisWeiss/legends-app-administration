@@ -9,6 +9,7 @@
       fullscreenControl="true"
       [mapTypeControlOptions]="mapTypeControlOptions">
       <agm-marker *ngFor="let poi of pois"
+                  [iconUrl]="{url: poi.icons.default, scaledSize: {width: 32, height: 32}}"
                   [title]="poi.media.content[locale].name"
                   [openInfoWindow]="true"
                   [latitude]="poi.coordinates.lat"
