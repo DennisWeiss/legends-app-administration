@@ -21,10 +21,10 @@ const applyUrlToContentOfPoi = (poi, req) => {
   const url = getUrl(req)
   for (let [lang, content] of poi.media.content.entries()) {
     if (poi.type === 'legends') {
-      ['explored', 'preview'].forEach(field => {
+      ['explored', 'preview', 'puzzle'].forEach(field => {
         content[field].url = url + content[field].url
       })
-      content.puzzle.hints = content.puzzle.hints.map(hint => url + hint)
+      content.puzzle.hints = content.puzzle.hints.map(hint => url + hint.url)
     } else {
       content.info.url = url + content.info.url
     }
