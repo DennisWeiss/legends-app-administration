@@ -14,6 +14,7 @@ import { HostListener } from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
 import { TranslatePipe } from '../shared/pipes/translations.pipe';
+import {BeaconService} from "../shared/services/beacon.service";
 
 
 const withHtmlContent = poi => new Promise(resolve => {
@@ -86,6 +87,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   constructor(
     private route: ActivatedRoute,
     private poiService: PoiService,
+    private beaconService: BeaconService,
     public formsService: PoiEditFormsService,
     private dialog: MatDialog,
     private transPipe: TranslatePipe
@@ -129,13 +131,13 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       }
     });
 
+
+
     if (this.id && this.type) {
       this.editMode = true;
     }
 
     this.setupForms();
-
-
     if (this.editMode) { // fetch poi
       this.loading = true
       this.poiService
@@ -150,8 +152,22 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     } else {
       // save object with no values for dirty-check
       this.initPoi = this.poiForm.value;
+      this.poiForm.get('beaconId').valueChanges.subscribe(this.beaconIdChange)
     }
 
+  }
+
+  beaconIdChange = beaconId => {
+    if (!this.poiForm.get('coordinates').get('lat').value && !this.poiForm.get('coordinates').get('lng').value) {
+      this.beaconService.getBeacon(this.poiForm.get('beaconId').value).subscribe(beacon => {
+        console.log('beacon', beacon)
+        if (beacon && beacon.coordinates) {
+          ['lat', 'lng'].forEach(coordinate => {
+            this.poiForm.get('coordinates').get(coordinate).setValue(beacon.coordinates[coordinate])
+          })
+        }
+      })
+    }
   }
 
   onContentFormReady(contentForm: FormGroup): void {
@@ -203,8 +219,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
   onSubmit() {
-    console.log(this.poiForm);
-
     if (this.poiForm.invalid) {
       // trigger all error-messages for inputs
       this.markFormGroupTouched(this.poiForm);
