@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
 import { TranslatePipe } from '../shared/pipes/translations.pipe';
 import {BeaconService} from "../shared/services/beacon.service";
+import {faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 
 
 const withHtmlContent = poi => new Promise(resolve => {
@@ -81,6 +82,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   reqSub: Subscription;
 
   loading = false
+
+  faPlusCircle = faPlusCircle
 
   constructor(
     private route: ActivatedRoute,

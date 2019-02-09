@@ -78,3 +78,17 @@ quill-editor {
   top: 50%;
   transform: translate(50%, 50%);
 }
+
+.poi-edit-beacon-id {
+  display: flex;
+  align-items: center;
+}
+
+.poi-edit-beacon-id-form {
+  flex: 1;
+}
+
+.poi-edit-add-beacon-btn {
+  height: 36px;
+  margin-left: 10px;
+}
