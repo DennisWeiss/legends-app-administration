@@ -48,13 +48,13 @@
             <mat-form-field>
               <input matInput min="-90" max="90" type="number" formControlName="lat"
                      [placeholder]="'LATITUDE' | translate:name"/>
-              <mat-error *ngIf="poiForm.controls.coordinates.get('lat').invalid">{{invalidErrMsg}}</mat-error>
+              <mat-error *ngIf="poiForm.controls.coordinates.get('lat').invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <input matInput min="-180" max="180" type="number" formControlName="lng"
                      [placeholder]="'LONGITUDE' | translate:name"/>
-              <mat-error *ngIf="poiForm.controls.coordinates.get('lng').invalid">{{invalidErrMsg}}</mat-error>
+              <mat-error *ngIf="poiForm.controls.coordinates.get('lng').invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
             </mat-form-field>
           </div>
 

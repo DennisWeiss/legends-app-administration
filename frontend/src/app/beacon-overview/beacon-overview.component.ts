@@ -3,6 +3,8 @@ import { BeaconService } from '../shared/services/beacon.service';
 import { take } from 'rxjs/operators';
 import { Beacon } from '../shared/models/beacon.model';
 import SnackbarService from '../shared/services/snackbar.service';
+import { TranslatePipe } from '../shared/pipes/translations.pipe';
+import {LocaleService} from "../shared/services/locale.service";
 
 
 @Component({
@@ -12,6 +14,8 @@ import SnackbarService from '../shared/services/snackbar.service';
 })
 
 export class BeaconOverviewComponent implements OnInit {
+
+  componentName = 'beacon-overview'
 
   @ViewChild('form') form;
 
@@ -29,9 +33,9 @@ export class BeaconOverviewComponent implements OnInit {
 
   fetchedBeacons: Beacon[] = [];
 
-  requiredErrStr = 'Field required!';
-
-  constructor(private beaconService: BeaconService, private snackbarService: SnackbarService) { }
+  constructor(private beaconService: BeaconService,
+              private snackbarService: SnackbarService) {
+  }
 
   ngOnInit() {
 

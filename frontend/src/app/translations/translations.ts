@@ -9,7 +9,8 @@ export default {
       "SAVE": "Save",
       "EDIT": "Edit",
       "DELETE": "Delete",
-      "ADD": "Add"
+      "ADD": "Add",
+      "FIELD_REQUIRED": "Field required!"
     },
     "header": {
       "TITLE": "Legends App Administration",
@@ -88,6 +89,12 @@ export default {
     },
     "page-not-found": {
       "404_MESSAGE": "Oops, we couldn't find what you were looking for."
+    },
+    "beacon-overview": {
+      "LATITUDE": "Latitude",
+      "LONGITUDE": "Longitude",
+      "NAME": "Name",
+      "BEACON_ID": "Beacon ID"
     }
   },
   "de": {
@@ -100,7 +107,8 @@ export default {
       "SAVE": "Speichern",
       "EDIT": "Editieren",
       "DELETE": "Löschen",
-      "ADD": "Hinzufügen"
+      "ADD": "Hinzufügen",
+      "FIELD_REQUIRED": "Pflichfeld!"
     },
     "header": {
       "TITLE": "Sagenhaftes Görlitz POI Verwaltung",
@@ -179,6 +187,12 @@ export default {
     },
     "page-not-found": {
       "404_MESSAGE": "Die angegebene Seite konnte nicht gefunden werden."
+    },
+    "beacon-overview": {
+      "LATITUDE": "Geogr. Breite",
+      "LONGITUDE": "Geogr. Höhe",
+      "NAME": "Name",
+      "BEACON_ID": "Beacon ID"
     }
   }
 }

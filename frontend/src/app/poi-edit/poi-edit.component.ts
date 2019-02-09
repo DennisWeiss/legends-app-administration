@@ -45,8 +45,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   // name used for i18n
   name = 'poi-edit';
 
-  invalidErrMsg = 'Field required!';
-
   // TODO: Get all types from server => reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
 
@@ -154,7 +152,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
       this.initPoi = this.poiForm.value;
       this.poiForm.get('beaconId').valueChanges.subscribe(this.beaconIdChange)
     }
-
   }
 
   beaconIdChange = beaconId => {
