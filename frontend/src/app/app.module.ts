@@ -18,7 +18,6 @@ import {PoiTypeSelectionComponent} from './poi-type-selection/poi-type-selection
 import {PoiEditComponent} from './poi-edit/poi-edit.component';
 import {PoiMapComponent} from './poi-edit/poi-map/poi-map.component';
 import {ImgPreviewComponent} from './poi-edit/img-preview/img-preview.component';
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ImgPreviewMultipleComponent} from './poi-edit/img-preview-multiple/img-preview-multiple.component';
 import {VideoPreviewComponent} from './poi-edit/video-preview/video-preview.component';
 import {HtmlEditorComponent} from './poi-edit/html-editor/html-editor.component';
@@ -56,6 +55,8 @@ import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-o
 
 import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
 import { SnackbarService } from './shared/services/snackbar.service';
+import { PoiContentSingleComponent } from './poi-edit/poi-content/poi-content-single.component';
+import { PoiContentEmbedComponent } from './poi-edit/poi-content/poi-content-embed.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,9 @@ import { SnackbarService } from './shared/services/snackbar.service';
     BeaconOverviewComponent,
     BeaconOverviewMapComponent,
     BeaconOverviewMapInfoWindowComponent,
-    BeaconFormComponent
+    BeaconFormComponent,
+    PoiContentEmbedComponent,
+    PoiContentSingleComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +104,6 @@ import { SnackbarService } from './shared/services/snackbar.service';
     HttpClientModule,
     FlexLayoutModule,
     FontAwesomeModule,
-    LeafletModule.forRoot(),
     QuillModule,
     ReactiveFormsModule,
     FormsModule,

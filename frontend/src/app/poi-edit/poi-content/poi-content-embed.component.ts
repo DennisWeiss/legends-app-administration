@@ -12,7 +12,7 @@ import { MatSnackBar } from "@angular/material";
 import { HostListener } from '@angular/core';
 
 @Component({
-  selector: "app-poi-content",
+  selector: "app-poi-content-embed",
   templateUrl: "./poi-content.component.html",
   styleUrls: ["./poi-content.component.css"],
   providers: [ContentFormService],
