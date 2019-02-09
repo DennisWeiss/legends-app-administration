@@ -5,7 +5,7 @@
 
 table {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 mat-paginator {
@@ -65,4 +65,14 @@ mat-paginator {
 
 .new-poi-btn-container {
   margin: auto 0;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poi-overview-table-paginator {
+  margin-top: 10px;
 }

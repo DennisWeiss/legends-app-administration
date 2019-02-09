@@ -3,13 +3,13 @@
     <form fxFlex="1 1 auto" #form="ngForm">
       <mat-card fxLayout="column" fxLayoutAlign="center center">
         <mat-form-field class="form-field">
-          <input matInput type="text" #name="ngModel" [(ngModel)]="beacon.name" name="name" placeholder="Name" required>
-          <mat-error *ngIf="name.invalid">{{requiredErrStr}}</mat-error>
+          <input matInput type="text" #name="ngModel" [(ngModel)]="beacon.name" name="name" placeholder="{{'NAME' | translate:componentName}}" required>
+          <mat-error *ngIf="name.invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
         </mat-form-field>
         <mat-form-field class="form-field">
           <input matInput #beaconId="ngModel" type="number" min="0" [(ngModel)]="beacon.beaconId" name="beaconId"
-                 placeholder="Beacon-ID" [disabled]="editMode" required oninput="this.value = Math.abs(this.value)">
-          <mat-error *ngIf="beaconId.invalid">{{requiredErrStr}}</mat-error>
+                 placeholder="{{'BEACON_ID' | translate:componentName}}" [disabled]="editMode" required oninput="this.value = Math.abs(this.value)">
+          <mat-error *ngIf="beaconId.invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
         </mat-form-field>
 
         <div fxLayout fxLayoutGap="10px" class="form-field form-field-coords"
@@ -17,15 +17,15 @@
           <mat-form-field>
             <input matInput #lat="ngModel" min="-90" max="90" type="number" [(ngModel)]="beacon.coordinates.lat"
                    name="lat"
-                   placeholder="Lattitude" required/>
-            <mat-error *ngIf="lat.invalid">{{requiredErrStr}}</mat-error>
+                   placeholder="{{'LATITUDE' | translate:componentName}}" required/>
+            <mat-error *ngIf="lat.invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput #lng="ngModel" min="-180" max="180" type="number" [(ngModel)]="beacon.coordinates.lng"
                    name="lng"
-                   placeholder="Longitude" required/>
-            <mat-error *ngIf="lng.invalid">{{requiredErrStr}}</mat-error>
+                   placeholder="{{'LONGITUDE' | translate:componentName}}" required/>
+            <mat-error *ngIf="lng.invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
           </mat-form-field>
         </div>
 

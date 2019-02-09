@@ -17,9 +17,203 @@
     {
       "name": "auth",
       "description": "Operations for authentication"
+    },
+    {
+      "name": "beacon",
+      "description": "Everything about beacons"
     }
   ],
   "paths": {
+    "/beacon": {
+      "get": {
+        "summary": "Get all beacons",
+        "tags": [
+          "beacon"
+        ],
+        "description": "",
+        "operationId": "getBeacons",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Beacon"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add a new beacon",
+        "tags": [
+          "beacon"
+        ],
+        "description": "",
+        "operationId": "addBeacon",
+        "requestBody": {
+          "description": "Beacon object that needs to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Beacon"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Beacon created successfully"
+          },
+          "400": {
+            "description": "Invalid content!"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update an existing beacon",
+        "tags": [
+          "beacon"
+        ],
+        "description": "",
+        "operationId": "updateBeacon",
+        "requestBody": {
+          "description": "Beacon object that needs to be added",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Beacon"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Beacon updated successfully"
+          },
+          "400": {
+            "description": "Invalid content!"
+          },
+          "404": {
+            "description": "Beacon not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/beacon/{beaconId}": {
+      "get": {
+        "summary": "Get a specific beacon",
+        "tags": [
+          "beacon"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "beaconId",
+            "schema": {
+              "type": "number"
+            },
+            "required": true,
+            "description": "beacon ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Beacon"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a beacon",
+        "tags": [
+          "beacon"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "beaconId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "id of beacon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Beacon successfully deleted!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Beacon not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot delete: Beacon not found!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/poi": {
       "get": {
         "summary": "Get all POIs",
@@ -606,6 +800,20 @@
     }
   },
   "definitions": {
+    "Beacon": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "beaconId": {
+          "type": "number"
+        },
+        "coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        }
+      }
+    },
     "Version": {
       "type": "object",
       "properties": {

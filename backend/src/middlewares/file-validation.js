@@ -58,9 +58,7 @@ module.exports.validate = async (req, res, next) => {
     let errMsg= '';
 
     const images = [files['icon_default'], files['icon_explored'], files['image_preview']]
-    .filter((file) => {
-        return typeof file !== 'undefined'
-    })
+      .filter(file => typeof file !== 'undefined')
 
     if (!validateImg(...images)) { isValid = false; }
     

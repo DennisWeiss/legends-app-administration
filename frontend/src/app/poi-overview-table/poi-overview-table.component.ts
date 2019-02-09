@@ -37,6 +37,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   ]
 
   @Input() pois
+  @Input() loading
 
   @Output() editPoiAction = new EventEmitter<any>();
   @Output() deletePoiAction = new EventEmitter<any>();
@@ -75,11 +76,13 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
     private router: Router,
     private authService: AuthService,
     private snackBarService: SnackbarService) {
-    this.locale = this.localeService.getLocale()
-    this.localeService.localeUpdated.subscribe(locale => {
-      moment.locale(locale)
-      this.locale = locale
-    })
+    this.updateLocale(this.localeService.getLocale())
+    this.localeService.localeUpdated.subscribe(this.updateLocale.bind(this))
+  }
+
+  updateLocale(locale) {
+    moment.locale(locale)
+    this.locale = locale
   }
 
   initializeTableDataSource = () => {
