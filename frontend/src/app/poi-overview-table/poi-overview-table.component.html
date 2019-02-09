@@ -13,6 +13,7 @@
     </div>
   </div>
 
+
   <table mat-table [dataSource]="filteredPois" class="mat-elevation-z4" matSort>
 
     <ng-container matColumnDef="name">
@@ -73,6 +74,15 @@
 
   </table>
 
-  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+  <mat-card *ngIf="loading"
+            class="loading-indicator mat-elevation-z4">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      diameter="40">
+    </mat-progress-spinner>
+  </mat-card>
+
+  <mat-paginator class="poi-overview-table-paginator" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
 </div>

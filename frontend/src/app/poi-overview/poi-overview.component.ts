@@ -25,6 +25,7 @@ export class PoiOverviewComponent implements OnInit {
 
   name = 'poi-overview'
   pois
+  loading = false
 
   constructor(private poiService: PoiService,
     private router: Router,
@@ -36,8 +37,10 @@ export class PoiOverviewComponent implements OnInit {
   }
 
   fetchPOIs() {
+    this.loading = true
     this.poiService.retrievePOIs().pipe(take(1))
       .subscribe(pois => {
+        this.loading = false
         this.pois = mapPOIs(pois)
       })
   }

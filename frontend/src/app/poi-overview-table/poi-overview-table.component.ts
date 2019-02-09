@@ -37,6 +37,7 @@ export class PoiOverviewTableComponent implements OnInit, OnChanges {
   ]
 
   @Input() pois
+  @Input() loading
 
   @Output() editPoiAction = new EventEmitter<any>();
   @Output() deletePoiAction = new EventEmitter<any>();
