@@ -174,8 +174,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     (this.poiForm.get('media') as FormGroup).removeControl('content');
     (this.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
-    if(this.editMode) {
-     // withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
+    if(this.editMode) { //assign full poi to form
      this.formsService.update(mapPOIData(this.poi));
     }
 
@@ -247,7 +246,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     //reset form to default values (see poi-edit-forms.service.ts)
     this.formsService.reset();
     if (this.poi) { // take intially fetched poi and update form with it
-      withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
+      this.formsService.update(this.initPoi);
     } else { // create an empty form
       this.poiForm.setValue(this.initPoi);
     }
