@@ -96,7 +96,7 @@ import { PoiContentEmbedComponent } from './poi-edit/poi-content/poi-content-emb
     BeaconOverviewMapInfoWindowComponent,
     BeaconFormComponent,
     PoiContentEmbedComponent,
-    PoiContentSingleComponent
+    PoiContentSingleComponent,
     BeaconFormComponent,
     AddBeaconDialogComponent
   ],

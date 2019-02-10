@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href /legends-app-administration/",
+    "build": "ng build --base-href /legends-app-administration/ --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
