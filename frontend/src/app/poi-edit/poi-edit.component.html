@@ -39,7 +39,17 @@
           </mat-form-field>
 
           <div *ngIf="isLegend()">
-            <app-beacon-form [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
+            <div class="poi-edit-beacon-id">
+              <app-beacon-form #beaconForm class="poi-edit-beacon-id-form" [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
+              <button
+                mat-button
+                color="primary"
+                class="poi-edit-add-beacon-btn"
+                (click)="openAddBeaconDialog()">
+                <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
+                {{'ADD_BEACON' | translate:name}}
+              </button>
+            </div>
           </div>
 
 
@@ -48,13 +58,17 @@
             <mat-form-field>
               <input matInput min="-90" max="90" type="number" formControlName="lat"
                      [placeholder]="'LATITUDE' | translate:name"/>
-              <mat-error *ngIf="poiForm.controls.coordinates.get('lat').invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
+              <mat-error *ngIf="poiForm.controls.coordinates.get('lat').invalid">{{'FIELD_REQUIRED' |
+                translate:'actions'}}
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <input matInput min="-180" max="180" type="number" formControlName="lng"
                      [placeholder]="'LONGITUDE' | translate:name"/>
-              <mat-error *ngIf="poiForm.controls.coordinates.get('lng').invalid">{{'FIELD_REQUIRED' | translate:'actions'}}</mat-error>
+              <mat-error *ngIf="poiForm.controls.coordinates.get('lng').invalid">{{'FIELD_REQUIRED' |
+                translate:'actions'}}
+              </mat-error>
             </mat-form-field>
           </div>
 

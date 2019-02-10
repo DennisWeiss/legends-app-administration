@@ -10,7 +10,8 @@ export default {
       "EDIT": "Edit",
       "DELETE": "Delete",
       "ADD": "Add",
-      "FIELD_REQUIRED": "Field required!"
+      "FIELD_REQUIRED": "Field required!",
+      "CLOSE": "Close"
     },
     "header": {
       "TITLE": "Legends App Administration",
@@ -57,7 +58,8 @@ export default {
       "CLEAR": "Clear",
       "SUBMIT": "Submit",
       "SELECT_PUBLISHING_DATE": "Select publishing date",
-      "PUBLISH_IMMEDIATELY": "Publish immediately"
+      "PUBLISH_IMMEDIATELY": "Publish immediately",
+      "ADD_BEACON": "Add beacon"
     },
     "poi-content": {
       "EXPLORED": "Explored",
@@ -108,7 +110,8 @@ export default {
       "EDIT": "Editieren",
       "DELETE": "Löschen",
       "ADD": "Hinzufügen",
-      "FIELD_REQUIRED": "Pflichfeld!"
+      "FIELD_REQUIRED": "Pflichfeld!",
+      "CLOSE": "Schließen"
     },
     "header": {
       "TITLE": "Sagenhaftes Görlitz POI Verwaltung",
@@ -155,7 +158,8 @@ export default {
       "CLEAR": "Zurücksetzen",
       "SUBMIT": "Abschließen",
       "SELECT_PUBLISHING_DATE": "Veröffentlichungsdatum auswählen",
-      "PUBLISH_IMMEDIATELY": "Sofort veröffentlichen"
+      "PUBLISH_IMMEDIATELY": "Sofort veröffentlichen",
+      "ADD_BEACON": "Beacon hinzufügen"
     },
     "poi-content": {
       "EXPLORED": "Erkundet",

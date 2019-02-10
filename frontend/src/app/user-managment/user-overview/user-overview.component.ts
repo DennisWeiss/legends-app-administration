@@ -59,16 +59,11 @@ export class UserOverviewComponent implements OnInit {
 
   createUser(user) {
     user.permissions = this.tempPerms;
-    console.log('user', user);
     this.userService.createUser(user).pipe(take(1)).subscribe((res) => {
       this.users.push(res.user);
       this.initializeTableDataSource();
       this.snackBarService.openSnackBar(res.message, 'OK');
     })
-  }
-
-  showRow(row) {
-    console.log('row', row);
   }
 
 }

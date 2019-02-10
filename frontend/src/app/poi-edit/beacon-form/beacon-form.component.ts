@@ -23,7 +23,10 @@ export class BeaconFormComponent implements OnInit {
   constructor(private beaconService: BeaconService) { }
 
   ngOnInit() {
+    this.updateBeacons()
+  }
 
+  public updateBeacons() {
     this.beaconService.getBeacons().pipe(take(1)).subscribe((res) => {
       this.beacons = res;
       this.filteredBeacons = this.beaconForm.valueChanges

@@ -18,6 +18,7 @@ import {PoiTypeSelectionComponent} from './poi-type-selection/poi-type-selection
 import {PoiEditComponent} from './poi-edit/poi-edit.component';
 import {PoiMapComponent} from './poi-edit/poi-map/poi-map.component';
 import {ImgPreviewComponent} from './poi-edit/img-preview/img-preview.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ImgPreviewMultipleComponent} from './poi-edit/img-preview-multiple/img-preview-multiple.component';
 import {VideoPreviewComponent} from './poi-edit/video-preview/video-preview.component';
 import {HtmlEditorComponent} from './poi-edit/html-editor/html-editor.component';
@@ -54,6 +55,7 @@ import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-ma
 import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
 import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
+import { AddBeaconDialogComponent } from './poi-edit/add-beacon-dialog/add-beacon-dialog.component';
 import { SnackbarService } from './shared/services/snackbar.service';
 import { PoiContentSingleComponent } from './poi-edit/poi-content/poi-content-single.component';
 import { PoiContentEmbedComponent } from './poi-edit/poi-content/poi-content-embed.component';
@@ -95,6 +97,8 @@ import { PoiContentEmbedComponent } from './poi-edit/poi-content/poi-content-emb
     BeaconFormComponent,
     PoiContentEmbedComponent,
     PoiContentSingleComponent
+    BeaconFormComponent,
+    AddBeaconDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -133,7 +137,7 @@ import { PoiContentEmbedComponent } from './poi-edit/poi-content/poi-content-emb
     SnackbarService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [UploadStatusDialogComponent]
+  entryComponents: [UploadStatusDialogComponent, AddBeaconDialogComponent]
 })
 export class AppModule {
 }
