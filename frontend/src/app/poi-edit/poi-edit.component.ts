@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PoiService} from '../shared/services/poi.service';
 import {Subscription, Subject, Observable} from 'rxjs';
@@ -46,6 +46,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
   // name used for i18n
   name = 'poi-edit';
+
+  @ViewChild('beaconForm') beaconForm
 
   // TODO: Get all types from server => reduce redundancy
   poiTypes = ['restaurants', 'legends', 'sights'];
@@ -111,7 +113,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.imgForm = this.formsService.imgForm;
 
     this.poiForm.controls.type.valueChanges.subscribe((val) => {
-      if (!this.editMode) { // prevent change of beaconId when initally assigning it while editing
+      if (!this.editMode) { // prevent change of beaconId when initially assigning it while editing
         this.poiForm.controls.beaconId.reset();
         this.poiForm.controls.beaconId.setValue(-1);
       }
@@ -159,7 +161,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   beaconIdChange = beaconId => {
     if (!this.poiForm.get('coordinates').get('lat').value && !this.poiForm.get('coordinates').get('lng').value) {
       this.beaconService.getBeacon(this.poiForm.get('beaconId').value).subscribe(beacon => {
-        console.log('beacon', beacon)
         if (beacon && beacon.coordinates) {
           ['lat', 'lng'].forEach(coordinate => {
             this.poiForm.get('coordinates').get(coordinate).setValue(beacon.coordinates[coordinate])
@@ -298,7 +299,8 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     const dialogRef = this.dialog.open(AddBeaconDialogComponent, {
       width: '1000px'
     })
-  }
 
+    dialogRef.afterClosed().subscribe(() => this.beaconForm.updateBeacons())
+  }
 
 }

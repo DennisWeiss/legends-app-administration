@@ -40,7 +40,7 @@
 
           <div *ngIf="isLegend()">
             <div class="poi-edit-beacon-id">
-              <app-beacon-form class="poi-edit-beacon-id-form" [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
+              <app-beacon-form #beaconForm class="poi-edit-beacon-id-form" [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
               <button
                 mat-button
                 color="primary"
