@@ -10,6 +10,7 @@
       [mapTypeControlOptions]="mapTypeControlOptions">
       <agm-marker *ngFor="let poi of pois"
                   [iconUrl]="{url: poi.icons.default, scaledSize: {width: 32, height: 32}}"
+                  [zIndex]="poi.type === 'legends' ? 2 : 1"
                   [title]="poi.media.content[locale].name"
                   [openInfoWindow]="true"
                   [latitude]="poi.coordinates.lat"
