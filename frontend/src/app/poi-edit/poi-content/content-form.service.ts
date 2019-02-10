@@ -20,8 +20,7 @@ export class ContentFormService {
   poiCallbacks = {
     'restaurants': this.createRestaurantForm.bind(this),
     'sights':  this.createSightForm.bind(this),
-    'legends': this.createLegendForm.bind(this),
-    'tests': this.createTestForm.bind(this),
+    'legends': this.createLegendForm.bind(this)
   };
 
   contentForm = this.fb.group({});
@@ -89,20 +88,6 @@ private createRestaurantForm(): FormGroup {
   });
 }
 
-private createTestForm(): FormGroup {
-  return this.fb.group({
-    name: ['', Validators.required],
-    info: this.fb.group({
-      heading: ['', Validators.required],
-      index: [0, Validators.required],
-      type: ['info', Validators.required],
-      url: ['', Validators.required],
-    }),
-    omegalul: this.fb.group({
-      test: ['']
-    })
-  });
-}
 
 private createSightForm(): FormGroup {
   // has exactly the same structure
