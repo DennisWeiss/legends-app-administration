@@ -1,9 +1,9 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Subject, Observable, BehaviorSubject, interval } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { AuthGroup} from './permission/authorization.types';
+import {Injectable, OnDestroy} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
+import {Subject, Observable, BehaviorSubject, interval} from 'rxjs';
+import {map, take} from 'rxjs/operators';
+import {AuthGroup} from './permission/authorization.types';
 
 
 export interface UserData {
@@ -46,18 +46,20 @@ export class AuthService implements OnDestroy {
     return this._authStatusChanged.value;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login(username, password): Observable<void> {
     return this.http.post<UserData>(`${environment.backendUrl}auth/login`, {username, password})
-    .pipe(map((userData) => {
-      this.userData = userData;
+      .pipe(map((userData) => {
+        console.log('login result')
+        this.userData = userData;
 
-      this.saveToken(this.userData.token);
-      this.setupTokenRefresh(userData.expiresIn);
+        this.saveToken(this.userData.token);
+        this.setupTokenRefresh(userData.expiresIn);
 
-      this._authStatusChanged.next(this.userData.user);
-    }));
+        this._authStatusChanged.next(this.userData.user);
+      }));
   }
 
   verify = () => this.http
@@ -78,7 +80,7 @@ export class AuthService implements OnDestroy {
   }
 
   saveToken(token): void {
-    localStorage.setItem('token', token );
+    localStorage.setItem('token', token);
   }
 
   private setupTokenRefresh(exp): void {
@@ -114,11 +116,11 @@ export class AuthService implements OnDestroy {
     }
 
     if (this.userData && this.userData.user.permissions.find(permission => {
-        return permission === authGroup
+      return permission === authGroup
     })) {
-          return true;
-       }
-      return false;
+      return true;
+    }
+    return false;
   }
 
 
