@@ -41,7 +41,11 @@
           <div *ngIf="isLegend()">
             <div class="poi-edit-beacon-id">
               <app-beacon-form class="poi-edit-beacon-id-form" [beaconForm]="poiForm.get('beaconId')"></app-beacon-form>
-              <button mat-button color="primary" class="poi-edit-add-beacon-btn">
+              <button
+                mat-button
+                color="primary"
+                class="poi-edit-add-beacon-btn"
+                (click)="openAddBeaconDialog()">
                 <fa-icon [icon]="faPlusCircle" size="lg"></fa-icon>
                 {{'ADD_BEACON' | translate:name}}
               </button>

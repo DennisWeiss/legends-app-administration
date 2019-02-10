@@ -10,7 +10,8 @@ export default {
       "EDIT": "Edit",
       "DELETE": "Delete",
       "ADD": "Add",
-      "FIELD_REQUIRED": "Field required!"
+      "FIELD_REQUIRED": "Field required!",
+      "CLOSE": "Close"
     },
     "header": {
       "TITLE": "Legends App Administration",
@@ -109,7 +110,8 @@ export default {
       "EDIT": "Editieren",
       "DELETE": "Löschen",
       "ADD": "Hinzufügen",
-      "FIELD_REQUIRED": "Pflichfeld!"
+      "FIELD_REQUIRED": "Pflichfeld!",
+      "CLOSE": "Schließen"
     },
     "header": {
       "TITLE": "Sagenhaftes Görlitz POI Verwaltung",

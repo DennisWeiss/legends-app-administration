@@ -1,21 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PoiService } from '../shared/services/poi.service';
-import { Subscription, Subject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PoiService} from '../shared/services/poi.service';
+import {Subscription, Subject, Observable} from 'rxjs';
+import {take} from 'rxjs/operators';
 import {PoiEditFormsService} from './poi-edit-forms.service';
-import { FormGroup,FormArray } from '@angular/forms';
-import { POI } from './poi.model';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { UploadStatusDialogComponent } from './upload-status-dialog/upload-status-dialog.component';
-import { CanComponentDeactivate } from '../shared/guards/can-deactivate.guard';
+import {FormGroup, FormArray} from '@angular/forms';
+import {POI} from './poi.model';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {UploadStatusDialogComponent} from './upload-status-dialog/upload-status-dialog.component';
+import {CanComponentDeactivate} from '../shared/guards/can-deactivate.guard';
 import {isEqual} from 'lodash';
-import { HostListener } from '@angular/core';
+import {HostListener} from '@angular/core';
 import * as moment from 'moment';
 import {getTimestamp} from "../utils/helperfunctions";
-import { TranslatePipe } from '../shared/pipes/translations.pipe';
+import {TranslatePipe} from '../shared/pipes/translations.pipe';
 import {BeaconService} from "../shared/services/beacon.service";
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons'
+import {AddBeaconDialogComponent} from "./add-beacon-dialog/add-beacon-dialog.component";
 
 
 const withHtmlContent = poi => new Promise(resolve => {
@@ -57,7 +58,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   // initial value received from the actual form, used for dirty-check
   initPoi = null;
 
-  type: string  = null;
+  type: string = null;
   id: string = null;
 
   // component can be in a 'clean' state or editing state
@@ -91,7 +92,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     private beaconService: BeaconService,
     public formsService: PoiEditFormsService,
     private dialog: MatDialog,
-    private transPipe: TranslatePipe
+    private transPipe: TranslatePipe,
   ) {
   }
 
@@ -110,7 +111,7 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     this.imgForm = this.formsService.imgForm;
 
     this.poiForm.controls.type.valueChanges.subscribe((val) => {
-      if(!this.editMode) { // prevent change of beaconId when initally assigning it while editing
+      if (!this.editMode) { // prevent change of beaconId when initally assigning it while editing
         this.poiForm.controls.beaconId.reset();
         this.poiForm.controls.beaconId.setValue(-1);
       }
@@ -131,8 +132,6 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
         this.setupForms();
       }
     });
-
-
 
     if (this.id && this.type) {
       this.editMode = true;
@@ -176,9 +175,9 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     (this.poiForm.get('media') as FormGroup).removeControl('content');
     (this.poiForm.get('media')as FormGroup).addControl('content', contentForm);
 
-    if(this.editMode) {
-     // withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
-     this.formsService.update(mapPOIData(this.poi));
+    if (this.editMode) {
+      // withHtmlContent(mapPOIData(this.poi)).then(this.formsService.update)
+      this.formsService.update(mapPOIData(this.poi));
     }
 
     //save form in inital state
@@ -202,11 +201,11 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
 
-/**
- * Marks all children of a formGroup as touched
- *
- * @param formGroup formGroup to be marked
- */
+  /**
+   * Marks all children of a formGroup as touched
+   *
+   * @param formGroup formGroup to be marked
+   */
 
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
@@ -228,14 +227,14 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
     const poi = this.poiForm.value;
 
     // cancel existing request
-    if ( this.reqSub ) {
+    if (this.reqSub) {
       this.reqSub.unsubscribe();
-   }
+    }
 
     // needed so that route can deactivate without warning-popup
     this.dialogOpened = true;
 
-    const req =  this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
+    const req = this.editMode ? this.poiService.putPOI(poi) : this.poiService.postPOI(poi);
     this.openUploadDialog(req);
   }
 
@@ -278,10 +277,10 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
   }
 
 
-/**
- * method of canDeactivate-guard that displays a warning when trying to leave the page
- * with unsaved changes
- */
+  /**
+   * method of canDeactivate-guard that displays a warning when trying to leave the page
+   * with unsaved changes
+   */
 
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
@@ -293,6 +292,12 @@ export class PoiEditComponent implements OnInit, OnDestroy, CanComponentDeactiva
 
     // form is dirty
     return window.confirm('There are unsaved changes! Do you really want to leave?');
+  }
+
+  openAddBeaconDialog() {
+    const dialogRef = this.dialog.open(AddBeaconDialogComponent, {
+      width: '1000px'
+    })
   }
 
 

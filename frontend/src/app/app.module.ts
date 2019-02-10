@@ -55,6 +55,7 @@ import { BeaconOverviewMapComponent } from './beacon-overview/beacon-overview-ma
 import { BeaconOverviewMapInfoWindowComponent } from './beacon-overview/beacon-overview-map/beacon-overview-map-info-window/beacon-overview-map-info-window.component'
 
 import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.component';
+import { AddBeaconDialogComponent } from './poi-edit/add-beacon-dialog/add-beacon-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,8 @@ import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.componen
     BeaconOverviewComponent,
     BeaconOverviewMapComponent,
     BeaconOverviewMapInfoWindowComponent,
-    BeaconFormComponent
+    BeaconFormComponent,
+    AddBeaconDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +131,7 @@ import { BeaconFormComponent } from './poi-edit/beacon-form/beacon-form.componen
     TranslatePipe
   ],
   bootstrap: [AppComponent],
-  entryComponents: [UploadStatusDialogComponent]
+  entryComponents: [UploadStatusDialogComponent, AddBeaconDialogComponent]
 })
 export class AppModule {
 }

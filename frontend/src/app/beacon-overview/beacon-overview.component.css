@@ -11,5 +11,7 @@ input {
 }
 
 .overview-map-card {
+  width: 400px;
   padding: 0;
 }
+
